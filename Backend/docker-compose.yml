@@ -2,10 +2,24 @@ version: '3.4'
 
 services:
   animalsshelterbackend:
-    image: ${DOCKER_REGISTRY-}animalsshelterbackend
+    image: vdd/animalsshelterbackend
     container_name: ShelterBackend
     build:
       context: .
       dockerfile: AnimalsShelterBackend/Dockerfile
     ports:
-        - "8080:80"
+        - "5000:5000"
+        - "5001:5001"
+
+  animalsshelterbackendDB:
+    image: postgres:latest
+    container_name: shelterDB
+    environment:
+        - POSTGRES_DB=AnimalsShelterDB
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=Sonic.exe
+    volumes:
+        - ./.containers/shelter-data:/var/lib/postgresql/data
+    ports:
+        - "5432:5432"
+    
