@@ -1,5 +1,7 @@
 ﻿using Core.MinIO;
 using Core.Options;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsShelterBackend.Infrastructure.Configurations
 {
