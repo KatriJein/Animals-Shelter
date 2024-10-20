@@ -28,7 +28,7 @@ namespace Core.Base.Repositories
 
 		public abstract IQueryable<T> GetAll();
 
-		public virtual async Task<T> GetByGuidAsync(Guid id, CancellationToken cancellationToken)
+		public virtual async Task<T?> GetByGuidAsync(Guid id, CancellationToken cancellationToken)
 		{
 			return await _dbSet.FindAsync(id, cancellationToken);
 		}

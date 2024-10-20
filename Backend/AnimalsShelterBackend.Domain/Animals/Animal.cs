@@ -14,12 +14,12 @@ namespace AnimalsShelterBackend.Domain.Animals
 		public string Name { get; set; }
 		public string Breed { get; set; }
 		public string MainImageName { get; set; }
-		public string? HealthDescription { get; set; }
-		public string? VaccinationsInfo { get; set; }
-		public string? SterilizationsInfo { get; set; }
-		public string? RequiredConditions { get; set; }
-		public string? BehaviourFeatures { get; set; }
-		public string? OwnerWishes { get; set; }
-		public string? ImagesNames { get; set; }
+		public string HealthDescription { get; set; }
+		public string VaccinationsInfo { get; set; }
+		public string SterilizationsInfo { get; set; }
+		public string RequiredConditions { get; set; }
+		public string BehaviourFeatures { get; set; }
+		public string OwnerWishes { get; set; }
+		public string ImagesNames { get; set; }
 	}
 }

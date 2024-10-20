@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Core.Base
 {
-	public class BaseServiceResponse
+	public class CreateEntityResponse
 	{
 		public Guid Id { get; set; }
 	}

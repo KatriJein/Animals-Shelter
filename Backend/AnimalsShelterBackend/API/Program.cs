@@ -3,6 +3,7 @@ using AnimalsShelterBackend;
 using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
 using AnimalsShelterBackend.Startups.Animals;
+using AnimalsShelterBackend.Startups.Images;
 using Core;
 using Core.MinIO;
 using Core.Serilog;
@@ -31,6 +32,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddAnimalsDomain();
 builder.Services.AddAnimalsServices();
 
+builder.Services.AddImagesServices();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddNewSwaggerGen();
@@ -48,14 +51,4 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-app.MapGet("/api/minio", async (IMinioClient client) =>
-{
-	var bucketExistsArgs = new BucketExistsArgs().WithBucket("myanimals559lol7777");
-	var doesExists = await client.BucketExistsAsync(bucketExistsArgs);
-	Console.WriteLine(doesExists);
-	var makeBucketArgs = new MakeBucketArgs().WithBucket("myanimals559lol7777");
-	await client.MakeBucketAsync(makeBucketArgs);
-	var buckets = await client.ListBucketsAsync();
-	return buckets.Buckets;
-});
 app.Run();

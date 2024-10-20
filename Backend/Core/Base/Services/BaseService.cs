@@ -1,4 +1,6 @@
 ﻿using Core.Base.Repositories;
+using Core.Requests;
+using Core.Responses.General;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,15 +19,17 @@ namespace Core.Base.Services
 			_repository = repository;
 		}
 
-		public virtual async Task<BaseServiceResponse> AddAsync(T entity)
+		public virtual async Task<CreateEntityResponse> AddAsync(T entity)
 		{
 			var createdId = await _repository.AddAsync(entity);
-			return new BaseServiceResponse() { Id = createdId };
+			await SaveChangesAsync();
+			return new CreateEntityResponse() { Id = createdId };
 		}
 
 		public virtual async Task DeleteAsync(Guid id)
 		{
 			await _repository.DeleteAsync(id);
+			await SaveChangesAsync();
 		}
 
 		public virtual async Task<List<T>> GetAllAsync(CancellationToken cancellationToken)
@@ -33,7 +37,7 @@ namespace Core.Base.Services
 			return await _repository.GetAll().ToListAsync(cancellationToken);
 		}
 
-		public virtual async Task<T> GetByGuidAsync(Guid id, CancellationToken cancellationToken)
+		public virtual async Task<T?> GetByGuidAsync(Guid id, CancellationToken cancellationToken)
 		{
 			return await _repository.GetByGuidAsync(id, cancellationToken);
 		}
@@ -43,9 +47,10 @@ namespace Core.Base.Services
 			await _repository.SaveChangesAsync();
 		}
 
-		public virtual async Task UpdateAsync()
+		public virtual async Task<BaseResponse> UpdateAsync(Guid id, IUpdateRequest request)
 		{
 			await _repository.UpdateAsync();
+			return new UpdateResponse() { IsSuccess = true };
 		}
 	}
 }

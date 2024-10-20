@@ -9,7 +9,7 @@ namespace Core.Constants
 	public static class Const
 	{
 		#region animal
-		public static string AnimalsBucketName = "Animals";
+		public static string AnimalsBucketName = "animalspictures";
 		#endregion
 	}
 }
