@@ -11,5 +11,9 @@ namespace Core.Constants
 		#region animal
 		public static string AnimalsBucketName = "animalspictures";
 		#endregion
+
+		#region miscellaneous
+		public static string FrontendCORS = "FrontendCORS";
+		#endregion
 	}
 }

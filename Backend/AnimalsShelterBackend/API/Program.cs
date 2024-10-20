@@ -2,9 +2,11 @@
 using AnimalsShelterBackend;
 using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
+using AnimalsShelterBackend.Startups;
 using AnimalsShelterBackend.Startups.Animals;
 using AnimalsShelterBackend.Startups.Images;
 using Core;
+using Core.Constants;
 using Core.MinIO;
 using Core.Serilog;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +22,8 @@ using System.Text.Json.Serialization;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+builder.Services.AppendCors(builder.Configuration);
 
 builder.Host.AddSerilog();
 builder.Services.AddNewControllers();
@@ -47,6 +51,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseSerilogRequestLogging();
 app.UseHttpsRedirection();
+
+app.UseCors(Const.FrontendCORS);
 
 app.UseAuthorization();
 
