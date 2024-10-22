@@ -8,9 +8,14 @@ namespace Core.Enums.Animals
 {
 	public enum Temper
 	{
-		Phlegmatic,
-		Choleric,
-		Sanguine,
-		Melancholic
+		Active,
+		Calm,
+		Communicative,
+		Independent,
+		Curious,
+		KidsFriendly,
+		AnimalsFriendly,
+		TrainingGiveIn,
+		SpecificTemper
 	}
 }

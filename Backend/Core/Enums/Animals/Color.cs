@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace Core.Enums.Animals
 {
-	public enum Wool
+	public enum Color
 	{
-		Short,
-		Medium,
-		Long,
-		Hypoallergenic
+		Black,
+		White,
+		Orange,
+		Gray,
+		Brown,
+		Mixed,
+		Tricolor
 	}
 }

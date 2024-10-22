@@ -9,17 +9,15 @@ namespace Core.Responses.Animals
 		public Sex Sex { get; set; }
 		public Size Size { get; set; }
 		public Wool Wool { get; set; }
-		public Temper Temper { get; set; }
-		public string Color { get; set; }
+		public Color Color { get; set; }
+		public List<HealthCondition> HealthConditions { get; set; }
+		public LivingCondition LivingCondition { get; set; }
+		public ReceiptDate ReceiptDate { get; set; }
+		public List<Temper> TemperFeatures { get; set; }
 		public string Name { get; set; }
 		public string Breed { get; set; }
 		public string MainImageSrc { get; set; }
-		public string HealthDescription { get; set; }
-		public List<string> VaccinationsInfo { get; set; }
-		public List<string> SterilizationsInfo { get; set; }
-		public List<string> RequiredConditions { get; set; }
-		public List<string> BehaviourFeatures { get; set; }
-		public List<string> OwnerWishes { get; set; }
+		public string Description { get; set; }
 		public List<string> ImagesSrc { get; set; }
 	}
 }

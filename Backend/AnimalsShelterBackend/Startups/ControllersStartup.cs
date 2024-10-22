@@ -14,6 +14,7 @@ namespace AnimalsShelterBackend
 			{
 				setup.SerializerSettings.Converters.Add(new StringEnumConverter(typeof(CamelCaseNamingStrategy)));
 			}).AddJsonOptions(config => config.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+			services.AddSwaggerGenNewtonsoftSupport();
 			return services;
 		}
 

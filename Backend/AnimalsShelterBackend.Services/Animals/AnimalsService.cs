@@ -33,17 +33,15 @@ namespace AnimalsShelterBackend.Services.Animals
 			animal.Sex = animalRequest.Sex;
 			animal.Wool = animalRequest.Wool;
 			animal.Size = animalRequest.Size;
-			animal.Temper = animalRequest.Temper;
+			animal.TemperFeatures = string.Join("|", animalRequest.TemperFeatures.Select(e => ((int)e).ToString()));
 			animal.Color = animalRequest.Color;
 			animal.Name = animalRequest.Name;
 			animal.Breed = animalRequest.Breed;
 			animal.MainImageName = animalRequest.Images[0].FileName;
-			animal.HealthDescription = animalRequest.HealthDescription;
-			animal.VaccinationsInfo = string.Join("|", animalRequest.VaccinationsInfo);
-			animal.SterilizationsInfo = string.Join("|", animalRequest.SterilizationsInfo);
-			animal.RequiredConditions = string.Join("|", animalRequest.RequiredConditions);
-			animal.BehaviourFeatures = string.Join("|", animalRequest.BehaviourFeatures);
-			animal.OwnerWishes = string.Join("|", animalRequest.OwnerWishes);
+			animal.Description = animalRequest.Description;
+			animal.HealthConditions = string.Join("|", animalRequest.HealthConditions.Select(e => ((int)e).ToString()));
+			animal.LivingCondition = animalRequest.LivingCondition;
+			animal.ReceiptDate = animalRequest.ReceiptDate;
 			animal.ImagesNames = string.Join("|", animalRequest.Images.Skip(1).Select(i => i.FileName));
 			return await base.UpdateAsync(id, animalRequest);
 		}

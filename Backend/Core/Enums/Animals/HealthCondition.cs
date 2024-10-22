@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Core.Enums.Animals
 {
-	public enum Wool
+	public enum HealthCondition
 	{
-		Short,
-		Medium,
-		Long,
-		Hypoallergenic
+		Vaccinated,
+		Sterilized,
+		RequiresTreatment
 	}
 }

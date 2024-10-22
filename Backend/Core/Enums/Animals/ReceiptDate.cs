@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Core.Enums.Animals
 {
-	public enum Wool
+	public enum ReceiptDate
 	{
-		Short,
-		Medium,
-		Long,
-		Hypoallergenic
+		Recent,
+		LongAgo
 	}
 }
