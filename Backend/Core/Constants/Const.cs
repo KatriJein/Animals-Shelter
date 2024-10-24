@@ -21,6 +21,10 @@ namespace Core.Constants
 		#region configSections
 		public static string FrontendLink = "FrontendLink";
 		public static string MinioLink = "MinioLink";
+		public static string RabbitMQ = "RabbitMQ";
+		#endregion
+
+		#region queues
 		#endregion
 	}
 }

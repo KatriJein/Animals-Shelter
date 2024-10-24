@@ -36,6 +36,15 @@ services:
         - ./.containers/minio-storage:/data
     command: server --console-address ":9001" /data
 
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitMQ
+    ports:
+        - 5672:5672
+        - 15672:15672
+    volumes:
+        - ./.containers/rabbitmq:/var/lib/rabbitmq
+
   createbuckets:
     image: minio/mc
     depends_on:
@@ -51,6 +60,7 @@ services:
       /usr/bin/mc anonymous set public myminio/animalspictures;
       exit 0;
       "
+    
     
   
     

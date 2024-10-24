@@ -2,6 +2,7 @@
 using AnimalsShelterBackend;
 using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
+using AnimalsShelterBackend.Masstransit;
 using AnimalsShelterBackend.Startups;
 using AnimalsShelterBackend.Startups.Animals;
 using AnimalsShelterBackend.Startups.Images;
@@ -37,6 +38,8 @@ builder.Services.AddAnimalsDomain();
 builder.Services.AddAnimalsServices();
 
 builder.Services.AddImagesServices();
+
+builder.Services.UseMasstransitRabbitMQ(builder.Configuration);
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
