@@ -1,4 +1,5 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
+using AnimalsShelterBackend.Services.Animals;
 using AnimalsShelterBackend.Services.Images;
 using AutoMapper;
 using Core.Base.Services;
@@ -14,15 +15,13 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
     [ApiController]
     public class AnimalsController : ControllerBase
     {
-        private readonly IService<Animal> _animalsService;
-        private readonly IImageService _imageService;
+        private readonly IAnimalsService _animalsService;
         private readonly IMapper _mapper;
 
-        public AnimalsController(IService<Animal> animalsService, IMapper mapper, IImageService imageService)
+        public AnimalsController(IAnimalsService animalsService, IMapper mapper)
         {
             _animalsService = animalsService;
             _mapper = mapper;
-            _imageService = imageService;
         }
 
         /// <summary>
@@ -34,7 +33,7 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
             var animals = await _animalsService.GetAllAsync(cancellationToken);
-            var response = _mapper.Map<List<AnimalFullResponse>>(animals);
+            var response = _mapper.Map<List<AnimalShortResponse>>(animals);
             return Ok(response);
         }
 
@@ -75,8 +74,7 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         public async Task<IActionResult> CreateAnimalAsync([FromForm] CreateAnimalRequest createAnimalRequest)
         {
             var animal = _mapper.Map<Animal>(createAnimalRequest);
-            var createdResponse = await _animalsService.AddAsync(animal);
-            await _imageService.UploadImages(Const.AnimalsBucketName, createAnimalRequest.Images);
+            var createdResponse = await _animalsService.AddAsync(animal, createAnimalRequest.Images);
             return Ok(createdResponse);
         }
 
@@ -90,7 +88,6 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         public async Task<IActionResult> UpdateAnimalAsync([FromRoute] Guid id, [FromForm] UpdateAnimalRequest updateAnimalRequest)
         {
             var response = await _animalsService.UpdateAsync(id, updateAnimalRequest);
-            await _imageService.UploadImages(Const.AnimalsBucketName, updateAnimalRequest.Images);
             if (response.IsSuccess) return Ok();
             return BadRequest(response.Message);
         }

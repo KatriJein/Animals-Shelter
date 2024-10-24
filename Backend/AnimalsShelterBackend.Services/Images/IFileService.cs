@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace AnimalsShelterBackend.Services.Images
 {
-	public interface IImageService
+	public interface IFileService
 	{
 		Task<bool> TryGetBucket(string bucket);
-		Task DeleteImages(string bucket, List<string> fileNames);
-		Task UploadImages(string bucket, List<IFormFile> files);
-		Task<byte[]> GetImage(string bucket, string fileName);
+		Task DeleteFiles(string bucket, List<string> fileSources);
+		Task UploadFiles(string bucket, List<IFormFile> files, List<string> fileSources);
+		Task<byte[]> GetFile(string bucket, string fileName);
 	}
 }

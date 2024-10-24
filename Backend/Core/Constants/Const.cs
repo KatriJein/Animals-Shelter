@@ -14,6 +14,13 @@ namespace Core.Constants
 
 		#region miscellaneous
 		public static string FrontendCORS = "FrontendCORS";
+		public static char Separator = '|';
+		public static char UrlSeparator = '/';
+		#endregion
+
+		#region configSections
+		public static string FrontendLink = "FrontendLink";
+		public static string MinioLink = "MinioLink";
 		#endregion
 	}
 }

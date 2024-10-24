@@ -1,8 +1,10 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AutoMapper;
+using Core.Constants;
 using Core.Enums.Animals;
 using Core.Requests.Animals;
 using Core.Responses.Animals;
+using Core.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +22,19 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 		private void MapAnimals()
 		{
 			CreateMap<Animal, AnimalFullResponse>()
-				.ForMember(dest => dest.MainImageSrc, mOpt => mOpt.MapFrom(m => m.MainImageName))
+				.ForMember(dest => dest.MainImageSrc, mOpt => mOpt.MapFrom(m => m.MainImageSource))
 				.ForMember(dest => dest.TemperFeatures, mOpt => mOpt.MapFrom(
-					m => m.TemperFeatures.Split("|", StringSplitOptions.RemoveEmptyEntries).Select(tf => (Temper)int.Parse(tf))))
+					m => m.TemperFeatures.Split(Const.Separator, StringSplitOptions.RemoveEmptyEntries).Select(tf => (Temper)int.Parse(tf))))
 				.ForMember(dest => dest.HealthConditions, mOpt => mOpt.MapFrom(
-					m => m.HealthConditions.Split("|", StringSplitOptions.RemoveEmptyEntries).Select(tf => (HealthCondition)int.Parse(tf))))
-				.ForMember(dest => dest.ImagesSrc, mOpt => mOpt.MapFrom(m => m.ImagesNames.Split("|", StringSplitOptions.RemoveEmptyEntries)));
+					m => m.HealthConditions.Split(Const.Separator, StringSplitOptions.RemoveEmptyEntries).Select(tf => (HealthCondition)int.Parse(tf))))
+				.ForMember(dest => dest.ImagesSrc, mOpt => mOpt.MapFrom(m => m.ImagesSources.Split(Const.Separator, StringSplitOptions.RemoveEmptyEntries)));
+
+			CreateMap<Animal, AnimalShortResponse>()
+				.ForMember(dest => dest.MainImageSrc, mOpt => mOpt.MapFrom(m => m.MainImageSource));
 
 			CreateMap<CreateAnimalRequest, Animal>()
-				.ForMember(dest => dest.MainImageName, mOpt => mOpt.MapFrom(m => m.Images[0].FileName))
-				.ForMember(dest => dest.TemperFeatures, mOpt => mOpt.MapFrom(m => string.Join("|", m.TemperFeatures.Select(e => ((int)e).ToString()))))
-				.ForMember(dest => dest.HealthConditions, mOpt => mOpt.MapFrom(m => string.Join("|", m.HealthConditions.Select(e => ((int)e).ToString()))))
-				.ForMember(dest => dest.ImagesNames, mOpt => mOpt.MapFrom(m => string.Join("|", m.Images.Skip(1).Select(i => i.FileName))));
+				.ForMember(dest => dest.TemperFeatures, mOpt => mOpt.MapFrom(m => string.Join(Const.Separator, m.TemperFeatures.Select(e => ((int)e).ToString()))))
+				.ForMember(dest => dest.HealthConditions, mOpt => mOpt.MapFrom(m => string.Join(Const.Separator, m.HealthConditions.Select(e => ((int)e).ToString()))));
 		}
 	}
 }

@@ -9,22 +9,22 @@ namespace AnimalsShelterBackend.API.Controllers.Images
 	[ApiController]
 	public class ImagesController : ControllerBase
 	{
-		private readonly IImageService _imageService;
+		private readonly IFileService _imageService;
 
-		public ImagesController(IImageService imageService)
+		public ImagesController(IFileService imageService)
 		{
 			_imageService = imageService;
 		}
 
 		/// <summary>
-		/// Получение изображения животного по названию файла
+		/// Получение файла животного
 		/// </summary>
 		/// <returns></returns>
 		[HttpGet]
 		[Route("animals/{fileName}")]
-		public async Task<IActionResult> GetAnimalPicture([FromRoute] string fileName)
+		public async Task<IActionResult> GetAnimalFile([FromRoute] string fileName)
 		{
-			return Ok(await _imageService.GetImage(Const.AnimalsBucketName, fileName));
+			return Ok(await _imageService.GetFile(Const.AnimalsBucketName, fileName));
 		}
 	}
 }

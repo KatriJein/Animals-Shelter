@@ -6,7 +6,7 @@ namespace AnimalsShelterBackend.Startups.Images
 	{
 		public static IServiceCollection AddImagesServices(this IServiceCollection services)
 		{
-			services.AddScoped<IImageService, ImageService>();
+			services.AddScoped<IFileService, FileService>();
 			return services;
 		}
 	}

@@ -8,27 +8,29 @@ using Minio.DataModel.Args;
 using Minio.Exceptions;
 using Serilog;
 using Microsoft.AspNetCore.Http;
+using Core.Utils;
 
 namespace AnimalsShelterBackend.Services.Images
 {
-	public class ImageService : IImageService
+	public class FileService : IFileService
 	{
 		private readonly IMinioClientFactory _minioClientFactory;
 		private readonly IMinioClient _minioClient;
 		private readonly ILogger _logger;
 
-		public ImageService(IMinioClientFactory minioClientFactory, ILogger logger)
+		public FileService(IMinioClientFactory minioClientFactory, ILogger logger)
 		{
 			_minioClientFactory = minioClientFactory;
 			_minioClient = _minioClientFactory.CreateClient();
 			_logger = logger;
 		}
 
-		public async Task DeleteImages(string bucket, List<string> fileNames)
+		public async Task DeleteFiles(string bucket, List<string> fileSources)
 		{
+			fileSources = FilesUtils.GetFileNamesFromSources(fileSources);
 			var doesExists = await TryGetBucket(bucket);
 			if (!doesExists) return;
-			foreach (var file in fileNames)
+			foreach (var file in fileSources)
 			{
 				try
 				{
@@ -42,7 +44,7 @@ namespace AnimalsShelterBackend.Services.Images
 			}
 		}
 
-		public async Task<byte[]> GetImage(string bucket, string fileName)
+		public async Task<byte[]> GetFile(string bucket, string fileName)
 		{
 			var bucketExists = await TryGetBucket(bucket);
 			if (!bucketExists) return [];
@@ -58,7 +60,7 @@ namespace AnimalsShelterBackend.Services.Images
 			}
 			catch
 			{
-				_logger.Error("Не удалось получить изображение {fileName} из корзины {bucket}", fileName, bucket);
+				_logger.Error("Не удалось получить файл {fileName} из корзины {bucket}", fileName, bucket);
 				return [];
 			}
 		}
@@ -69,24 +71,27 @@ namespace AnimalsShelterBackend.Services.Images
 			return await _minioClient.BucketExistsAsync(existsArgs);
 		}
 
-		public async Task UploadImages(string bucket, List<IFormFile> files)
+		public async Task UploadFiles(string bucket, List<IFormFile> files, List<string> fileSources)
 		{
 			var bucketExists = await TryGetBucket(bucket);
 			if (!bucketExists)
 			{
-				var makeBucketArgs = new MakeBucketArgs().WithBucket(bucket);
-				await _minioClient.MakeBucketAsync(makeBucketArgs);
+				_logger.Error("Ошибка: корзина {bucket} не была создана ранее", bucket);
+				return;
 			}
+			var fileNames = FilesUtils.GetFileNamesFromSources(fileSources);
+			var counter = 0;
 			foreach (var file in files)
 			{
 				using (var stream = new MemoryStream())
 				{
 					await file.CopyToAsync(stream);
 					stream.Position = 0;
-					var putObjectArgs = new PutObjectArgs().WithBucket(bucket).WithObject(file.FileName)
+					var putObjectArgs = new PutObjectArgs().WithBucket(bucket).WithObject(fileNames[counter])
 					.WithContentType(file.ContentType).WithStreamData(stream).WithObjectSize(stream.Length);
 					await _minioClient.PutObjectAsync(putObjectArgs);
 				}
+				counter++;
 			}
 		}
 	}

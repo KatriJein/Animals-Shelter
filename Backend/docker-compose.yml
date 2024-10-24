@@ -35,6 +35,22 @@ services:
     volumes:
         - ./.containers/minio-storage:/data
     command: server --console-address ":9001" /data
+
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      until (/usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin); do
+      echo 'Waiting for MinIO...';
+      sleep 2;
+      done;
+      /usr/bin/mc alias set myminio http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb --ignore-existing myminio/animalspictures;
+      /usr/bin/mc anonymous set public myminio/animalspictures;
+      exit 0;
+      "
     
   
     

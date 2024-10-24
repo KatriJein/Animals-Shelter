@@ -14,7 +14,7 @@ namespace AnimalsShelterBackend.Startups.Animals
     {
         public static IServiceCollection AddAnimalsServices(this IServiceCollection services)
         {
-            services.AddScoped<IService<Animal>, AnimalsService>();
+            services.AddScoped<IAnimalsService, AnimalsService>();
             return services;
         }
     }
