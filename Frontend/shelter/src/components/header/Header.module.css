@@ -1,0 +1,40 @@
+.header {
+    display: flex;
+    font-size: 1.25vw;
+    height: 6.25vw;
+    width: 100%;
+    background-color: #F8F8F8;
+    padding: 0;
+    margin: 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerList {
+    width: 55%;
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    justify-self: center;
+}
+
+.a {
+    text-decoration: none;
+    color: #000;
+    cursor: pointer;
+}
+
+.logo {
+    width: 3.64vw;
+    height: 3.64vw;
+}
+
+.button {
+    background-color: #DFF9FE;
+    font-size: 1.25vw;
+    position: absolute;     
+    right: 4.5%;
+}
