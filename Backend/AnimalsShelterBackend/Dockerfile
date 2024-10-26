@@ -8,6 +8,8 @@ EXPOSE 5001
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
+RUN dotnet dev-certs https
+RUN dotnet dev-certs https --trust
 WORKDIR /src
 COPY ["AnimalsShelterBackend/AnimalsShelterBackend.csproj", "AnimalsShelterBackend/"]
 RUN dotnet restore "./AnimalsShelterBackend/AnimalsShelterBackend.csproj"
@@ -21,5 +23,6 @@ RUN dotnet publish "./AnimalsShelterBackend.csproj" -c $BUILD_CONFIGURATION -o /
 
 FROM base AS final
 WORKDIR /app
+COPY --from=publish /root/.dotnet/corefx/cryptography/x509stores/my/* /root/.dotnet/corefx/cryptography/x509stores/my/
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "AnimalsShelterBackend.dll"]
