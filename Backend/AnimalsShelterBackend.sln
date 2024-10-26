@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalsShelterBackend", "An
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{88B25E35-CD96-4DB1-9147-9622C795E58D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AnimalsShelterBackend.Tests", "AnimalsShelterBackend.Tests\AnimalsShelterBackend.Tests.csproj", "{EAF5BC8C-E6A9-41A8-A172-A831EB3D1477}"
-EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{59563D29-5129-47D8-8DC1-A4F4E4592044}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelterBackend.Domain", "AnimalsShelterBackend.Domain\AnimalsShelterBackend.Domain.csproj", "{3785A026-66C0-49F0-A8B4-F24650536581}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelterBackend.Services", "AnimalsShelterBackend.Services\AnimalsShelterBackend.Services.csproj", "{8CCD5705-77AF-4F79-BC74-6438412769C0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AnimalsShelterBackend.Infrastructure", "AnimalsShelterBackend.Infrastructure\AnimalsShelterBackend.Infrastructure.csproj", "{E5613801-72F7-4332-9C40-8C1916D83D77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,14 +29,22 @@ Global
 		{88B25E35-CD96-4DB1-9147-9622C795E58D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88B25E35-CD96-4DB1-9147-9622C795E58D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88B25E35-CD96-4DB1-9147-9622C795E58D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAF5BC8C-E6A9-41A8-A172-A831EB3D1477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAF5BC8C-E6A9-41A8-A172-A831EB3D1477}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAF5BC8C-E6A9-41A8-A172-A831EB3D1477}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAF5BC8C-E6A9-41A8-A172-A831EB3D1477}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59563D29-5129-47D8-8DC1-A4F4E4592044}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{59563D29-5129-47D8-8DC1-A4F4E4592044}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59563D29-5129-47D8-8DC1-A4F4E4592044}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59563D29-5129-47D8-8DC1-A4F4E4592044}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3785A026-66C0-49F0-A8B4-F24650536581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3785A026-66C0-49F0-A8B4-F24650536581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3785A026-66C0-49F0-A8B4-F24650536581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3785A026-66C0-49F0-A8B4-F24650536581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8CCD5705-77AF-4F79-BC74-6438412769C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8CCD5705-77AF-4F79-BC74-6438412769C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8CCD5705-77AF-4F79-BC74-6438412769C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8CCD5705-77AF-4F79-BC74-6438412769C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5613801-72F7-4332-9C40-8C1916D83D77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5613801-72F7-4332-9C40-8C1916D83D77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5613801-72F7-4332-9C40-8C1916D83D77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5613801-72F7-4332-9C40-8C1916D83D77}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
