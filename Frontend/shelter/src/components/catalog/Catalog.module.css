@@ -1,0 +1,35 @@
+.mainContainer {
+    display: flex;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    gap: 30px;
+    width: 100%;
+    flex-wrap: wrap;
+    padding: 3.125vw 6.25vw;
+    margin: 0 auto;
+}
+
+.h2 {
+    font-size: 1.87vw;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+.cardsList {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    justify-content: space-between;
+}
+
+
+/* @media (max-width: 991px) {
+    .mainContainer {
+        max-width: 100%;
+        margin-right: 4px;
+    }
+} */

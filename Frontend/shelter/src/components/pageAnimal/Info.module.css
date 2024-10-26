@@ -1,0 +1,20 @@
+.container {
+    width: 100%;
+    display: flex;
+    gap: 0.5vw;
+    text-wrap: wrap;
+    font-size: 1.26vw;
+}
+
+.h3 {
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.p {
+    margin: 0;
+    padding: 0;
+    position: relative;
+    top: 0.23vw;
+}
