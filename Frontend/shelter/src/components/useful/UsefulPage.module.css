@@ -1,0 +1,74 @@
+.mainContainer {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 3.125vw 6.25vw;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.h2 {
+    font-size: 1.69vw;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    color: #424242;
+    margin-bottom: 0.5vw;
+}
+
+.h3 {
+    font-size: 1.69vw;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+.p {
+    font-size: 1.1vw;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
+
+.containerButtons {
+    display: flex;
+    gap: 1.58vw;
+    flex-wrap: wrap;
+    padding: 1.3vw 0;
+    margin-top: 1.3vw;
+}
+
+.containerArticle {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    flex-wrap: wrap;
+}
+
+.containerList {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 2.8vw;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.button {
+    border: 1px solid #868686;
+    border-radius: 0.69vw;
+    padding: 0.27vw 1.05vw;
+    color: #868686;
+    font-size: 1.25vw;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.selected {
+    color: #150DFF;
+    border: 1px solid #150DFF;
+}
