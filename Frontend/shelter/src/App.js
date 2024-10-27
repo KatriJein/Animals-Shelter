@@ -25,8 +25,8 @@ function App() {
   return (
     <>
       <Header />
-      <UsefulPage />
-      {/* <Catalog /> */}
+      {/* <UsefulPage /> */}
+      <Catalog />
       {/* <MainInfo />  */}
       {/* <PageAnimal /> */}
     </>
