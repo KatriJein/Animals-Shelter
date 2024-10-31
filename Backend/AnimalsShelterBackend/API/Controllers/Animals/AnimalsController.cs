@@ -33,7 +33,7 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
         {
             var animals = await _animalsService.GetAllAsync(cancellationToken);
-            var response = _mapper.Map<List<AnimalShortResponse>>(animals);
+            var response = _mapper.Map<List<AnimalFullResponse>>(animals);
             return Ok(response);
         }
 
