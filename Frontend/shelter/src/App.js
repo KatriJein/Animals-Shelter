@@ -8,6 +8,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux';
 import { useEffect } from "react";
 import { fetchAnimals } from "./store/animalsActions";
 import UsefulPage from "./components/useful/UsefulPage";
+import Login from "./components/auth/Login";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,8 +26,9 @@ function App() {
   return (
     <>
       <Header />
+      {/* <Login /> */}
       {/* <UsefulPage /> */}
-      <Catalog />
+      {/* <Catalog /> */}
       {/* <MainInfo />  */}
       {/* <PageAnimal /> */}
     </>

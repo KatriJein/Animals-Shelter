@@ -1,14 +1,21 @@
 .container {
     width: auto;
-    min-width: 160px;
-    max-width: 270px;
+    min-width: 8.5vw;
+    max-width: 14.7vw;
     box-sizing: border-box;
     margin: 0;
     outline: 1px solid #B7B7B7;
     font-size: 1.25vw;
     font-weight: 400;
-    padding: 8px 13px;
-    border-radius: 5px;
-    /* appearance: none; */
+    padding: 0.43vw 0.68vw;
+    padding-right: 2vw;
+    border-radius: 0.26vw;
+    appearance: none; 
+    background: url('../../img/arrow.svg') no-repeat right 0.5vw center; 
+    background-size: 1.05vw; 
     text-indent: 0;
+}
+
+.container::-webkit-calendar-picker-indicator {
+    opacity: 0; 
 }
