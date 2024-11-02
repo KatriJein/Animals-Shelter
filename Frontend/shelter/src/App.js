@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { fetchAnimals } from "./store/animalsActions";
 import UsefulPage from "./components/useful/UsefulPage";
 import Login from "./components/auth/Login";
+import Registration from "./components/auth/Registration";
 
 function App() {
   const dispatch = useDispatch();
@@ -25,10 +26,11 @@ function App() {
 
   return (
     <>
+    {/* <Registration /> */}
       <Header />
       {/* <Login /> */}
       {/* <UsefulPage /> */}
-      {/* <Catalog /> */}
+      <Catalog />
       {/* <MainInfo />  */}
       {/* <PageAnimal /> */}
     </>
