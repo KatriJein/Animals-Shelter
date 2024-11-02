@@ -3,6 +3,7 @@ using System;
 using AnimalsShelterBackend.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AnimalsShelterBackend.Migrations
 {
     [DbContext(typeof(ShelterAppContext))]
-    partial class ShelterAppContextModelSnapshot : ModelSnapshot
+    [Migration("20241101121824_article model")]
+    partial class articlemodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -88,72 +91,9 @@ namespace AnimalsShelterBackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BodyMarkDown")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<DateTime>("LastUpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<string>("MainImageSrc")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid")
-                        .HasColumnName("authorId");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Articles");
-                });
-
-            modelBuilder.Entity("AnimalsShelterBackend.Domain.ShelterUser.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("AnimalsShelterBackend.Domain.Articles.Article", b =>
-                {
-                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", "User")
-                        .WithMany("Articles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("AnimalsShelterBackend.Domain.ShelterUser.User", b =>
-                {
-                    b.Navigation("Articles");
                 });
 #pragma warning restore 612, 618
         }

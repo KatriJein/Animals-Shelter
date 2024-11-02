@@ -1,4 +1,6 @@
 ﻿using Core.Constants;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsShelterBackend.Startups
 {

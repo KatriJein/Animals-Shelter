@@ -40,8 +40,4 @@
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Masstransit\Consumers\" />
-  </ItemGroup>
-
 </Project>
