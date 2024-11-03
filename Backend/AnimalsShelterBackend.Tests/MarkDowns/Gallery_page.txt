@@ -1,0 +1,7 @@
+﻿
+<h1>Gallery Page</h1>
+<p>A page with multiple images and an audio clip.</p>
+<img src="image1.jpg" alt="Image 1">
+<img src="image2.jpg" alt="Image 2">
+<img src="" alt="Empty Image">
+<audio src="audio1.mp3" controls></audio>

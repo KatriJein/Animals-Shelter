@@ -55,6 +55,7 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 		{
 			CreateMap<Article, ArticleShortResponse>();
 			CreateMap<Article, ArticleFullResponse>()
+				.ForPath(afr => afr.Author.Id, opt => opt.MapFrom(a => a.UserId))
 				.ForPath(afr => afr.Author.Name, opt => opt.MapFrom(a => a.User == null ? "DELETED" : a.User.Name))
 				.ForPath(afr => afr.Author.Surname, opt => opt.MapFrom(a => a.User == null ? "" : a.User.Surname));
 				

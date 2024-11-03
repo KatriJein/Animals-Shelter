@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Core.Requests.Articles
 {
-	public record UpdateArticleRequest(string Title, string Description, string BodyMarkDown, IFormFile Preview, Guid UserId, List<IFormFile> Files) : IUpdateRequest;
+	public record UpdateArticleRequest(string Title, string Description, string BodyMarkDown, IFormFile Preview, Guid UserId, List<IFormFile>? Files) : IUpdateRequest;
 }

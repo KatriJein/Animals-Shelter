@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Core.Requests.Articles
 {
-	public record CreateArticleRequest(string Title, string Description, string BodyMarkDown, IFormFile Preview, Guid UserId, List<IFormFile> Files);
+	public record CreateArticleRequest(string Title, string Description, string BodyMarkDown, IFormFile Preview, Guid UserId, List<IFormFile>? Files);
 }

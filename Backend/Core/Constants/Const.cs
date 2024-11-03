@@ -34,7 +34,7 @@ namespace Core.Constants
 		#endregion
 
 		#region regexes
-		public static Regex GetUrlsFromArticleRegex = new Regex(@"<(img|video|audio).+?src=\\{0,}""(.+?)\\{0,}"".*?>");
+		public static Regex GetUrlsFromArticleRegex = new Regex(@"<(img|video|audio).+?src=\\{0,}""([^\""]+?)\\{0,}"".*?>");
 		#endregion
 	}
 }
