@@ -1,0 +1,10 @@
+﻿<h1>The Fascinating World of Ocean Life</h1>
+    <p>Oceans cover more than 70% of the Earth's surface and contain a vast variety of life forms. From the smallest plankton to the largest whales, each creature plays a unique role in the ecosystem. Marine biologists work tirelessly to uncover the mysteries of these underwater worlds.</p>
+    
+    <img src="ocean_life.jpg" alt="Ocean Life">
+    
+    <p>The diversity of marine life is astounding. Coral reefs are often referred to as the rainforests of the sea, providing shelter for countless species. These reefs are fragile ecosystems, threatened by climate change, pollution, and human activity. Preserving these natural wonders is crucial for maintaining biodiversity.</p>
+    
+    <audio src="ocean_waves.mp3" controls></audio>
+    
+    <p>Marine mammals, such as dolphins and seals, exhibit incredible intelligence and social structures. Scientists have documented fascinating behaviors, including complex communication and problem-solving abilities. Conservation efforts aim to protect these species from threats such as plastic pollution and overfishing.</p>

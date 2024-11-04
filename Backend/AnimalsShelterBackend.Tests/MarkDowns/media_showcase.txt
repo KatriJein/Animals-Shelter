@@ -1,0 +1,8 @@
+﻿<h1>Media Showcase</h1>
+<p>A variety of images, a video, and two audio clips.</p>
+<img src="image1.jpg" alt="Image 1">
+<img src="image2.jpg" alt="Image 2">
+ <img src="image3.jpg" alt="Image 3">
+ <video src="video1.mp4" controls></video>
+<audio src="audio1.mp3" controls></audio>
+<audio src="audio2.mp3" controls></audio>
