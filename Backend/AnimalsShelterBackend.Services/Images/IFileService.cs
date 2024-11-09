@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Responses.General;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace AnimalsShelterBackend.Services.Images
 		Task DeleteFiles(string bucket, List<string> fileSources);
 		Task UploadFiles(string bucket, List<IFormFile> files, List<string> fileSources);
 		Task<byte[]> GetFile(string bucket, string fileName);
+		List<FileResponse> GetFilesFromBucket(string bucket);
 	}
 }

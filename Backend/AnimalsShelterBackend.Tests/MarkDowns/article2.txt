@@ -1,0 +1,14 @@
+﻿<h1>Exploring the Mysteries of Space</h1>
+    <p>Space, the final frontier, has captivated humanity for centuries. From ancient astronomers to modern scientists, our understanding of the cosmos has evolved dramatically. The development of advanced telescopes has allowed us to peer deep into space and discover planets, stars, and galaxies far beyond our solar system.</p>
+    
+    <img  alt="View Through Telescope" src="telescope_view.jpg">
+    
+    <p>One of the most intriguing phenomena in space is the existence of black holes. These mysterious objects have gravitational pulls so strong that not even light can escape. Scientists believe that studying black holes could unlock secrets about the origin of the universe itself.</p>
+    
+    <video src="black_hole_theory.mp4" controls></video>
+    
+    <p>Humanity has only scratched the surface of understanding space. The recent discovery of exoplanets has sparked curiosity about the potential for life beyond Earth. Missions to Mars and other planets aim to answer some of these questions, bringing us closer to unraveling the mysteries of the universe.</p>
+    
+    <audio controls src="space_sounds.mp3"></audio>
+    
+    <p>Space exploration requires international collaboration, with agencies like NASA, ESA, and Roscosmos working together to achieve ambitious goals. As technology advances, humanity’s dream of interstellar travel and perhaps even colonization of other planets becomes ever closer to reality.</p>

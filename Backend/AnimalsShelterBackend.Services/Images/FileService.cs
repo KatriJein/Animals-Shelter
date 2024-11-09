@@ -9,6 +9,7 @@ using Minio.Exceptions;
 using Serilog;
 using Microsoft.AspNetCore.Http;
 using Core.Utils;
+using Core.Responses.General;
 
 namespace AnimalsShelterBackend.Services.Images
 {
@@ -93,6 +94,16 @@ namespace AnimalsShelterBackend.Services.Images
 				}
 				counter++;
 			}
+		}
+
+		public List<FileResponse> GetFilesFromBucket(string bucket)
+		{
+			var objArgs = new ListObjectsArgs().WithBucket(bucket);
+			var files = _minioClient.ListObjectsEnumAsync(objArgs).ToBlockingEnumerable().ToList();
+			var responses = new List<FileResponse>();
+			foreach (var file in files)
+				responses.Add(new FileResponse() { Link = file.Key, Type = Path.GetExtension(file.Key), UploadTime = file.LastModifiedDateTime });
+			return responses;
 		}
 	}
 }

@@ -2,6 +2,8 @@
 using AnimalsShelterBackend;
 using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
+using AnimalsShelterBackend.Infrastructure.Startups.Articles;
+using AnimalsShelterBackend.Infrastructure.Startups.Users;
 using AnimalsShelterBackend.Masstransit;
 using AnimalsShelterBackend.Startups;
 using AnimalsShelterBackend.Startups.Animals;
@@ -34,10 +36,16 @@ builder.Services.AddMinIOStorage(builder.Configuration);
 builder.Services.AddDbContext<ShelterAppContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddImagesServices();
+
 builder.Services.AddAnimalsDomain();
 builder.Services.AddAnimalsServices();
 
-builder.Services.AddImagesServices();
+builder.Services.AddUsersDomain();
+builder.Services.AddUsersService();
+
+builder.Services.AddArticlesDomain();
+builder.Services.AddArticlesServices();
 
 builder.Services.UseMasstransitRabbitMQ(builder.Configuration);
 

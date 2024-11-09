@@ -1,0 +1,4 @@
+﻿
+<h1>Welcome to Simple Page</h1>
+<p>This is a basic HTML page with one image.</p>
+<img src="image1.jpg" alt="Simple Image">

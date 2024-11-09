@@ -1,9 +1,15 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
+using AnimalsShelterBackend.Domain.Articles;
+using AnimalsShelterBackend.Domain.ShelterUser;
 using AutoMapper;
 using Core.Constants;
 using Core.Enums.Animals;
 using Core.Requests.Animals;
+using Core.Requests.Articles;
+using Core.Requests.Users;
 using Core.Responses.Animals;
+using Core.Responses.Articles;
+using Core.Responses.Users;
 using Core.Utils;
 using System;
 using System.Collections.Generic;
@@ -17,6 +23,8 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 	{
 		public ShelterMapper() {
 			MapAnimals();
+			MapUsers();
+			MapArticles();
 		}
 
 		private void MapAnimals()
@@ -35,6 +43,26 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 			CreateMap<CreateAnimalRequest, Animal>()
 				.ForMember(dest => dest.TemperFeatures, mOpt => mOpt.MapFrom(m => string.Join(Const.Separator, m.TemperFeatures.Select(e => ((int)e).ToString()))))
 				.ForMember(dest => dest.HealthConditions, mOpt => mOpt.MapFrom(m => string.Join(Const.Separator, m.HealthConditions.Select(e => ((int)e).ToString()))));
+		}
+
+		private void MapUsers()
+		{
+			CreateMap<User, UserResponse>();
+			CreateMap<CreateUserRequest, User>();
+		}
+
+		private void MapArticles()
+		{
+			CreateMap<Article, ArticleShortResponse>();
+			CreateMap<Article, ArticleFullResponse>()
+				.ForPath(afr => afr.Author.Id, opt => opt.MapFrom(a => a.UserId))
+				.ForPath(afr => afr.Author.Name, opt => opt.MapFrom(a => a.User == null ? "DELETED" : a.User.Name))
+				.ForPath(afr => afr.Author.Surname, opt => opt.MapFrom(a => a.User == null ? "" : a.User.Surname));
+				
+
+			CreateMap<CreateArticleRequest, Article>()
+				.ForMember(a => a.CreatedAt, opt => opt.MapFrom(a => DateTime.UtcNow))
+				.ForMember(a => a.LastUpdatedAt, opt => opt.MapFrom(a => DateTime.UtcNow));
 		}
 	}
 }

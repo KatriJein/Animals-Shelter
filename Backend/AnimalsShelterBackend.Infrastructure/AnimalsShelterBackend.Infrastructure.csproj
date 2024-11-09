@@ -21,7 +21,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AnimalsShelterBackend.Domain\AnimalsShelterBackend.Domain.csproj" />
+    <ProjectReference Include="..\AnimalsShelterBackend.Services\AnimalsShelterBackend.Services.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Masstransit\Consumers\" />
   </ItemGroup>
 
 </Project>

@@ -1,0 +1,11 @@
+﻿<h1>Full Media Showcase</h1>
+    <p>This page includes multiple images, videos, and audio clips.</p>
+    <img  alt="Image 1" src="image1.jpg">
+    <img  alt="Image 2" src="image2.jpg">
+    <img src="image3.jpg" alt="Image 3">
+    <img src="image4.jpg" alt="Image 4">
+    <video src="video1.mp4" controls></video>
+    <video src="video2.mp4" controls></video>
+    <audio src="audio1.mp3" controls></audio>
+    <audio src="audio2.mp3" controls></audio>
+    <audio src="audio3.mp3" controls></audio>

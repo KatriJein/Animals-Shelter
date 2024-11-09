@@ -1,4 +1,5 @@
 ﻿using AnimalsShelterBackend.Services.Images;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace AnimalsShelterBackend.Startups.Images
 {
