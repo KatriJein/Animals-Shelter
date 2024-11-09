@@ -31,7 +31,7 @@
     width: 31.62vw;
     display: flex;
     flex-direction: column;
-    gap: 2.3vw;
+    gap: 1.5vw;
 }
 
 .h1 {
@@ -67,6 +67,12 @@
     padding: 0.52vw 1.05vw;
     box-sizing: border-box;
     color: #C0C0C0;
+}
+
+.error {
+    margin: 0;
+    padding: 0;
+    color: red;
 }
 
 .containerRemember {

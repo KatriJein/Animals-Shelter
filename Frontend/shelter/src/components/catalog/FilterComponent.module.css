@@ -1,21 +1,50 @@
 .container {
-    width: auto;
-    min-width: 8.5vw;
-    max-width: 14.7vw;
+    width: 100%;
     box-sizing: border-box;
     margin: 0;
-    outline: 1px solid #B7B7B7;
-    font-size: 1.25vw;
+    font-size: 1.05vw;
     font-weight: 400;
-    padding: 0.43vw 0.68vw;
-    padding-right: 2vw;
-    border-radius: 0.26vw;
-    appearance: none; 
-    background: url('../../img/arrow.svg') no-repeat right 0.5vw center; 
-    background-size: 1.05vw; 
-    text-indent: 0;
+    padding-bottom: 0.8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
 }
 
-.container::-webkit-calendar-picker-indicator {
-    opacity: 0; 
+.arrowButton {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: 0.05vw;
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.filterOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+}
+
+.containerOpen {
+    border-bottom: 2px solid #A9A9A9;
+}
+
+.filterCheckbox {
+    width: 0.85vw;
+    height: 0.85vw;
+    position: relative;
+    top: 0.1vw;
+    cursor: pointer;
+}
+
+.filterLabel {
+    display: flex;
+    gap: 0.25vw;
 }

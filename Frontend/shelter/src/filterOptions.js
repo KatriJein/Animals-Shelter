@@ -1,6 +1,7 @@
 export const FilterOptions = {
     age: {
         placeholder: "Возраст",
+        type: "checkbox",
         options: {
             small: "До 1 года",
             young: "От 1 до 3 лет",
@@ -10,6 +11,7 @@ export const FilterOptions = {
     },
     sex: {
         placeholder: "Пол",
+        type: "radio",
         options: {
             male: "Мальчик",
             female: "Девочка"
@@ -17,6 +19,7 @@ export const FilterOptions = {
     },
     size: {
         placeholder: "Размер",
+        type: "checkbox",
         options: {
             small: "До 5 кг",
             medium: "5–15 кг",
@@ -25,6 +28,7 @@ export const FilterOptions = {
     },
     wool: {
         placeholder: "Тип шерсти",
+        type: "checkbox",
         options: {
             short: "Короткая шерсть",
             medium: "Средняя шерсть",
@@ -34,6 +38,7 @@ export const FilterOptions = {
     },
     color: {
         placeholder: "Окрас",
+        type: "checkbox",
         options: {
             black: "Чёрный",
             white: "Белый",
@@ -46,6 +51,7 @@ export const FilterOptions = {
     },
     temperFeatures: {
         placeholder: "Особенности поведения",
+        type: "checkbox",
         options: {
             active: "Активное",
             calm: "Спокойное",
@@ -60,6 +66,7 @@ export const FilterOptions = {
     },
     healthCondition: {
         placeholder: "Состояние здоровья",
+        type: "checkbox",
         options: {
             vaccinated: "Привит",
             sterilized: "Стерилизован",
@@ -68,6 +75,7 @@ export const FilterOptions = {
     },
     livingCondition: {
         placeholder: "Условия проживания",
+        type: "checkbox",
         options: {
             forApartment: "Подходит для квартиры",
             forPrivateApartment: "Подходит для частного дома",
@@ -76,6 +84,7 @@ export const FilterOptions = {
     },
     receiptDate: {
         placeholder: "Дата поступления в приют",
+        type: "radio",
         options: {
             recent: "Новые поступления",
             longAgo: "Давно в приюте"

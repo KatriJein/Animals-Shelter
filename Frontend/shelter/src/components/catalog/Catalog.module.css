@@ -4,28 +4,38 @@
     margin: 0;
     padding: 0;
     flex-direction: column;
-    gap: 30px;
+    gap: 2.6vw;
     width: 100%;
     flex-wrap: wrap;
     padding: 3.125vw 6.25vw;
     margin: 0 auto;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25vw;
 }
 
 .h2 {
-    font-size: 1.87vw;
-    font-weight: 400;
+    font-size: 2.1vw;
+    font-weight: 700;
     margin: 0;
     padding: 0;
+    color: #374375;
+}
+
+.container {
+    display: flex;
+    width: 100%;
+    gap: 2vw;
+    flex-direction: row;
 }
 
 .cardsList {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid; /* Используем Grid */
+    grid-template-columns: repeat(3, 1fr); 
     gap: 2vw;
-    /* justify-content: space-between; */
-}
-
+    justify-items: center; /* Центрируем карточки по горизонтали */
+    justify-content: center;
+} 
+ 
 
 /* @media (max-width: 991px) {
     .mainContainer {

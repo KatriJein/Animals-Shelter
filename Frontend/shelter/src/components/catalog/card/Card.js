@@ -13,13 +13,13 @@ export default function Card(props) {
             <img src={pet.mainImageSrc} alt="Картинка животного" className={style.img} />
             <div className={style.containerInfo}>
                 <div className={style.containerName}>
-                    <p className={`${style.p} ${style.name}`}>{name}</p>
-                    <p className={`${style.p} ${style.breed}`}>{breed}</p>
+                    <p className={style.name}>{name}</p>
+                    <p className={style.description}>{breed}, {age} года, {sexStr}</p>
                 </div>
-                <p className={style.description}>{age} года, {sexStr}</p>
+                <p className={style.text}>Наша самая нежная и спокойная девочка, очень ласковая и любит детей</p>
                 <div className={style.containerButtons}>
-                    <button className={`${style.button} ${style.buttonMore}`}>Подробнее</button>
-                    <button className={`${style.button}`}><img src={favorite} alt="избранное" className={style.favorite} /></button>
+                    <button className={style.buttonMore}>Подробнее</button>
+                    <button className={style.buttonFavorite}><img src={favorite} alt="избранное" className={style.favorite} /></button>
                 </div>
             </div>
         </div>

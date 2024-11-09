@@ -1,26 +1,8 @@
 .filterContainer {
+    min-width: 14vw;
     display: flex;
-    width: 100%;
-    gap: 5vw;
-    align-items: center;
-}
-
-.logoContainer {
-    display: flex;
-    gap: 30px;
-}
-
-.logo {
-    width: 4vw;
-    height: 4vw;
-    object-fit: contain;
-}
-
-.buttonLogo {
-    width: 4vw;
-    height: 4vw;
-    border-radius: 100%;
-    outline: 1px solid #000;
+    flex-direction: column;
+    gap: 0.8vw;
 }
 
 .p {
@@ -32,10 +14,12 @@
 }
 
 .filter {
+    width: 100%;
+    box-sizing: border-box;
     margin: 0;
-    padding: 0;
+    padding: 0.52vw;
     display: flex;
-    row-gap: 1.05vw;
-    column-gap: 2.1vw;
+    flex-direction: column;
+    gap: 1.05vw;
     flex-wrap: wrap;
 }
