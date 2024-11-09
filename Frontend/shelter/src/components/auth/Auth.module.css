@@ -1,0 +1,157 @@
+.container {
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05vw;
+}
+
+.containerImg {
+    width: 50%;
+    height: 100vh;
+    background-image: url('../../img/auth.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.containerForm {
+    width: 50%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form {
+    width: 31.62vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+}
+
+.h1 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 3.4vw;
+    font-weight: 700;
+    color: #374375;
+    margin-bottom: 1.05vw;
+}
+
+.welcome {
+    color: #C0C0C0;
+    text-wrap: wrap;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.containerInput {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4vw;
+    width: 100%;
+}
+
+.input {
+    width: 100%;
+    font-size: 1.05vw;
+    border: 1px solid #C0C0C0;
+    border-radius: 0.52vw;
+    padding: 0.52vw 1.05vw;
+    box-sizing: border-box;
+    color: #C0C0C0;
+}
+
+.error {
+    margin: 0;
+    padding: 0;
+    color: red;
+}
+
+.containerRemember {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 0.52vw;
+}
+
+.containerCheckbox {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.checkbox {
+    border: 2px solid #C0C0C0;
+    border-radius: 0.26vw;
+    box-sizing: border-box;
+    color: #C0C0C0;
+    margin: 0;
+    padding: 0;
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.labelCheckbox {
+    font-size: 0.85vw;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    line-height: 0.9vw;
+    position: relative;
+    top: 0.09vw;
+    margin-left: 0.4vw;
+}
+
+.forgotPassword {
+    font-size: 0.85vw;
+    color: #C0C0C0;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    width: 100%;
+    font-size: 1.27vw;
+    margin: 0;
+    padding: 0.52vw 0;
+    border-radius: 1.16vw;
+    border: transparent;
+    color: #fff;
+    background-color: #374375;
+    cursor: pointer;
+}
+
+.noAccount {
+    width: 100%;
+    font-size: 0.85vw;
+    color: #000;
+    margin: 0;
+    padding: 0;
+    align-self: center;
+    text-align: center;
+    margin-top: 0.8vw;
+}
+
+.noAccountLink {
+    color: #374375;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    margin-left: 0.4vw;
+    cursor: pointer;
+}

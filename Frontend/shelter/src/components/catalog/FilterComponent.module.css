@@ -1,14 +1,50 @@
 .container {
-    width: auto;
-    min-width: 160px;
-    max-width: 270px;
+    width: 100%;
     box-sizing: border-box;
     margin: 0;
-    outline: 1px solid #B7B7B7;
-    font-size: 1.25vw;
+    font-size: 1.05vw;
     font-weight: 400;
-    padding: 8px 13px;
-    border-radius: 5px;
-    /* appearance: none; */
-    text-indent: 0;
+    padding-bottom: 0.8vw;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8vw;
+}
+
+.arrowButton {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    top: 0.05vw;
+}
+
+.filterHeader {
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.filterOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+}
+
+.containerOpen {
+    border-bottom: 2px solid #A9A9A9;
+}
+
+.filterCheckbox {
+    width: 0.85vw;
+    height: 0.85vw;
+    position: relative;
+    top: 0.1vw;
+    cursor: pointer;
+}
+
+.filterLabel {
+    display: flex;
+    gap: 0.25vw;
 }

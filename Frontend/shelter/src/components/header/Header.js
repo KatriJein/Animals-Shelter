@@ -1,5 +1,5 @@
 import style from "./Header.module.css";
-import logo from "../../img/logo.png";
+import logo from "../../img/logo.svg";
 import Button from "../button/Button";
 
 export default function Header() {
@@ -13,7 +13,8 @@ export default function Header() {
                 <a href="#" className={style.a}>Помощь</a>
             </nav>
 
-            <Button text={"Войти"} styleProps={style.button} />
+            {/* <Button text={"Войти"} styleProps={style.button} /> */}
+            <button className={style.button}>Войти</button>
         </header>
     );
 }
