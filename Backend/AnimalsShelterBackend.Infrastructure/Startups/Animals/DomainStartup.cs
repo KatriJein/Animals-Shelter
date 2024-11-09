@@ -1,4 +1,5 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
+using AnimalsShelterBackend.Domain.Animals.Repositories;
 using AnimalsShelterBackend.Infrastructure.Animals.Repositories;
 using Core.Base.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +15,7 @@ namespace AnimalsShelterBackend.Startups.Animals
     {
         public static IServiceCollection AddAnimalsDomain(this IServiceCollection services)
         {
-            services.AddScoped<IRepository<Animal>, AnimalsRepository>();
+            services.AddScoped<IAnimalsRepository, AnimalsRepository>();
             return services;
         }
     }

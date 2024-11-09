@@ -1,4 +1,5 @@
 ﻿using AnimalsShelterBackend.Domain.ShelterUser;
+using AnimalsShelterBackend.Domain.ShelterUser.Repositories;
 using Core.Base.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AnimalsShelterBackend.Infrastructure.Infrastructure.Users
 {
-	public class UserRepository : BaseRepository<User>
+	public class UserRepository : BaseRepository<User>, IUserRepository
 	{
 		private readonly ShelterAppContext _context;
 
@@ -26,6 +27,16 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure.Users
 		public override IQueryable<User> GetAll()
 		{
 			return _context.Users;
+		}
+
+		public async Task LoadUserArticlesAsync(User user, CancellationToken cancellationToken)
+		{
+			await _context.Entry(user).Collection(u => u.Articles).LoadAsync(cancellationToken);
+		}
+
+		public async Task LoadUserFavouriteAnimalsAsync(User user, CancellationToken cancellationToken)
+		{
+			await _context.Entry(user).Collection(u => u.FavouriteAnimals).LoadAsync(cancellationToken);
 		}
 	}
 }

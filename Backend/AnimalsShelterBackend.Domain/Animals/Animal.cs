@@ -1,4 +1,5 @@
-﻿using Core.Enums.Animals;
+﻿using AnimalsShelterBackend.Domain.ShelterUser;
+using Core.Enums.Animals;
 
 namespace AnimalsShelterBackend.Domain.Animals
 {
@@ -19,5 +20,7 @@ namespace AnimalsShelterBackend.Domain.Animals
 		public string MainImageSource { get; set; }
 		public string Description { get; set; }
 		public string ImagesSources { get; set; }
+
+		public List<User> FavouritedByUsers { get; set; } = new List<User>();
 	}
 }

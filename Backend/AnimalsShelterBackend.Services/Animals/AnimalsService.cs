@@ -1,4 +1,5 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
+using AnimalsShelterBackend.Domain.Animals.Repositories;
 using AnimalsShelterBackend.Services.Images;
 using Core.Base;
 using Core.Base.Repositories;
@@ -15,11 +16,11 @@ namespace AnimalsShelterBackend.Services.Animals
 {
 	public class AnimalsService : BaseService<Animal>, IAnimalsService
 	{
-		private readonly IRepository<Animal> _animalsRepository;
+		private readonly IAnimalsRepository _animalsRepository;
 		private readonly IFileService _fileService;
 		private readonly string _hostLink;
 
-		public AnimalsService(IRepository<Animal> animalsRepository, IFileService fileService, IConfiguration config) : base(animalsRepository)
+		public AnimalsService(IAnimalsRepository animalsRepository, IFileService fileService, IConfiguration config) : base(animalsRepository)
 		{
 			_animalsRepository = animalsRepository;
 			_fileService = fileService;
@@ -78,6 +79,11 @@ namespace AnimalsShelterBackend.Services.Animals
 			animal.MainImageSource = fileSources[0];
 			animal.ImagesSources = string.Join(Const.Separator, fileSources.Skip(1));
 			return fileSources;
+		}
+
+		public async Task LoadUsersForAnimalAsync(Animal animal)
+		{
+			await _animalsRepository.LoadUsersForAnimalAsync(animal);
 		}
 	}
 }

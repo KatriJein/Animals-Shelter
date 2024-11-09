@@ -10,5 +10,7 @@ namespace AnimalsShelterBackend.Services.Users
 {
 	public interface IUserService : IService<User>
 	{
+		Task LoadUserFavouriteAnimalsAsync(User user, CancellationToken cancellationToken = default);
+		Task LoadUserArticlesAsync(User user, CancellationToken cancellationToken = default);
 	}
 }
