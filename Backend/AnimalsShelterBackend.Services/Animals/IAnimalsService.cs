@@ -8,5 +8,6 @@ namespace AnimalsShelterBackend.Services.Animals
 	public interface IAnimalsService : IService<Animal>
 	{
 		Task<CreateEntityResponse> AddAsync(Animal animal, List<IFormFile> files);
+		Task LoadUsersForAnimalAsync(Animal animal);
 	}
 }

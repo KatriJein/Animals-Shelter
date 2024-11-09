@@ -1,5 +1,6 @@
 ﻿using AnimalsShelterBackend.Domain.Articles;
 using AnimalsShelterBackend.Domain.ShelterUser;
+using AnimalsShelterBackend.Domain.ShelterUser.Repositories;
 using AnimalsShelterBackend.Infrastructure.Infrastructure.Articles.Repositories;
 using AnimalsShelterBackend.Infrastructure.Infrastructure.Users;
 using Core.Base.Repositories;
@@ -16,7 +17,7 @@ namespace AnimalsShelterBackend.Infrastructure.Startups.Users
 	{
 		public static IServiceCollection AddUsersDomain(this IServiceCollection services)
 		{
-			services.AddScoped<IRepository<User>, UserRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
 			return services;
 		}
 	}

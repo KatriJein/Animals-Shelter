@@ -29,12 +29,12 @@ namespace AnimalsShelterBackend.Services.Articles
 	{
 		private readonly IRepository<Article> _articleRepository;
 		private readonly IFileService _fileService;
-		private readonly IService<User> _userService;
+		private readonly IUserService _userService;
 		private readonly ILogger _logger;
 		private readonly string _localStorageHost;
 
 		public ArticleService(IRepository<Article> articleRepository, IFileService fileService, IConfiguration config,
-			IService<User> userService, ILogger logger) : base(articleRepository)
+			IUserService userService, ILogger logger) : base(articleRepository)
 		{
 			_articleRepository = articleRepository;
 			_fileService = fileService;
