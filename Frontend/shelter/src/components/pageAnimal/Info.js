@@ -5,7 +5,7 @@ export default function Info(props) {
 
     return (
         <div className={style.container}>
-            <h3 className={style.h3}>{heading}:</h3>
+            <h3 className={style.h3}>{heading}</h3>
             <p className={style.p}>{text}</p>
         </div>
     )

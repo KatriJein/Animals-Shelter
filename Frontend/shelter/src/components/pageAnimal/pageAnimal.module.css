@@ -5,7 +5,17 @@
     padding: 3.125vw 6.25vw;
     display: flex;
     flex-direction: column;
-    gap: 5vw;
+    gap: 1vw;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25vw;
+    color: #000;
+}
+
+.containerDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    width: 100%;
 }
 
 .containerInfo {
@@ -17,7 +27,6 @@
 .containerButtons {
     display: flex;
     width: 100%;
-    justify-content: end;
     gap: 1.22vw;
 }
 
@@ -26,40 +35,59 @@
     width: 100%;
     flex-direction: column;
     gap: 1vw;
+    margin-bottom: 1.5vw;
+}
+
+.containerConditions {
+    display: flex;
+    gap: 2vw;
+    flex-wrap: wrap;
 }
 
 .h2 {
     margin: 0;
     padding: 0;
-    font-size: 1.9vw;
-    color: #424242;
-    font-weight: normal;
+    font-size: 3vw;
+    color: #374375;
+    font-weight: 700;
 }
 
 .p {
     width: 100%;
     font-size: 1.26vw;
     text-wrap: wrap;
+    margin: 0;
+    padding: 0;
+    color: #838383;
 }
 
 .buttonShelter {
     font-size: 1.7vw;
-    background-color: transparent;
-    border: 1px solid #539567;
-    color: #539567;
-    padding: 0.52vw 1.1vw;
-    border-radius: 1.05vw;
+    background-color: #9195df;
+    border: none;
+    color: #fff;
+    padding: 0.8vw 1.2vw;
+    border-radius: 2.5vw;
     cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
 }
 
 .buttonFavorite {
+    background-color: #f7edec;
     border: none;
-    background-color: transparent;
     cursor: pointer;
+    border-radius: 50%;
+    width: 3.9vw; /* Ширина, равная высоте .buttonShelter */
+    height: 3.9vw; /* Высота, чтобы сделать кнопку круглой */
+    padding: 0; /* Убираем padding, так как он не нужен для круглой кнопки */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .favorite {
-    height: 2.32vw;
+    height: 2.1vw;
     position: relative;
     top: 0.15vw;
 }
