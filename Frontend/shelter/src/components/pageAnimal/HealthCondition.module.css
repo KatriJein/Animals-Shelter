@@ -1,0 +1,22 @@
+.container {
+    border: 0.1vw solid #74A080;
+    display: flex;
+    padding: 0.31vw 0.84vw;
+    width: fit-content;
+    border-radius: 5vw;
+    color: #74A080;
+    align-items: center;
+    gap: 0.4vw;
+}
+
+.check {
+    width: 1.25vw;
+}
+
+.span {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.47vw;
+    font-weight: 400;
+}

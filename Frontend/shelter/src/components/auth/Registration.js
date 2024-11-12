@@ -2,6 +2,7 @@ import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/userSlice';
+import { Link } from 'react-router-dom';
 
 export default function Registration() {
     const [login, setLogin] = useState('');
@@ -111,7 +112,7 @@ export default function Registration() {
                     </div>
                     <div>
                         <button type="submit" className={style.button}>Зарегистрироваться</button>
-                        <p className={style.noAccount}>Уже есть аккаунт? <a href="#" className={style.noAccountLink}>Войдите</a></p>
+                        <p className={style.noAccount}>Уже есть аккаунт? <Link to="/login" className={style.noAccountLink}>Войдите</Link></p>
                     </div>
                 </form>
             </div>

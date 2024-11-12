@@ -1,20 +1,24 @@
+import { Link, useNavigate } from 'react-router-dom';
 import style from "./Header.module.css";
 import logo from "../../img/logo.svg";
-import Button from "../button/Button";
 
 export default function Header() {
+    const navigate = useNavigate();
+
+    const handleLoginClick = () => {
+        navigate('/login');
+    };
+
     return (
         <header className={style.header}>
             <nav className={style.containerList}>
-                <a href="#" className={style.a}>Питомцы</a>
-                <a href="#" className={style.a}>Новости</a>
-                <a href="#" className={style.a}><img src={logo} alt="logo" className={style.logo} /></a>
-                <a href="#" className={style.a}>Полезное</a>
-                <a href="#" className={style.a}>Помощь</a>
+                <Link to="/catalog" className={style.a}>Питомцы</Link>
+                <Link to="/news" className={style.a}>Новости</Link>
+                <Link to="/" className={style.a}><img src={logo} alt="logo" className={style.logo} /></Link>
+                <Link to="/useful" className={style.a}>Полезное</Link>
+                <Link to="/help" className={style.a}>Помощь</Link>
             </nav>
-
-            {/* <Button text={"Войти"} styleProps={style.button} /> */}
-            <button className={style.button}>Войти</button>
+            <button className={style.button} onClick={handleLoginClick}>Войти</button>
         </header>
     );
 }

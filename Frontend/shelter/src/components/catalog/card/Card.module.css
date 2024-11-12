@@ -68,8 +68,6 @@
     padding: 0;
 }
 
-
-
 .buttonMore {
     border: none;
     background-color: #BABCE2;
@@ -78,6 +76,8 @@
     font-size: 1.05vw;
     font-family: 'Nunito', sans-serif;
     cursor: pointer;
+    text-decoration: none;
+    color: #000;
 }
 
 .buttonFavorite {

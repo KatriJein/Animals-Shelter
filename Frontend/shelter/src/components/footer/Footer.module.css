@@ -1,0 +1,62 @@
+.mainContainer {
+    width: 100%;
+    height: 20vw;
+    background-color: #374375;
+    font-family: 'Geologica', sans-serif;
+    font-size: 1.05vw;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../img/paws_left.png'), url('../../img/paws_right.png'); 
+    background-position: left bottom, right bottom;
+    background-repeat: no-repeat; 
+    background-size: auto 100%;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    gap: 2vw;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.logo {
+    width: 4.2vw;
+    height: 4.2vw; 
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 0.8vw;
+    border-radius: 50%;
+    box-sizing: content-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible; 
+}
+
+.nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0;
+    padding: 0 5vw 1.31vw 5vw;
+    gap: 1.8vw;
+    border-bottom: 1px solid #fff;
+}
+
+.navLink {
+    text-decoration: none;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.copyright {
+    margin: 0;
+    padding: 0;
+    color: rgba(255, 255, 255, 0.6);
+    text-align: center;
+}
