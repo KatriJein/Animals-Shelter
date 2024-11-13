@@ -58,6 +58,7 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 			var animals = await _favouriteAnimalService.GetFavouriteAnimalsAsync(_userService, userId, cancellationToken);
 			if (animals.Count == 0) return NoContent();
 			var mappedAnimals = _mapper.Map<List<AnimalFullResponse>>(animals);
+			mappedAnimals.ForEach(ma => ma.IsFavourite = true);
 			return Ok(mappedAnimals);
 		}
 
