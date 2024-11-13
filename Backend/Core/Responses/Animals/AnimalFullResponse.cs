@@ -17,7 +17,9 @@ namespace Core.Responses.Animals
 		public string Name { get; set; }
 		public string Breed { get; set; }
 		public string MainImageSrc { get; set; }
+		public string ShortDescription { get; set; }
 		public string Description { get; set; }
+		public bool IsFavourite { get; set; }
 		public List<string> ImagesSrc { get; set; }
 	}
 }

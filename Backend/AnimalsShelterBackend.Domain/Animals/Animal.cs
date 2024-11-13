@@ -18,6 +18,7 @@ namespace AnimalsShelterBackend.Domain.Animals
 		public string Name { get; set; }
 		public string Breed { get; set; }
 		public string MainImageSource { get; set; }
+		public string ShortDescription { get; set; }
 		public string Description { get; set; }
 		public string ImagesSources { get; set; }
 
