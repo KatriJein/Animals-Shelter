@@ -13,8 +13,12 @@ namespace Core.Constants
 		public static string AnimalsBucketName = "animalspictures";
 		#endregion
 
-		#region
+		#region articles
 		public static string NewsArticlesBucketName = "articlesandnews";
+		#endregion
+
+		#region
+		public static string UsersBucketName = "users";
 		#endregion
 
 		#region miscellaneous
