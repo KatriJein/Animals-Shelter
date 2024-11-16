@@ -25,7 +25,7 @@ namespace Core.Constants
 		public static string FrontendCORS = "FrontendCORS";
 		public static char Separator = '|';
 		public static char UrlSeparator = '/';
-		public static List<string> ArticlesAllowableContentTypes = new() { ".mp4", ".jpeg", ".amv", ".png", ".jpg", ".avi" };
+		public static List<string> ArticlesAllowableContentTypes = new() { ".jpeg", ".png", ".jpg", };
 		#endregion
 
 		#region configSections

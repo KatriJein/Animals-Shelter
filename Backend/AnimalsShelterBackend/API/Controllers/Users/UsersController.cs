@@ -95,17 +95,32 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		}
 
 		/// <summary>
-		/// Обновить личные данные пользователя (кроме пароля)
+		/// Обновить личные данные пользователя (кроме пароля и аватарки)
 		/// </summary>
 		/// <param name="id"></param>
 		/// <param name="updateUserRequest"></param>
 		/// <returns></returns>
 		[HttpPut]
 		[Route("{id}")]
-		[Consumes("multipart/form-data")]
-		public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromForm] UpdateUserRequest updateUserRequest)
+		public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
 		{
 			var response = await _userService.UpdateAsync(id, updateUserRequest);
+			if (!response.IsSuccess) return BadRequest(response);
+			return Ok();
+		}
+
+		/// <summary>
+		/// Обновить картинку профиля пользователя
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="avatarRequest"></param>
+		/// <returns></returns>
+		[HttpPatch]
+		[Route("{id}")]
+		[Consumes("multipart/form-data")]
+		public async Task<IActionResult> UpdateAvatarAsync([FromRoute] Guid id, [FromForm] UpdateUserAvatarRequest avatarRequest)
+		{
+			var response = await _userService.UpdateUserAvatarAsync(id, avatarRequest.Avatar);
 			if (!response.IsSuccess) return BadRequest(response);
 			return Ok();
 		}

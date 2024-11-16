@@ -10,6 +10,7 @@ using Core.Requests.Users;
 using Core.Responses.General;
 using Core.Responses.Users;
 using Core.Utils;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -46,8 +47,8 @@ namespace AnimalsShelterBackend.Services.Users
 			if (user == null) return new UserUpdateResponse() { IsSuccess = false, Message = "Пользователь не существует" };
 			var userUpdateRequest = (UpdateUserRequest)request;
 			var existingUser = (await GetAllAsync(CancellationToken.None))
-				.Where((u => u.Email == userUpdateRequest.Email.ToLower() ||
-				u.Phone == UserUtils.ConvertPhoneInputToEight(userUpdateRequest.Phone) && u.Id != user.Id))
+				.Where(u => (u.Email == userUpdateRequest.Email.ToLower() ||
+				u.Phone == UserUtils.ConvertPhoneInputToEight(userUpdateRequest.Phone)) && u.Id != user.Id)
 				.FirstOrDefault();
 			if (existingUser != null)
 				return new UserUpdateResponse() { IsSuccess = false, Message = "На данную почту или телефон уже зарегистрирован аккаунт" };
@@ -55,14 +56,22 @@ namespace AnimalsShelterBackend.Services.Users
 			user.Surname = userUpdateRequest.Surname;
 			user.Email = userUpdateRequest.Email;
 			user.Phone = UserUtils.ConvertPhoneInputToEight(userUpdateRequest.Phone);
-			if (userUpdateRequest.Avatar != null)
+			return await base.UpdateAsync(id, request);
+		}
+
+		public async Task<UserAvatarUpdateResponse> UpdateUserAvatarAsync(Guid id, IFormFile? avatar)
+		{
+			var user = await GetByGuidAsync(id, CancellationToken.None);
+			if (user == null) return new UserAvatarUpdateResponse() { IsSuccess = false, Message = "Пользователь не существует" };
+			if (avatar != null)
 			{
 				if (user.AvatarSrc != null) await _fileService.DeleteFiles(Const.UsersBucketName, [user.AvatarSrc]);
-				user.AvatarSrc = FilesUtils.GenerateFileSources([userUpdateRequest.Avatar], _hostLink, Const.UsersBucketName)[0];
-				await _fileService.UploadFiles(Const.UsersBucketName, [userUpdateRequest.Avatar], [user.AvatarSrc]);
+				user.AvatarSrc = FilesUtils.GenerateFileSources([avatar], _hostLink, Const.UsersBucketName)[0];
+				await _fileService.UploadFiles(Const.UsersBucketName, [avatar], [user.AvatarSrc]);
 			}
 			else user.AvatarSrc = null;
-			return await base.UpdateAsync(id, request);
+			await SaveChangesAsync();
+			return new UserAvatarUpdateResponse() { IsSuccess = true };
 		}
 
 		public override async Task DeleteAsync(Guid id)
