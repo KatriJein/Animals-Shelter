@@ -8,6 +8,7 @@ using Core.Base;
 using Core.Base.Repositories;
 using Core.Base.Services;
 using Core.Constants;
+using Core.Queries;
 using Core.Requests;
 using Core.Requests.Articles;
 using Core.Responses.Articles;
@@ -98,10 +99,11 @@ namespace AnimalsShelterBackend.Services.Articles
 		private async Task ProcessImagesAndMarkdown(Article article, IFormFile preview, List<IFormFile> files)
 		{
 			var filesToUpload = new List<IFormFile>() { preview };
-			files.ForEach(f =>
-			{
-				if (article.BodyMarkDown.Contains(f.FileName)) filesToUpload.Add(f);
-			});
+			if (files != null)
+				files.ForEach(f =>
+					{
+						if (article.BodyMarkDown.Contains(f.FileName)) filesToUpload.Add(f);
+					});
 			var imagesSources = FilesUtils.GenerateFileSources(filesToUpload, _localStorageHost, Const.NewsArticlesBucketName);
 			article.MainImageSrc = imagesSources[0];
 			for (int i = 1; i < filesToUpload.Count; i++)
@@ -126,6 +128,13 @@ namespace AnimalsShelterBackend.Services.Articles
 				_logger.Error("Ошибка в обработке регулярного выражения ресурсов! Удаление только обложки...");
 				await _fileService.DeleteFiles(Const.NewsArticlesBucketName, resources);
 			}
+		}
+
+		public async Task<List<Article>> GetAllAsync(ArticlesQuery articlesQuery, CancellationToken cancellationToken)
+		{
+			var articles = await GetAllAsync(cancellationToken);
+			if (articlesQuery.Category == null) return articles;
+			return articles.Where(a => a.Category == articlesQuery.Category).ToList();
 		}
 	}
 }

@@ -3,6 +3,7 @@ using AnimalsShelterBackend.Core.Queries;
 using AnimalsShelterBackend.Domain.Articles;
 using AnimalsShelterBackend.Services.Articles;
 using AutoMapper;
+using Core.Queries;
 using Core.Requests.Articles;
 using Core.Responses.Articles;
 using Microsoft.AspNetCore.Http;
@@ -39,12 +40,13 @@ namespace AnimalsShelterBackend.API.Controllers.Articles
 		/// Получить все новости или статьи
 		/// </summary>
 		/// <param name="cancellationToken"></param>
+		/// <param name="articlesQuery"></param>
 		/// <returns></returns>
 		[HttpGet]
 		[Route("all")]
-		public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+		public async Task<IActionResult> GetAllAsync([FromQuery] ArticlesQuery articlesQuery, CancellationToken cancellationToken)
 		{
-			var articles = await _articleService.GetAllAsync(cancellationToken);
+			var articles = await _articleService.GetAllAsync(articlesQuery, cancellationToken);
 			var mappedArticles = _mapper.Map<List<ArticleShortResponse>>(articles);
 			return Ok(mappedArticles);
 		}
