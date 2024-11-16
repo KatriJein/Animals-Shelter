@@ -90,5 +90,12 @@ namespace AnimalsShelterBackend.Services.Users
 		{
 			await _repository.LoadUserFavouriteAnimalsAsync(user, cancellationToken);
 		}
+
+		public async Task<User?> FindAdminUserAsync()
+		{
+			return (await GetAllAsync(CancellationToken.None))
+				.Where(u => u.IsAdmin)
+				.FirstOrDefault();
+		}
 	}
 }

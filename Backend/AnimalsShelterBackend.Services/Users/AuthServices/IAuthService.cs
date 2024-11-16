@@ -12,7 +12,7 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 {
 	public interface IAuthService
 	{
-		Task<UserRegistrationResponse> RegisterAsync(UserRegisterRequest userRegisterRequest);
+		Task<UserRegistrationResponse> RegisterAsync(UserRegisterRequest userRegisterRequest, bool createAdmin=false);
 		Task<UserAuthenthicationResponse> AuthenthicateAsync(UserLoginRequest userLoginRequest, IMapper mapper, CancellationToken cancellationToken);
 	}
 }

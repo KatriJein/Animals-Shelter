@@ -19,7 +19,7 @@ namespace Core.Utils
 		public static string ConvertPhoneToPlusSeven(long phone)
 		{
 			var phoneString = phone.ToString();
-			if (phoneString.Length == 0) return string.Empty;
+			if (phoneString.Length < 2) return string.Empty;
 			return "+7" + phoneString[1..];
 		}
 

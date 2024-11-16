@@ -33,7 +33,7 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo };
 		}
 
-		public async Task<UserRegistrationResponse> RegisterAsync(UserRegisterRequest userRegisterRequest)
+		public async Task<UserRegistrationResponse> RegisterAsync(UserRegisterRequest userRegisterRequest, bool createAdmin=false)
 		{
 			var userModel = new User();
 			var existingUser = await _userService.FindUserByLoginAsync(userRegisterRequest.Login, CancellationToken.None);
@@ -41,6 +41,7 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			if (userRegisterRequest.Login.Contains('@')) userModel.Email = userRegisterRequest.Login.ToLower();
 			else userModel.Phone = UserUtils.ConvertPhoneInputToEight(userRegisterRequest.Login);
 			userModel.PasswordHash = UserUtils.HashPassword(userRegisterRequest.Password);
+			if (createAdmin) userModel.IsAdmin = true;
 			await _userService.AddAsync(userModel);
 			return new UserRegistrationResponse() { IsSuccess = true };
 		}
