@@ -1,7 +1,6 @@
 import style from "./MainInfo.module.css";
 import shelter from "../../img/shelter.png";
 import Info from "./Info";
-import Button from "../button/Button";
 import { Link } from "react-router-dom";
 
 export default function MainInfo() {

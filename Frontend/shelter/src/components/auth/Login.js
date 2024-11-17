@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../store/userSlice';
+import { loginSuccess, fetchFavourites } from '../../store/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -50,8 +50,7 @@ export default function Login() {
                     isAdmin: data.userInfo.isAdmin, 
                     userInfo: data.userInfo,  
                 }));
-
-                // Логика после успешного входа, например, перенаправление
+                dispatch(fetchFavourites(data.userInfo.id));
                 navigate('/account');
 
             }

@@ -10,7 +10,7 @@ const Information = [{heading: 'Подходит ли Вам питомец из
 
 const categories = ['Общее', 'Кормление', 'Дрессировка', 'Уход', 'Здоровье', 'Поведение'];
 
-export default function UsefulPage() {
+export default function Useful() {
     const [selected, setSelected] = useState('Общее');
 
     return (

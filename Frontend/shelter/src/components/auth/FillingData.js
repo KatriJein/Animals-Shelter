@@ -68,7 +68,7 @@ export default function FillingData() {
                 <form className={style.form} onSubmit={handleSubmit}>
                     <div>
                         <h1 className={style.h1}>Регистрация</h1>
-                        <p className={style.welcome}>Добро пожаловать! Пожалуйста, введите свои данные для создания аккаунта.</p>
+                        <p className={style.welcome}>Пожалуйста, введите свои данные для создания аккаунта.</p>
                     </div>
                     <div className={style.containerInput}>
                         <label htmlFor="name">Имя</label>

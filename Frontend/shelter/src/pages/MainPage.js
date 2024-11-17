@@ -7,10 +7,10 @@ import Account from "../components/account/Account";
 
 export default function MainPage() {
     return (<>
-    <Account />
+    {/* <Account /> */}
     {/* <News /> */}
-        {/* <MainInfo />
-        <Contacts /> */}
+        <MainInfo />
+        <Contacts />
     </>
     );
 }

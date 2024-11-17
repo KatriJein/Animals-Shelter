@@ -14,6 +14,7 @@ import store from './store/store';
 import ScrollToTop from './utils/ScrollToTop';
 import AccountPage from './pages/AccountPage';
 import FillingData from './components/auth/FillingData';
+import UsefulPage from './pages/UsefulPage';
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="/fillingData" element={<FillingData />} />
+            <Route path="/useful" element={<UsefulPage />} />
           </Routes>
         </Layout>
       </Router>
@@ -48,7 +50,7 @@ function App() {
 
 function Layout({ children }) {
   const location = useLocation();
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/fillingData';
 
   return (
     <div className={style.app}>

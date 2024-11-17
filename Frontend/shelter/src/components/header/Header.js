@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux';
 export default function Header() {
     const navigate = useNavigate();
     const user = useSelector(state => state.user);
-    console.log(user);
 
     const handleLoginClick = () => {
         if (!user.isAuthenticated) {
