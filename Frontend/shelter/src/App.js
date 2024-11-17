@@ -12,6 +12,7 @@ import Footer from './components/footer/Footer';
 import style from "./App.module.css";
 import store from './store/store';
 import ScrollToTop from './utils/ScrollToTop';
+import AccountPage from './pages/AccountPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -35,6 +36,7 @@ function App() {
             <Route path="/animal/:id" element={<AnimalPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/account" element={<AccountPage />} />
           </Routes>
         </Layout>
       </Router>

@@ -1,0 +1,122 @@
+.mainContainer {
+    width: 76vw;
+    display: flex;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 3.15vw 1.05vw;
+    flex-direction: column;
+    gap: 2.63vw;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.25vw;
+    color: #000;
+}
+
+.containerInfo {
+    width: 100%;
+    background-color: #F2F2F2;
+    border-radius: 1.58vw;
+    display: flex;
+    flex-direction: row;
+    padding: 1.58vw 3.15vw;
+    justify-content: space-between;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 4.2vw;
+    align-items: center;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    align-items: center;
+}
+
+.info {
+    display: flex;
+    flex-direction: row;
+    gap: 2.1vw;
+}
+
+.button {
+    border: none;
+    background-color: #E5DEDE;
+    padding: 0.42vw 0.84vw;
+    border-radius: 0.95vw;
+    align-self: flex-end;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05vw;
+}
+
+.change {
+    cursor: pointer;
+    text-decoration: none;
+    color: #000;
+}
+
+.h1 {
+    margin: 0;
+    padding: 0;
+}
+
+/* Favorite */
+
+.containerFavorite {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    margin: 0;
+    padding: 0;
+}
+
+.containerPets {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1.05vw;
+    margin: 0;
+    padding: 0;
+}
+
+.h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.pet {
+    width: 8.43vw;
+    height: 8.9;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5vw;
+    align-items: center;
+    border-radius: 1.31vw;
+    overflow: hidden;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 0.5vw;
+    border: 0.05vw solid #BABABA;
+    text-decoration: none;
+    /* transition: transform 0.3s ease; */
+}
+
+.pet img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.pet p {
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    color: #000;
+}

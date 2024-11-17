@@ -1,12 +1,19 @@
 import { Link, useNavigate } from 'react-router-dom';
 import style from "./Header.module.css";
 import logo from "../../img/logo.svg";
+import { useSelector } from 'react-redux';
 
 export default function Header() {
     const navigate = useNavigate();
+    const user = useSelector(state => state.user);
+    console.log(user);
 
     const handleLoginClick = () => {
-        navigate('/login');
+        if (!user.isAuthenticated) {
+            navigate('/login');
+        } else {
+            navigate('/account');
+        }
     };
 
     return (

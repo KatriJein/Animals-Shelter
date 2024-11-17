@@ -2,7 +2,7 @@ import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 
 export default function Registration() {
     const [login, setLogin] = useState('');
@@ -56,6 +56,7 @@ export default function Registration() {
                 }));
 
                 // Логика после успешной регистрации, например, перенаправление
+                navigate('/account');
             }
         } catch (error) {
             setErrors({ ...errors, passwordRepeat: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
