@@ -9,5 +9,6 @@ namespace Core.Responses.Users.Auth
 {
 	public class UserRegistrationResponse : BaseResponse
 	{
+		public Guid UserId { get; set; }
 	}
 }
