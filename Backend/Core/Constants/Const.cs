@@ -39,6 +39,7 @@ namespace Core.Constants
 
 		#region regexes
 		public static Regex GetUrlsFromArticleRegex = new Regex(@"<(img|video|audio).+?src=\\{0,}""([^\""]+?)\\{0,}"".*?>");
+		public static Regex PhoneRegex = new Regex(@"^(\+7|8)\d{10}$");
 		#endregion
 	}
 }

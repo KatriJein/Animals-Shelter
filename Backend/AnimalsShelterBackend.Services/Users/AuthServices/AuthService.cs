@@ -39,7 +39,12 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			var existingUser = await _userService.FindUserByLoginAsync(userRegisterRequest.Login, CancellationToken.None);
 			if (existingUser != null) return new UserRegistrationResponse() { IsSuccess = false, Message = "Пользователь с таким логином уже существует" };
 			if (userRegisterRequest.Login.Contains('@')) userModel.Email = userRegisterRequest.Login.ToLower();
-			else userModel.Phone = UserUtils.ConvertPhoneInputToEight(userRegisterRequest.Login);
+			else
+			{
+				var converted = UserUtils.TryConvertPhoneInputToEight(userRegisterRequest.Login, out long phone);
+				if (!converted) return new UserRegistrationResponse() { IsSuccess = false, Message = "Требуется почта или телефон в качестве логина" };
+				userModel.Phone = phone;
+			}
 			userModel.PasswordHash = UserUtils.HashPassword(userRegisterRequest.Password);
 			if (createAdmin) userModel.IsAdmin = true;
 			await _userService.AddAsync(userModel);
