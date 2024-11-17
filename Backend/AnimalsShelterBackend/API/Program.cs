@@ -5,6 +5,7 @@ using AnimalsShelterBackend.Infrastructure.Configurations;
 using AnimalsShelterBackend.Infrastructure.Startups.Articles;
 using AnimalsShelterBackend.Infrastructure.Startups.Users;
 using AnimalsShelterBackend.Masstransit;
+using AnimalsShelterBackend.Services.Users.Seeds;
 using AnimalsShelterBackend.Startups;
 using AnimalsShelterBackend.Startups.Animals;
 using AnimalsShelterBackend.Startups.Images;
@@ -67,4 +68,11 @@ app.UseCors(Const.FrontendCORS);
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+	var seedService = scope.ServiceProvider.GetRequiredService<ISeedService>();
+	await seedService.CreateAdminUser();
+}
+
 app.Run();

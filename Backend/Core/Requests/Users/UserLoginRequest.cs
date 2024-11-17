@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace Core.Requests.Users
 {
-	public record CreateUserRequest(string Name, string Surname);
+	public record UserLoginRequest(string Login, string Password);
 }

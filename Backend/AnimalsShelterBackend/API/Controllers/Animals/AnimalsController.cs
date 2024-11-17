@@ -1,9 +1,11 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Services.Animals;
 using AnimalsShelterBackend.Services.Images;
+using AnimalsShelterBackend.Services.Users;
 using AutoMapper;
 using Core.Base.Services;
 using Core.Constants;
+using Core.Queries;
 using Core.Requests.Animals;
 using Core.Responses.Animals;
 using Microsoft.AspNetCore.Http;
@@ -16,11 +18,13 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
     public class AnimalsController : ControllerBase
     {
         private readonly IAnimalsService _animalsService;
+        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public AnimalsController(IAnimalsService animalsService, IMapper mapper)
+        public AnimalsController(IAnimalsService animalsService, IUserService userService, IMapper mapper)
         {
             _animalsService = animalsService;
+            _userService = userService;
             _mapper = mapper;
         }
 
@@ -30,10 +34,16 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken)
+        public async Task<IActionResult> GetAllAsync([FromQuery] AnimalsQuery animalsQuery, CancellationToken cancellationToken)
         {
-            var animals = await _animalsService.GetAllAsync(cancellationToken);
-            var response = _mapper.Map<List<AnimalFullResponse>>(animals);
+			var user = await _userService.GetByGuidAsync(animalsQuery.UserId, cancellationToken);
+			if (animalsQuery.UserId == Guid.Empty || user == null)
+            {
+				var animals = await _animalsService.GetAllAsync(cancellationToken);
+                return Ok(_mapper.Map<List<AnimalFullResponse>>(animals));
+			}
+            await _userService.LoadUserFavouriteAnimalsAsync(user, cancellationToken);
+            var response = await _animalsService.GetAllWithIsFavouriteMarkAsync(user.FavouriteAnimals, _mapper, cancellationToken);
             return Ok(response);
         }
 

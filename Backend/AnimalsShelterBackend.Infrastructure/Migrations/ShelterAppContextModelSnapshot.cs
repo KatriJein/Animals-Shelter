@@ -22,6 +22,21 @@ namespace AnimalsShelterBackend.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("AnimalUser", b =>
+                {
+                    b.Property<Guid>("FavouriteAnimalsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("FavouritedByUsersId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("FavouriteAnimalsId", "FavouritedByUsersId");
+
+                    b.HasIndex("FavouritedByUsersId");
+
+                    b.ToTable("AnimalUser");
+                });
+
             modelBuilder.Entity("AnimalsShelterBackend.Domain.Animals.Animal", b =>
                 {
                     b.Property<Guid>("Id")
@@ -67,6 +82,10 @@ namespace AnimalsShelterBackend.Migrations
                     b.Property<int>("Sex")
                         .HasColumnType("integer");
 
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("Size")
                         .HasColumnType("integer");
 
@@ -92,6 +111,9 @@ namespace AnimalsShelterBackend.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Category")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
@@ -105,6 +127,9 @@ namespace AnimalsShelterBackend.Migrations
                     b.Property<string>("MainImageSrc")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Tag")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -127,17 +152,46 @@ namespace AnimalsShelterBackend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("AvatarSrc")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<long>("Phone")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Surname")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("AnimalUser", b =>
+                {
+                    b.HasOne("AnimalsShelterBackend.Domain.Animals.Animal", null)
+                        .WithMany()
+                        .HasForeignKey("FavouriteAnimalsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", null)
+                        .WithMany()
+                        .HasForeignKey("FavouritedByUsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AnimalsShelterBackend.Domain.Articles.Article", b =>

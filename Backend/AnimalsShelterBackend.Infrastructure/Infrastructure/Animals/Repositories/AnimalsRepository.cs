@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AnimalsShelterBackend.Infrastructure.Animals.Repositories
 {
-	public class AnimalsRepository : BaseRepository<Animal>
+	public class AnimalsRepository : BaseRepository<Animal>, IAnimalsRepository
 	{
 		private readonly ShelterAppContext _shelterAppContext;
 
@@ -22,6 +22,11 @@ namespace AnimalsShelterBackend.Infrastructure.Animals.Repositories
 		public override IQueryable<Animal> GetAll()
 		{
 			return _shelterAppContext.Animals;
+		}
+
+		public async Task LoadUsersForAnimalAsync(Animal animal)
+		{
+			await _shelterAppContext.Entry(animal).Collection(a => a.FavouritedByUsers).LoadAsync();
 		}
 	}
 }

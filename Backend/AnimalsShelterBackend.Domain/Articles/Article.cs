@@ -1,5 +1,6 @@
 ﻿
 using AnimalsShelterBackend.Domain.ShelterUser;
+using Core.Enums.Articles;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,6 +15,8 @@ namespace AnimalsShelterBackend.Domain.Articles
 	{
 		public Guid Id { get; set; }
 		public string Title { get; set; }
+		public Tag Tag { get; set; }
+		public Category Category { get; set; }
 		public string Description { get; set; }
 		public string BodyMarkDown { get; set; }
 		public string MainImageSrc { get; set; }
