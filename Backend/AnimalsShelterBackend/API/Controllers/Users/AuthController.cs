@@ -1,6 +1,8 @@
-﻿using AnimalsShelterBackend.Services.Users.AuthServices;
+﻿using AnimalsShelterBackend.Services.Users;
+using AnimalsShelterBackend.Services.Users.AuthServices;
 using AutoMapper;
 using Core.Requests.Users;
+using Core.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +13,13 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthService _authService;
+		private readonly IUserService _userService;
 		private readonly IMapper _mapper;
 
-		public AuthController(IAuthService authService, IMapper mapper)
+		public AuthController(IAuthService authService, IUserService userService, IMapper mapper)
 		{
 			_authService = authService;
+			_userService = userService;
 			_mapper = mapper;
 		}
 
@@ -45,10 +49,26 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		{
 			var response = await _authService.RegisterAsync(userRegisterRequest);
 			if (!response.IsSuccess) return BadRequest(response);
-			var auth = await _authService.AuthenthicateAsync(new UserLoginRequest(userRegisterRequest.Login, userRegisterRequest.Password), _mapper,
-				CancellationToken.None);
-			if (!auth.IsSuccess) return StatusCode(501, auth.Message);
-			return Ok(auth);
+			return Ok(response);
+		}
+
+		/// <summary>
+		/// Завершить регистрацию пользователя, указав дополнительные данные
+		/// </summary>
+		/// <param name="updateUserRequest"></param>
+		/// <param name="id"></param>
+		/// <returns></returns>
+		[HttpPost]
+		[Route("{id}/finish")]
+		public async Task<IActionResult> FinishRegistrationAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
+		{
+			var response = await _authService.FinishRegistrationAsync(id, updateUserRequest);
+			if (!response.IsSuccess) return BadRequest(response);
+			var user = await _userService.GetByGuidAsync(id, CancellationToken.None);
+			var loginRequest = new UserLoginRequest(user.Email ?? UserUtils.ConvertPhoneToPlusSeven(user.Phone), "");
+			var authResponse = await _authService.AuthenthicateAsync(loginRequest, _mapper, CancellationToken.None, isAutoAuthenthicate:true);
+			if (!authResponse.IsSuccess) return StatusCode(501);
+			return Ok(authResponse);
 		}
 	}
 }

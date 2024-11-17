@@ -1,6 +1,7 @@
 ﻿using AnimalsShelterBackend.Domain.ShelterUser;
 using AutoMapper;
 using Core.Requests.Users;
+using Core.Responses.General;
 using Core.Responses.Users;
 using Core.Responses.Users.Auth;
 using Core.Utils;
@@ -23,14 +24,20 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 
 
 		public async Task<UserAuthenthicationResponse> AuthenthicateAsync(UserLoginRequest userLoginRequest, IMapper mapper,
-			CancellationToken cancellationToken)
+			CancellationToken cancellationToken, bool isAutoAuthenthicate=false)
 		{
 			var user = await _userService.FindUserByLoginAsync(userLoginRequest.Login, cancellationToken);
 			if (user == null) return new UserAuthenthicationResponse { IsSuccess = false, Message = "Пользователя с указанным логином не существует" };
-			if (!UserUtils.ArePasswordsEqual(userLoginRequest.Password, user.PasswordHash))
+			if (!UserUtils.ArePasswordsEqual(userLoginRequest.Password, user.PasswordHash) && !isAutoAuthenthicate)
 				return new UserAuthenthicationResponse() { IsSuccess = false, Message = "Неверный пароль" };
 			var userInfo = mapper.Map<UserResponse>(user);
 			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo };
+		}
+
+		public async Task<BaseResponse> FinishRegistrationAsync(Guid id, UpdateUserRequest updateUserRequest)
+		{
+			var response = await _userService.UpdateAsync(id, updateUserRequest);
+			return response;
 		}
 
 		public async Task<UserRegistrationResponse> RegisterAsync(UserRegisterRequest userRegisterRequest, bool createAdmin=false)
@@ -47,8 +54,8 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			}
 			userModel.PasswordHash = UserUtils.HashPassword(userRegisterRequest.Password);
 			if (createAdmin) userModel.IsAdmin = true;
-			await _userService.AddAsync(userModel);
-			return new UserRegistrationResponse() { IsSuccess = true };
+			var entityResponse = await _userService.AddAsync(userModel);
+			return new UserRegistrationResponse() { IsSuccess = true, UserId = entityResponse.Id };
 		}
 	}
 }

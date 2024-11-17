@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Core.Requests.Users
 {
-	public record UpdateUserRequest(string Name, string Surname, string Email, string Phone) : IUpdateRequest;
+	public record UpdateUserRequest(string? Name, string? Surname, string? Email, string? Phone) : IUpdateRequest;
 }
