@@ -34,14 +34,14 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         /// <returns></returns>
         [HttpGet]
         [Route("all")]
-        public async Task<IActionResult> GetAllAsync(CancellationToken cancellationToken, [FromQuery] AnimalsQuery animalsQuery)
+        public async Task<IActionResult> GetAllAsync([FromQuery] AnimalsQuery animalsQuery, CancellationToken cancellationToken)
         {
-            if (animalsQuery.UserId == Guid.Empty)
+			var user = await _userService.GetByGuidAsync(animalsQuery.UserId, cancellationToken);
+			if (animalsQuery.UserId == Guid.Empty || user == null)
             {
 				var animals = await _animalsService.GetAllAsync(cancellationToken);
                 return Ok(_mapper.Map<List<AnimalFullResponse>>(animals));
 			}
-            var user = await _userService.GetByGuidAsync(animalsQuery.UserId, cancellationToken);
             await _userService.LoadUserFavouriteAnimalsAsync(user, cancellationToken);
             var response = await _animalsService.GetAllWithIsFavouriteMarkAsync(user.FavouriteAnimals, _mapper, cancellationToken);
             return Ok(response);

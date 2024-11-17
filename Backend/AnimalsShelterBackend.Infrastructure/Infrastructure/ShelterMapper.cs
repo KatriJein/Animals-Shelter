@@ -47,8 +47,8 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 
 		private void MapUsers()
 		{
-			CreateMap<User, UserResponse>();
-			CreateMap<CreateUserRequest, User>();
+			CreateMap<User, UserResponse>()
+				.ForMember(ur => ur.Phone, mOpt => mOpt.MapFrom(u => UserUtils.ConvertPhoneToPlusSeven(u.Phone)));
 		}
 
 		private void MapArticles()

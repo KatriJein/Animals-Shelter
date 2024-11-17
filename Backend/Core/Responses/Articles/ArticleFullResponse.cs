@@ -1,4 +1,5 @@
-﻿using Core.Responses.Users.Author;
+﻿using Core.Enums.Articles;
+using Core.Responses.Users.Author;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,6 +13,7 @@ namespace Core.Responses.Articles
 	{
 		public Guid Id { get; set; }
 		public string Title { get; set; }
+		public Tag Tag { get; set; }
 		public string Description { get; set; }
 		public string BodyMarkDown { get; set; }
 		public string MainImageSrc { get; set; }

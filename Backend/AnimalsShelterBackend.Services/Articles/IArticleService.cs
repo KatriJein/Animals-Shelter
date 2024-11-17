@@ -2,6 +2,7 @@
 using AnimalsShelterBackend.Domain.Articles;
 using Core.Base;
 using Core.Base.Services;
+using Core.Queries;
 using Core.Responses.Articles;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -14,6 +15,7 @@ namespace AnimalsShelterBackend.Services.Articles
 {
 	public interface IArticleService : IService<Article>
 	{
+		Task<List<Article>> GetAllAsync(ArticlesQuery articlesQuery, CancellationToken cancellationToken);
 		ArticlesFilesResponse GetFiles(ArticlesFilesQuery filesQuery);
 		Task<CreateArticleResponse> AddAsync(Article article, IFormFile preview, List<IFormFile> files);
 	}

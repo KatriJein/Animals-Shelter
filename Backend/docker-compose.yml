@@ -62,6 +62,8 @@ services:
       /usr/bin/mc anonymous set public myminio/animalspictures;
       /usr/bin/mc mb --ignore-existing myminio/articlesandnews;
       /usr/bin/mc anonymous set public myminio/articlesandnews;
+      /usr/bin/mc mb --ignore-existing myminio/users;
+      /usr/bin/mc anonymous set public myminio/users;
       exit 0;
       "
     

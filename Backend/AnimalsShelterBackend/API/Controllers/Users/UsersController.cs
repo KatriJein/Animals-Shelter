@@ -46,6 +46,22 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		}
 
 		/// <summary>
+		/// Получить пользователя по Guid
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("{id}")]
+		public async Task<IActionResult> GetByGuidAsync([FromRoute] Guid id, CancellationToken cancellationToken)
+		{
+			var user = await _userService.GetByGuidAsync(id, cancellationToken);
+			if (user == null) return NoContent();
+			var mappedUser = _mapper.Map<UserResponse>(user);
+			return Ok(mappedUser);
+		}
+
+		/// <summary>
 		/// Получить список избранных животных пользователя
 		/// </summary>
 		/// <param name="userId"></param>
@@ -79,17 +95,34 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		}
 
 		/// <summary>
-		/// Создание нового пользователя
+		/// Обновить личные данные пользователя (кроме пароля и аватарки)
 		/// </summary>
-		/// <param name="createUserRequest"></param>
+		/// <param name="id"></param>
+		/// <param name="updateUserRequest"></param>
 		/// <returns></returns>
-		[HttpPost]
-		[Route("")]
-		public async Task<IActionResult> CreateAsync([FromBody] CreateUserRequest createUserRequest)
+		[HttpPut]
+		[Route("{id}")]
+		public async Task<IActionResult> UpdateAsync([FromRoute] Guid id, [FromBody] UpdateUserRequest updateUserRequest)
 		{
-			var userModel = _mapper.Map<User>(createUserRequest);
-			var res = await _userService.AddAsync(userModel);
-			return Ok(res);
+			var response = await _userService.UpdateAsync(id, updateUserRequest);
+			if (!response.IsSuccess) return BadRequest(response);
+			return Ok();
+		}
+
+		/// <summary>
+		/// Обновить картинку профиля пользователя
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="avatarRequest"></param>
+		/// <returns></returns>
+		[HttpPatch]
+		[Route("{id}")]
+		[Consumes("multipart/form-data")]
+		public async Task<IActionResult> UpdateAvatarAsync([FromRoute] Guid id, [FromForm] UpdateUserAvatarRequest avatarRequest)
+		{
+			var response = await _userService.UpdateUserAvatarAsync(id, avatarRequest.Avatar);
+			if (!response.IsSuccess) return BadRequest(response);
+			return Ok();
 		}
 
 		/// <summary>
