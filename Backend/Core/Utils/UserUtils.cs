@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Constants;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,24 @@ namespace Core.Utils
 {
 	public static class UserUtils
 	{
-		public static long ConvertPhoneInputToEight(string login)
+		public static bool TryConvertPhoneInputToEight(string login, out long phone)
 		{
+			var phoneMatch = Const.PhoneRegex.Match(login);
+			if (!phoneMatch.Success)
+			{
+				phone = 1;
+				return false;
+			}
 			login = login.Replace("+7", "8");
-			var isCorrectPhone = long.TryParse(login, out long phone);
-			if (!isCorrectPhone) return 1;
-			return phone;
+			phone = long.Parse(login);
+			return true;
+		}
+
+		public static bool CheckPhone(string login, long userPhone)
+		{
+			var converted = TryConvertPhoneInputToEight(login, out long phone);
+			if (!converted) return false;
+			return userPhone == phone;
 		}
 
 		public static string ConvertPhoneToPlusSeven(long phone)
