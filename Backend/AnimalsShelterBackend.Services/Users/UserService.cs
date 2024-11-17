@@ -12,6 +12,7 @@ using Core.Responses.Users;
 using Core.Utils;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,7 +37,7 @@ namespace AnimalsShelterBackend.Services.Users
 		public async Task<User?> FindUserByLoginAsync(string login, CancellationToken cancellationToken)
 		{
 			var user = (await GetAllAsync(cancellationToken))
-				.Where(u => u.Email == login.ToLower() || u.Phone == UserUtils.ConvertPhoneInputToEight(login))
+				.Where(u => u.Email == login.ToLower() || UserUtils.CheckPhone(login, u.Phone))
 				.FirstOrDefault();
 			return user;
 		}
@@ -48,14 +49,15 @@ namespace AnimalsShelterBackend.Services.Users
 			var userUpdateRequest = (UpdateUserRequest)request;
 			var existingUser = (await GetAllAsync(CancellationToken.None))
 				.Where(u => (u.Email == userUpdateRequest.Email.ToLower() ||
-				u.Phone == UserUtils.ConvertPhoneInputToEight(userUpdateRequest.Phone)) && u.Id != user.Id)
+				 UserUtils.CheckPhone(userUpdateRequest.Phone, u.Phone)) && u.Id != user.Id)
 				.FirstOrDefault();
 			if (existingUser != null)
 				return new UserUpdateResponse() { IsSuccess = false, Message = "На данную почту или телефон уже зарегистрирован аккаунт" };
 			user.Name = userUpdateRequest.Name;
 			user.Surname = userUpdateRequest.Surname;
 			user.Email = userUpdateRequest.Email;
-			user.Phone = UserUtils.ConvertPhoneInputToEight(userUpdateRequest.Phone);
+			UserUtils.TryConvertPhoneInputToEight(userUpdateRequest.Phone, out long phone);
+			user.Phone = phone;
 			return await base.UpdateAsync(id, request);
 		}
 
