@@ -9,7 +9,8 @@ export default function Registration() {
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [errors, setErrors] = useState({ login: '', password: '', passwordRepeat: '' });
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
+    const navigate = useNavigate(); 
 
     const validateForm = () => {
         const newErrors = {};
@@ -36,7 +37,7 @@ export default function Registration() {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('https://example.com/api/register', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,19 +47,21 @@ export default function Registration() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                setErrors({ ...errors, passwordRepeat: errorData.message || 'Ошибка сервера' });
+                console.log(errorData, 'error');
+                setErrors({ passwordRepeat: errorData.message || 'Ошибка сервера' });
             } else {
                 const data = await response.json();
 
                 dispatch(loginSuccess({
-                    isAdmin: data.isAdmin, 
+                    isAdmin: data.userInfo.isAdmin, 
                     userInfo: data.userInfo,  
                 }));
 
                 // Логика после успешной регистрации, например, перенаправление
-                navigate('/account');
+                navigate('/fillingData');
             }
         } catch (error) {
+            console.log(error, 'errpr');
             setErrors({ ...errors, passwordRepeat: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
         }
     };

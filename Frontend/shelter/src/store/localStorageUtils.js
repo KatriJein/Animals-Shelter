@@ -16,3 +16,7 @@ export const loadStateFromLocalStorage = () => {
         return undefined;
     }
 };
+
+export const clearStateFromLocalStorage = () => {
+    localStorage.removeItem('userState');
+};

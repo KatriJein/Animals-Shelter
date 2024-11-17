@@ -2,13 +2,14 @@ import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({ login: '', password: '' });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const validateForm = () => {
         const newErrors = {};
@@ -30,13 +31,14 @@ export default function Login() {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('https://example.com/api/login', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ login: login.trim(), password: password.trim() }),
             });
+            console.log(response);
 
             if (!response.ok) {
                 const errorData = await response.json();
@@ -45,13 +47,16 @@ export default function Login() {
                 const data = await response.json();
 
                 dispatch(loginSuccess({
-                    isAdmin: data.isAdmin, 
+                    isAdmin: data.userInfo.isAdmin, 
                     userInfo: data.userInfo,  
                 }));
 
                 // Логика после успешного входа, например, перенаправление
+                navigate('/account');
+
             }
         } catch (error) {
+            console.log(error);
             setErrors({ ...errors, password: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
         }
     };

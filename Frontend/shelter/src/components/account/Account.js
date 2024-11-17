@@ -2,8 +2,21 @@ import style from './Account.module.css';
 import Favorite from './Favorite';
 import { useSelector } from 'react-redux';
 import ava from '../../img/base_avatar.png';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/userSlice';
 
 export default function Account() {
+    const dispatch = useDispatch();
+    const user = useSelector((state) => state.user.userInfo);
+    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+
+    const logoutAcc = () => {
+        dispatch(logout());
+    }
+
+    if (!isAuthenticated) {
+        return
+    }
 
     const animals = useSelector((state) => state.animals.animals);
     return (
@@ -23,10 +36,10 @@ export default function Account() {
                             <p>Почта</p>
                         </div>
                         <div className={style.infoName}>
-                            <p>Иван</p>
-                            <p>Иванов</p>
-                            <p>+7 (123) 456-78-90</p>
-                            <p>Ivan@mail.ru</p>
+                            <p>{user.name}</p>
+                            <p>{user.surname}</p>
+                            <p>{user.phone}</p>
+                            <p></p>
                         </div>
                     </div>
 
@@ -34,7 +47,8 @@ export default function Account() {
                 <button className={style.button}>Редактировать</button>
 
             </div>
-            <Favorite pets={animals}/>
+            <Favorite pets={animals} />
+            <button onClick={logoutAcc}>Выйти</button>
         </div>
     )
 }

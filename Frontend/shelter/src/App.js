@@ -13,11 +13,12 @@ import style from "./App.module.css";
 import store from './store/store';
 import ScrollToTop from './utils/ScrollToTop';
 import AccountPage from './pages/AccountPage';
+import FillingData from './components/auth/FillingData';
+
 
 function App() {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.animals.status);
-  // const animals = useSelector((state) => state.animals.animals);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -37,6 +38,7 @@ function App() {
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegistrationPage />} />
             <Route path="/account" element={<AccountPage />} />
+            <Route path="/fillingData" element={<FillingData />} />
           </Routes>
         </Layout>
       </Router>
