@@ -53,7 +53,7 @@ namespace AnimalsShelterBackend.Services.Users.FavouriteAnimalServices
 			var animal = await _animalService.GetByGuidAsync(animalId, CancellationToken.None);
 			if (animal == null) return new RemoveFromFavouriteAnimalsResponse() { IsSuccess = false, Message = "Несуществующее животное" };
 			await _animalService.LoadUsersForAnimalAsync(animal);
-			var isInFavourites = animal.FavouritedByUsers.Any(u => u.Id != userId);
+			var isInFavourites = animal.FavouritedByUsers.Any(u => u.Id == userId);
 			if (!isInFavourites) return new RemoveFromFavouriteAnimalsResponse() { IsSuccess = false, Message = "Животное уже не находится в избранном у пользователя" };
 			animal.FavouritedByUsers.Remove(user);
 			await _animalService.SaveChangesAsync();
