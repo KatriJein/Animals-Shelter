@@ -10,15 +10,15 @@ import { useDispatch } from "react-redux";
 export default function MainPage() {
     const dispatch = useDispatch();
 
-    const logoutAcc = () => {
-        dispatch(logout());
-    }
+    // const logoutAcc = () => {
+    //     dispatch(logout());
+    // }
     return (<>
     {/* <Account /> */}
     {/* <News /> */}
         <MainInfo />
         <Contacts />
-        <button onClick={logoutAcc}>Выйти</button>
+        {/* <button onClick={logoutAcc}>Выйти</button> */}
     </>
     );
 }

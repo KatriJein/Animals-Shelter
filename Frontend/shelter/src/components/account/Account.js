@@ -19,7 +19,6 @@ export default function Account() {
     }
 
     const favouritesPets = useSelector((state) => state.user.favourites);
-    console.log(user)
 
     return (
         <div className={style.mainContainer}>
@@ -50,7 +49,7 @@ export default function Account() {
 
             </div>
             <Favorite pets={favouritesPets} />
-            <button onClick={logoutAcc}>Выйти</button>
+            {/* <button onClick={logoutAcc}>Выйти</button> */}
         </div>
     )
 }

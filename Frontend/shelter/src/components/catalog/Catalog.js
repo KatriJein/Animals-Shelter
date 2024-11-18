@@ -28,7 +28,6 @@ export default function Catalog() {
     const loadingFavourites = useSelector((state) => state.user.loadingFavourites);
     const statusAnimals = useSelector((state) => state.animals.status);
     const user = useSelector((state) => state.user);
-    console.log(user)
 
     useEffect(() => {
         if (

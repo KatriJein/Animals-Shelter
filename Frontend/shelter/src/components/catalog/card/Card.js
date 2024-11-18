@@ -13,7 +13,6 @@ export default function Card(props) {
     
     const { pet, isAuthenticated, isFavourite } = props;
     const { id, name, breed, age, sex } = pet;
-    console.log(name, isFavourite);
     
     const user = useSelector((state) => state.user);
 
