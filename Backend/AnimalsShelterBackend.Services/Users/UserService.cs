@@ -48,16 +48,20 @@ namespace AnimalsShelterBackend.Services.Users
 			if (user == null) return new UserUpdateResponse() { IsSuccess = false, Message = "Пользователь не существует" };
 			var userUpdateRequest = (UpdateUserRequest)request;
 			var existingUser = (await GetAllAsync(CancellationToken.None))
-				.Where(u => (u.Email == userUpdateRequest.Email.ToLower() ||
-				 UserUtils.CheckPhone(userUpdateRequest.Phone, u.Phone)) && u.Id != user.Id)
+				.Where(u => (userUpdateRequest.Email != null && u.Email == userUpdateRequest.Email.ToLower() ||
+				 userUpdateRequest.Phone != null && UserUtils.CheckPhone(userUpdateRequest.Phone, u.Phone)) && u.Id != user.Id)
 				.FirstOrDefault();
 			if (existingUser != null)
 				return new UserUpdateResponse() { IsSuccess = false, Message = "На данную почту или телефон уже зарегистрирован аккаунт" };
-			user.Name = userUpdateRequest.Name;
-			user.Surname = userUpdateRequest.Surname;
-			user.Email = userUpdateRequest.Email;
-			UserUtils.TryConvertPhoneInputToEight(userUpdateRequest.Phone, out long phone);
-			user.Phone = phone;
+			user.Name = userUpdateRequest.Name ?? user.Name;
+			user.Surname = userUpdateRequest.Surname ?? user.Surname;
+			user.Email = userUpdateRequest.Email ?? user.Email;
+			if (userUpdateRequest.Phone != null)
+			{
+				var converted = UserUtils.TryConvertPhoneInputToEight(userUpdateRequest.Phone, out long phone);
+				if (!converted) return new UserUpdateResponse() { IsSuccess = false, Message = "Некорректный номер телефона" };
+				user.Phone = phone;
+			}
 			return await base.UpdateAsync(id, request);
 		}
 
