@@ -2,7 +2,7 @@ import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/userSlice';
-import { Link, useNavigate} from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Registration() {
     const [login, setLogin] = useState('');
@@ -10,7 +10,7 @@ export default function Registration() {
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [errors, setErrors] = useState({ login: '', password: '', passwordRepeat: '' });
     const dispatch = useDispatch();
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const validateForm = () => {
         const newErrors = {};
@@ -47,22 +47,18 @@ export default function Registration() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                console.log(errorData, 'error');
                 setErrors({ passwordRepeat: errorData.message || 'Ошибка сервера' });
             } else {
                 const data = await response.json();
 
                 dispatch(loginSuccess({
-                    isAdmin: data.userInfo.isAdmin, 
-                    userInfo: data.userInfo,  
+                    id: data.userId
                 }));
 
-                // Логика после успешной регистрации, например, перенаправление
                 navigate('/fillingData');
             }
         } catch (error) {
-            console.log(error, 'errpr');
-            setErrors({ ...errors, passwordRepeat: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
+            setErrors({ passwordRepeat: error.message || 'Ошибка сервера' });
         }
     };
 

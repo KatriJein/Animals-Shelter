@@ -2,8 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import animalsReducer from './animalsSlice';
 import userReducer from './userSlice';
 import { saveStateToLocalStorage, loadStateFromLocalStorage } from './localStorageUtils';
+import { initialStateUser } from './userSlice'; 
 
-const preloadedUserState = loadStateFromLocalStorage();
+const preloadedUserState = {
+    ...initialStateUser, 
+    ...loadStateFromLocalStorage() || {}, 
+};
 
 const store = configureStore({
     reducer: {

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { clearStateFromLocalStorage } from './localStorageUtils';
 
-const initialState = {
+export const initialStateUser = {
+    id: null,
     isAuthenticated: false,
     isAdmin: false,
     userInfo: null,
@@ -28,10 +29,15 @@ export const fetchFavourites = createAsyncThunk(
 
 const userSlice = createSlice({
     name: 'user',
-    initialState,
+    initialStateUser,
     reducers: {
         loginSuccess: (state, action) => {
             state.isAuthenticated = true;
+            state.id = action.payload.id;
+            state.isAdmin = action.payload.isAdmin;
+            state.userInfo = action.payload.userInfo;
+        },
+        loginFinish: (state, action) => {
             state.isAdmin = action.payload.isAdmin;
             state.userInfo = action.payload.userInfo;
         },
@@ -44,6 +50,12 @@ const userSlice = createSlice({
         },
         changes: (state, action) => {
             state.userInfo = { ...state.userInfo, ...action.payload };
+        },
+        addFavouritePet: (state, action) => {
+            state.favourites = [...state.favourites, action.payload];
+        },
+        deleteFavouritePet: (state, action) => {
+            state.favourites = state.favourites.filter((pet) => pet.id !== action.payload);
         },
     },
     extraReducers: (builder) => {
@@ -59,9 +71,11 @@ const userSlice = createSlice({
             .addCase(fetchFavourites.rejected, (state, action) => {
                 state.loadingFavourites = false;
                 state.error = action.payload || 'Ошибка при загрузке избранного';
+            }).addDefaultCase((state, action) => {
+                return state || initialStateUser;
             });
     },
 });
 
-export const { loginSuccess, logout, changes } = userSlice.actions;
+export const { loginSuccess, logout, changes, loginFinish, addFavouritePet, deleteFavouritePet } = userSlice.actions;
 export default userSlice.reducer;

@@ -5,35 +5,49 @@ import favoriteFull from "../../../img/favorite_full.svg";
 import { FilterOptions } from "../../../filterOptions";
 import { getAgeString } from '../../../utils/animalInfo';
 import { useSelector, useDispatch } from 'react-redux';
+import { deleteFavouritePet, addFavouritePet } from '../../../store/userSlice';
 
 export default function Card(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { pet, isAuthenticated } = props;
+    
+    const { pet, isAuthenticated, isFavourite } = props;
     const { id, name, breed, age, sex } = pet;
+    console.log(name, isFavourite);
+    
+    const user = useSelector((state) => state.user);
+
     const sexStr = FilterOptions['sex']['options'][sex].charAt(0).toLowerCase() + FilterOptions['sex']['options'][sex].slice(1);
 
-    async function handleClick() {
+    const handleClick = async () => {
         if (isAuthenticated) {
             try {
-                const user = useSelector((state) => state.user.userInfo);
-                const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${user.id}/favourite/${id}`, {
+                const url = `${process.env.REACT_APP_API_URL}/users/${user.id}/${isFavourite ? 'unfavourite' : 'favourite'}/${id}`;
+                const response = await fetch(url, {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
-                    }
+                    },
                 });
+                
                 if (response.ok) {
-                    
-                } 
+                    if (isFavourite) {
+                        dispatch(deleteFavouritePet(pet.id));
+                        console.log('Pet removed from favourites:', pet.name);
+                    } else {
+                        dispatch(addFavouritePet(pet));
+                        console.log('Pet added to favourites:', pet.name);
+                    }
+                } else {
+                    console.error('Error updating favourites:', await response.text());
+                }
             } catch (error) {
-                console.log(error);
+                console.error('Error during fetch:', error);
             }
-
         } else {
             navigate('/login');
         }
-    }
+    };
 
     return (
         <div className={style.card}>
@@ -48,8 +62,10 @@ export default function Card(props) {
                     <Link to={`/animal/${id}`} className={style.buttonMore}>
                         Подробнее
                     </Link>
-                    <button className={style.buttonFavorite}>
-                        <img src={favorite} alt="избранное" className={style.favorite} />
+                    <button className={style.buttonFavorite} onClick={handleClick}>
+                        {isFavourite 
+                            ? <img src={favoriteFull} alt="избранное" className={style.favorite} /> 
+                            : <img src={favorite} alt="избранное" className={style.favorite} />}
                     </button>
                 </div>
             </div>

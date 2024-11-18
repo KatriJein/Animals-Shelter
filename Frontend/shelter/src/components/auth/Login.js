@@ -38,15 +38,16 @@ export default function Login() {
                 },
                 body: JSON.stringify({ login: login.trim(), password: password.trim() }),
             });
-            console.log(response);
 
             if (!response.ok) {
                 const errorData = await response.json();
-                setErrors({ ...errors, password: errorData.message || 'Ошибка сервера' });
+                setErrors({ password: errorData.message || 'Ошибка сервера' });
             } else {
                 const data = await response.json();
+                console.log(data);
 
                 dispatch(loginSuccess({
+                    id: data.userInfo.id,
                     isAdmin: data.userInfo.isAdmin, 
                     userInfo: data.userInfo,  
                 }));
@@ -55,8 +56,7 @@ export default function Login() {
 
             }
         } catch (error) {
-            console.log(error);
-            setErrors({ ...errors, password: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
+            setErrors({  password: error.message || 'Ошибка сервера' });
         }
     };
 

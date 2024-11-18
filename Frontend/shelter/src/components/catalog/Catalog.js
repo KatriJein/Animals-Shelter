@@ -4,6 +4,7 @@ import Filter from './Filter';
 import Card from './card/Card';
 import { useSelector } from 'react-redux';
 import { isAgeInRange } from '../../utils/filter';
+import { isPetIdInArray } from '../../utils/utils';
 
 const defaultFilters = {
     age: [],
@@ -17,6 +18,8 @@ const defaultFilters = {
     receiptDate: ""
 };
 
+
+
 export default function Catalog() {
     const [filters, setFilters] = useState(defaultFilters);
     const [isLoading, setIsLoading] = useState(true);
@@ -24,6 +27,8 @@ export default function Catalog() {
     const animals = useSelector((state) => state.animals.animals);
     const loadingFavourites = useSelector((state) => state.user.loadingFavourites);
     const statusAnimals = useSelector((state) => state.animals.status);
+    const user = useSelector((state) => state.user);
+    console.log(user)
 
     useEffect(() => {
         if (
@@ -74,7 +79,7 @@ export default function Catalog() {
                 <Filter filters={filters} onFilterChange={handleFilterChange} />
                 <div className={styles.cardsList}>
                     {filteredAnimals.map((pet) => (
-                        <Card key={pet.id} pet={pet} />
+                        <Card key={pet.id} pet={pet} isAuthenticated={user.isAuthenticated} isFavourite={isPetIdInArray(user.favourites, pet.id)}/>
                     ))}
                 </div>
             </div>

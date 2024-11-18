@@ -18,7 +18,9 @@ export default function Account() {
         return
     }
 
-    const animals = useSelector((state) => state.animals.animals);
+    const favouritesPets = useSelector((state) => state.user.favourites);
+    console.log(user)
+
     return (
         <div className={style.mainContainer}>
             <h1 className={style.h1}>Личный кабинет</h1>
@@ -38,8 +40,8 @@ export default function Account() {
                         <div className={style.infoName}>
                             <p>{user.name}</p>
                             <p>{user.surname}</p>
-                            <p>{user.phone}</p>
-                            <p></p>
+                            <p>{user.phone || 'не указан'}</p>
+                            <p>{user.email || 'не указан'}</p>
                         </div>
                     </div>
 
@@ -47,7 +49,7 @@ export default function Account() {
                 <button className={style.button}>Редактировать</button>
 
             </div>
-            <Favorite pets={animals} />
+            <Favorite pets={favouritesPets} />
             <button onClick={logoutAcc}>Выйти</button>
         </div>
     )

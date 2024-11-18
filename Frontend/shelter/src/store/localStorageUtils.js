@@ -10,10 +10,10 @@ export const saveStateToLocalStorage = (state) => {
 export const loadStateFromLocalStorage = () => {
     try {
         const serializedState = localStorage.getItem('userState');
-        return serializedState ? JSON.parse(serializedState) : undefined;
+        return serializedState ? JSON.parse(serializedState) : {};
     } catch (error) {
         console.error('Error loading from localStorage:', error);
-        return undefined;
+        return {};
     }
 };
 
