@@ -23,6 +23,7 @@ namespace AnimalsShelterBackend.Infrastructure.Startups
 						ValidateIssuerSigningKey = true,
 						IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration[Const.JWT])),
 						ValidateLifetime = true,
+						ClockSkew = TimeSpan.Zero,
 						ValidateIssuer = false,
 						ValidateAudience = false
 					};

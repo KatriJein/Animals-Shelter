@@ -1,4 +1,5 @@
 ﻿using AnimalsShelterBackend.Domain.ShelterUser;
+using AnimalsShelterBackend.Services.RefreshTokens;
 using AutoMapper;
 using Core.Requests.Users;
 using Core.Responses.General;
@@ -17,12 +18,12 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 	public class AuthService : IAuthService
 	{
 		private readonly IUserService _userService;
-		private readonly IConfiguration _configuration;
+		private readonly ITokenService _tokenService;
 
-		public AuthService(IUserService userService, IConfiguration configuration)
+		public AuthService(IUserService userService, ITokenService tokenService)
 		{
 			_userService = userService;
-			_configuration = configuration;
+			_tokenService = tokenService;
 		}
 
 
@@ -34,8 +35,8 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			if (!UserUtils.ArePasswordsEqual(userLoginRequest.Password, user.PasswordHash) && !isAutoAuthenthicate)
 				return new UserAuthenthicationResponse() { IsSuccess = false, Message = "Неверный пароль" };
 			var userInfo = mapper.Map<UserResponse>(user);
-			var token = TokenUtils.CreateToken(new UserDataToken() { Id = user.Id, IsAdmin = user.IsAdmin }, DateTime.Now.AddHours(1), _configuration);
-			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo, AccessToken = token };
+			var tokenResponse = await _tokenService.CreateOrUpdateTokensAsync(user);
+			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo, AccessToken = tokenResponse.AccessToken };
 		}
 
 		public async Task<BaseResponse> FinishRegistrationAsync(Guid id, UpdateUserRequest updateUserRequest)

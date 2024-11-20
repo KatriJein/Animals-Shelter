@@ -6,6 +6,7 @@ using AutoMapper;
 using Core.Queries;
 using Core.Requests.Articles;
 using Core.Responses.Articles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

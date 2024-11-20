@@ -12,7 +12,10 @@ namespace AnimalsShelterBackend.Startups
 			{
 				setup.AddPolicy(Const.FrontendCORS, config =>
 				{
-					config.WithOrigins(configuration[Const.FrontendLink]).AllowAnyMethod().AllowAnyHeader();
+					config.WithOrigins(configuration[Const.FrontendLink])
+					.WithExposedHeaders(Const.TokenHeader)
+					.AllowAnyMethod()
+					.AllowAnyHeader();
 				});
 			});
 			return services;

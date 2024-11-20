@@ -23,6 +23,7 @@ namespace Core.Constants
 
 		#region miscellaneous
 		public static string FrontendCORS = "FrontendCORS";
+		public static string TokenHeader = "token";
 		public static char Separator = '|';
 		public static char UrlSeparator = '/';
 		public static List<string> ArticlesAllowableContentTypes = new() { ".jpeg", ".png", ".jpg", };
