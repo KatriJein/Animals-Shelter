@@ -65,11 +65,14 @@ namespace AnimalsShelterBackend.Services.Articles
 			var article = await GetByGuidAsync(id, CancellationToken.None);
 			if (article == null) return new UpdateResponse() { IsSuccess = false, Message = "Попытка обновить несуществующую статью" };
 			if (article.UserId != updateArticleRequest.UserId) return new UpdateResponse() { IsSuccess = false, Message = "Предотвращение изменения авторской статьи извне" };
-			await DeleteExistingResources(article.BodyMarkDown, article.MainImageSrc);
-			article.Title = updateArticleRequest.Title;
-			article.Description = updateArticleRequest.Description;
+			if (article.BodyMarkDown != null)
+				await DeleteExistingResources(article.BodyMarkDown, updateArticleRequest.Preview == null ? "" : article.MainImageSrc);
+			article.Title = updateArticleRequest.Title ?? article.Title;
+			article.Category = updateArticleRequest.Category ?? article.Category;
+			article.Tag = updateArticleRequest.Tag ?? article.Tag;
+			article.Description = updateArticleRequest.Description ?? article.Description;
 			article.LastUpdatedAt = DateTime.UtcNow;
-			article.BodyMarkDown = updateArticleRequest.BodyMarkDown;
+			article.BodyMarkDown = updateArticleRequest.BodyMarkDown ?? article.BodyMarkDown;
 			await ProcessImagesAndMarkdown(article, updateArticleRequest.Preview, updateArticleRequest.Files);
 			await SaveChangesAsync();
 			return new UpdateResponse() { IsSuccess = true };
@@ -96,14 +99,16 @@ namespace AnimalsShelterBackend.Services.Articles
 			return new ArticlesFilesResponse() { IsSuccess = true, Files = filteredFiles.ToList() };
 		}
 
-		private async Task ProcessImagesAndMarkdown(Article article, IFormFile preview, List<IFormFile> files)
+		private async Task ProcessImagesAndMarkdown(Article article, IFormFile? preview, List<IFormFile?>? files)
 		{
-			var filesToUpload = new List<IFormFile>() { preview };
+			var filesToUpload = new List<IFormFile>() { };
+			if (preview != null) filesToUpload.Add(preview);
 			if (files != null)
 				files.ForEach(f =>
 					{
 						if (article.BodyMarkDown.Contains(f.FileName)) filesToUpload.Add(f);
 					});
+			if (filesToUpload.Count == 0) return;
 			var imagesSources = FilesUtils.GenerateFileSources(filesToUpload, _localStorageHost, Const.NewsArticlesBucketName);
 			article.MainImageSrc = imagesSources[0];
 			for (int i = 1; i < filesToUpload.Count; i++)
