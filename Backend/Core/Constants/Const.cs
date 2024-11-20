@@ -32,6 +32,7 @@ namespace Core.Constants
 		public static string FrontendLink = "FrontendLink";
 		public static string MinioLink = "MinioLink";
 		public static string RabbitMQ = "RabbitMQ";
+		public static string JWT = "JWT";
 		#endregion
 
 		#region queues
@@ -41,5 +42,6 @@ namespace Core.Constants
 		public static Regex GetUrlsFromArticleRegex = new Regex(@"<(img|video|audio).+?src=\\{0,}""([^\""]+?)\\{0,}"".*?>");
 		public static Regex PhoneRegex = new Regex(@"^(\+7|8)\d{10}$");
 		#endregion
+
 	}
 }

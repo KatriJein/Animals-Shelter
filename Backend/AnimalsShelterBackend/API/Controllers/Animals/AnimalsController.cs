@@ -8,6 +8,7 @@ using Core.Constants;
 using Core.Queries;
 using Core.Requests.Animals;
 using Core.Responses.Animals;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

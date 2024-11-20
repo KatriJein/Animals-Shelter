@@ -5,6 +5,7 @@ using Core.Responses.General;
 using Core.Responses.Users;
 using Core.Responses.Users.Auth;
 using Core.Utils;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,12 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 	public class AuthService : IAuthService
 	{
 		private readonly IUserService _userService;
+		private readonly IConfiguration _configuration;
 
-		public AuthService(IUserService userService)
+		public AuthService(IUserService userService, IConfiguration configuration)
 		{
 			_userService = userService;
+			_configuration = configuration;
 		}
 
 
@@ -31,7 +34,8 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			if (!UserUtils.ArePasswordsEqual(userLoginRequest.Password, user.PasswordHash) && !isAutoAuthenthicate)
 				return new UserAuthenthicationResponse() { IsSuccess = false, Message = "Неверный пароль" };
 			var userInfo = mapper.Map<UserResponse>(user);
-			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo };
+			var token = TokenUtils.CreateToken(new UserDataToken() { Id = user.Id, IsAdmin = user.IsAdmin }, DateTime.Now.AddHours(1), _configuration);
+			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo, AccessToken = token };
 		}
 
 		public async Task<BaseResponse> FinishRegistrationAsync(Guid id, UpdateUserRequest updateUserRequest)
