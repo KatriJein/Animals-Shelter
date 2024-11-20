@@ -31,8 +31,8 @@ namespace AnimalsShelterBackend.Services.RefreshTokens
 		{
 			await _refreshTokenRepository.RemoveByUserIdAsync(user.Id);
 			var requiredUserData = new UserDataToken() { Id = user.Id, IsAdmin = user.IsAdmin };
-			var accessToken = TokenUtils.CreateToken(requiredUserData, DateTime.UtcNow.AddSeconds(15), _configuration);
-			var refreshTokenExpirationDate = DateTime.UtcNow.AddSeconds(30);
+			var accessToken = TokenUtils.CreateToken(requiredUserData, DateTime.UtcNow.AddMinutes(30), _configuration);
+			var refreshTokenExpirationDate = DateTime.UtcNow.AddMonths(1);
 			var refreshToken = TokenUtils.CreateToken(requiredUserData, refreshTokenExpirationDate, _configuration);
 			var refreshTokenModel = new RefreshToken() { ExpiresAt = refreshTokenExpirationDate, Token = refreshToken };
 			user.RefreshToken = refreshTokenModel;
