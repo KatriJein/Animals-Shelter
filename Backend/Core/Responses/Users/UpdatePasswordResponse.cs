@@ -1,11 +1,13 @@
-﻿using Core.Enums.Articles;
+﻿using Core.Responses.General;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Queries
+namespace Core.Responses.Users
 {
-	public record ArticlesQuery(Category? Category, string? SearchBy);
+	public class UpdatePasswordResponse: BaseResponse
+	{
+	}
 }

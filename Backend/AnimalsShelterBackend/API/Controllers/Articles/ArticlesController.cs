@@ -3,9 +3,11 @@ using AnimalsShelterBackend.Core.Queries;
 using AnimalsShelterBackend.Domain.Articles;
 using AnimalsShelterBackend.Services.Articles;
 using AutoMapper;
+using Core.Constants;
 using Core.Queries;
 using Core.Requests.Articles;
 using Core.Responses.Articles;
+using Core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,6 +51,7 @@ namespace AnimalsShelterBackend.API.Controllers.Articles
 		{
 			var articles = await _articleService.GetAllAsync(articlesQuery, cancellationToken);
 			var mappedArticles = _mapper.Map<List<ArticleShortResponse>>(articles);
+			CommonUtils.AddHeaderToResponse(HttpContext, Const.CountHeader, articles.Count);
 			return Ok(mappedArticles);
 		}
 

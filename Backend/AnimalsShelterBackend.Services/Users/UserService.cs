@@ -55,7 +55,12 @@ namespace AnimalsShelterBackend.Services.Users
 				return new UserUpdateResponse() { IsSuccess = false, Message = "На данную почту или телефон уже зарегистрирован аккаунт" };
 			user.Name = userUpdateRequest.Name ?? user.Name;
 			user.Surname = userUpdateRequest.Surname ?? user.Surname;
-			user.Email = userUpdateRequest.Email ?? user.Email;
+			if (userUpdateRequest.Email != null)
+			{
+				var isMatch = Const.EmailRegex.IsMatch(userUpdateRequest.Email);
+				if (isMatch) user.Email = userUpdateRequest.Email;
+				else return new UserUpdateResponse() { IsSuccess = false, Message = "Некорректный адрес почты" };
+			}
 			if (userUpdateRequest.Phone != null)
 			{
 				var converted = UserUtils.TryConvertPhoneInputToEight(userUpdateRequest.Phone, out long phone);
@@ -102,6 +107,18 @@ namespace AnimalsShelterBackend.Services.Users
 			return (await GetAllAsync(CancellationToken.None))
 				.Where(u => u.IsAdmin)
 				.FirstOrDefault();
+		}
+
+		public async Task<UpdatePasswordResponse> UpdatePasswordAsync(Guid userId, UpdatePasswordRequest updatePasswordRequest)
+		{
+			var user = await GetByGuidAsync(userId, CancellationToken.None);
+			if (user == null) return new UpdatePasswordResponse() { IsSuccess = false, Message = "Пользователь не существует" };
+			if (!UserUtils.ArePasswordsEqual(updatePasswordRequest.OldPassword, user.PasswordHash))
+				return new UpdatePasswordResponse() { IsSuccess = false, Message = "Текущий пароль не верен" };
+			var newPasswordHash = UserUtils.HashPassword(updatePasswordRequest.NewPassword);
+			user.PasswordHash = newPasswordHash;
+			await SaveChangesAsync();
+			return new UpdatePasswordResponse() { IsSuccess = true };
 		}
 	}
 }

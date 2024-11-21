@@ -138,8 +138,10 @@ namespace AnimalsShelterBackend.Services.Articles
 		public async Task<List<Article>> GetAllAsync(ArticlesQuery articlesQuery, CancellationToken cancellationToken)
 		{
 			var articles = await GetAllAsync(cancellationToken);
-			if (articlesQuery.Category == null) return articles;
-			return articles.Where(a => a.Category == articlesQuery.Category).ToList();
+			if (articlesQuery.Category == null && articlesQuery.SearchBy == null) return articles;
+			if (articlesQuery.Category != null)
+				return articles.Where(a => a.Category == articlesQuery.Category).ToList();
+			return articles.Where(a => a.Title.Contains(articlesQuery.SearchBy)).ToList();
 		}
 	}
 }

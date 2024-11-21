@@ -1,6 +1,7 @@
 ﻿using AnimalsShelterBackend.Domain.ShelterUser;
 using AnimalsShelterBackend.Services.RefreshTokens;
 using AutoMapper;
+using Core.Constants;
 using Core.Requests.Users;
 using Core.Responses.General;
 using Core.Responses.Users;
@@ -50,7 +51,7 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			var userModel = new User();
 			var existingUser = await _userService.FindUserByLoginAsync(userRegisterRequest.Login, CancellationToken.None);
 			if (existingUser != null) return new UserRegistrationResponse() { IsSuccess = false, Message = "Пользователь с таким логином уже существует" };
-			if (userRegisterRequest.Login.Contains('@')) userModel.Email = userRegisterRequest.Login.ToLower();
+			if (Const.EmailRegex.IsMatch(userRegisterRequest.Login)) userModel.Email = userRegisterRequest.Login.ToLower();
 			else
 			{
 				var converted = UserUtils.TryConvertPhoneInputToEight(userRegisterRequest.Login, out long phone);

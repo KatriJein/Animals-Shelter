@@ -23,7 +23,8 @@ namespace Core.Constants
 
 		#region miscellaneous
 		public static string FrontendCORS = "FrontendCORS";
-		public static string TokenHeader = "token";
+		public static string TokenHeader = "Token";
+		public static string CountHeader = "Total-Count";
 		public static char Separator = '|';
 		public static char UrlSeparator = '/';
 		public static List<string> ArticlesAllowableContentTypes = new() { ".jpeg", ".png", ".jpg", };
@@ -42,6 +43,7 @@ namespace Core.Constants
 		#region regexes
 		public static Regex GetUrlsFromArticleRegex = new Regex(@"<(img|video|audio).+?src=\\{0,}""([^\""]+?)\\{0,}"".*?>");
 		public static Regex PhoneRegex = new Regex(@"^(\+7|8)\d{10}$");
+		public static Regex EmailRegex = new Regex(@"^\S+@\S+\.\S+$");
 		#endregion
 
 	}

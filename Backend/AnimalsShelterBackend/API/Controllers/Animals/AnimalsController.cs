@@ -8,6 +8,7 @@ using Core.Constants;
 using Core.Queries;
 using Core.Requests.Animals;
 using Core.Responses.Animals;
+using Core.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,11 +42,13 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
 			if (animalsQuery.UserId == Guid.Empty || user == null)
             {
 				var animals = await _animalsService.GetAllAsync(cancellationToken);
+                CommonUtils.AddHeaderToResponse(HttpContext, Const.CountHeader, animals.Count);
                 return Ok(_mapper.Map<List<AnimalFullResponse>>(animals));
 			}
             await _userService.LoadUserFavouriteAnimalsAsync(user, cancellationToken);
             var response = await _animalsService.GetAllWithIsFavouriteMarkAsync(user.FavouriteAnimals, _mapper, cancellationToken);
-            return Ok(response);
+			CommonUtils.AddHeaderToResponse(HttpContext, Const.CountHeader, response.Count);
+			return Ok(response);
         }
 
         /// <summary>
