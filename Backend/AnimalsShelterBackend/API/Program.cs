@@ -4,6 +4,7 @@ using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
 using AnimalsShelterBackend.Infrastructure.Startups;
 using AnimalsShelterBackend.Infrastructure.Startups.Articles;
+using AnimalsShelterBackend.Infrastructure.Startups.Contributors;
 using AnimalsShelterBackend.Infrastructure.Startups.RefreshTokens;
 using AnimalsShelterBackend.Infrastructure.Startups.Users;
 using AnimalsShelterBackend.Masstransit;
@@ -42,6 +43,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
 builder.Services.AddTokens();
+builder.Services.AddContributors();
+
 builder.Services.AddImagesServices();
 
 builder.Services.AddAnimalsDomain();
