@@ -197,5 +197,19 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 			if (!result.IsSuccess) return BadRequest(result.Message);
 			return Ok(result);
 		}
+
+		/// <summary>
+		/// Очистить список избранных животных
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		[HttpPatch]
+		[Route("{userId}/favourites/clear")]
+		public async Task<IActionResult> ClearFavouritesAsync([FromRoute] Guid userId)
+		{
+			var result = await _favouriteAnimalService.ClearFavouritesAsync(_userService, userId);
+			if (!result.IsSuccess) return BadRequest(result.Message);
+			return Ok(result);
+		}
 	}
 }
