@@ -56,6 +56,21 @@ namespace AnimalsShelterBackend.API.Controllers.Articles
 		}
 
 		/// <summary>
+		/// Получить топ-N самых популярных статей
+		/// </summary>
+		/// <param name="popularArticlesQuery"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("popular")]
+		public async Task<IActionResult> GetMostPopularAsync([FromQuery] PopularArticlesQuery popularArticlesQuery, CancellationToken cancellationToken)
+		{
+			var articles = await _articleService.GetMostPopularAsync(popularArticlesQuery, cancellationToken);
+			var mappedArticles = _mapper.Map<List<ArticleShortResponse>>(articles);
+			return Ok(mappedArticles);
+		}
+
+		/// <summary>
 		/// Получить отдельную новость или статью
 		/// </summary>
 		/// <param name="id"></param>

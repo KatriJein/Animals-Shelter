@@ -7,6 +7,7 @@ using AnimalsShelterBackend.Infrastructure.Startups.Articles;
 using AnimalsShelterBackend.Infrastructure.Startups.Contributors;
 using AnimalsShelterBackend.Infrastructure.Startups.RefreshTokens;
 using AnimalsShelterBackend.Infrastructure.Startups.Users;
+using AnimalsShelterBackend.Infrastructure.Startups.Views;
 using AnimalsShelterBackend.Masstransit;
 using AnimalsShelterBackend.Middleware;
 using AnimalsShelterBackend.Services.Users.Seeds;
@@ -55,6 +56,8 @@ builder.Services.AddUsersService();
 
 builder.Services.AddArticlesDomain();
 builder.Services.AddArticlesServices();
+
+builder.Services.AddArticleViewsSupport();
 
 builder.Services.UseMasstransitRabbitMQ(builder.Configuration);
 

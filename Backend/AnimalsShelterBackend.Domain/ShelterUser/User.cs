@@ -1,5 +1,6 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Domain.Articles;
+using AnimalsShelterBackend.Domain.ArticleViews;
 using AnimalsShelterBackend.Domain.Tokens;
 using System;
 using System.Collections.Generic;
@@ -21,6 +22,7 @@ namespace AnimalsShelterBackend.Domain.ShelterUser
 		public bool IsAdmin { get; set; }
 		public List<Article> Articles { get; set; } = new List<Article>();
 		public List<Animal> FavouriteAnimals { get; set; } = new List<Animal>();
+		public List<View> ArticleViews { get; set; } = new List<View>();
 		public RefreshToken? RefreshToken { get; set; }
 	}
 }

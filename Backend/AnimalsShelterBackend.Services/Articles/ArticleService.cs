@@ -150,5 +150,12 @@ namespace AnimalsShelterBackend.Services.Articles
 				return articles.Where(a => a.Category == articlesQuery.Category).ToList();
 			return articles.Where(a => a.Title.Contains(articlesQuery.SearchBy) && a.Category != Category.News).ToList();
 		}
+
+		public async Task<List<Article>> GetMostPopularAsync(PopularArticlesQuery popularArticlesQuery, CancellationToken cancellationToken)
+		{
+			var query = new ArticlesQuery(null, null);
+			var articles = await GetAllAsync(query, cancellationToken);
+			return articles.OrderByDescending(a => a.ViewsCount).Take(popularArticlesQuery.Limit).ToList();
+		}
 	}
 }
