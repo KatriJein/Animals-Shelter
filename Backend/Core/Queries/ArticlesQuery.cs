@@ -7,5 +7,5 @@ using System.Threading.Tasks;
 
 namespace Core.Queries
 {
-	public record ArticlesQuery(Category? Category);
+	public record ArticlesQuery(Category? Category, string? SearchBy);
 }

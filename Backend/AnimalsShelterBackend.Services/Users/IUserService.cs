@@ -14,6 +14,7 @@ namespace AnimalsShelterBackend.Services.Users
 	public interface IUserService : IService<User>
 	{
 		Task<UserAvatarUpdateResponse> UpdateUserAvatarAsync(Guid userId, IFormFile? avatar);
+		Task<UpdatePasswordResponse> UpdatePasswordAsync(Guid userId, UpdatePasswordRequest updatePasswordRequest);
 		Task<User?> FindUserByLoginAsync(string login, CancellationToken cancellationToken);
 		Task<User?> FindAdminUserAsync();
 		Task LoadUserFavouriteAnimalsAsync(User user, CancellationToken cancellationToken = default);

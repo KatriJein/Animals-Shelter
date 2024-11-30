@@ -6,6 +6,7 @@ using Core.Base;
 using Core.Base.Repositories;
 using Core.Base.Services;
 using Core.Constants;
+using Core.Enums.Animals;
 using Core.Requests;
 using Core.Requests.Animals;
 using Core.Responses.Animals;
@@ -38,21 +39,27 @@ namespace AnimalsShelterBackend.Services.Animals
 				IsSuccess = false,
 				Message = "Попытка обновить несуществующую карточку животного"
 			};
-			animal.Age = animalRequest.Age;
-			animal.Sex = animalRequest.Sex;
-			animal.Wool = animalRequest.Wool;
-			animal.Size = animalRequest.Size;
-			animal.TemperFeatures = string.Join(Const.Separator, animalRequest.TemperFeatures.Select(e => ((int)e).ToString()));
-			animal.Color = animalRequest.Color;
-			animal.Name = animalRequest.Name;
-			animal.Breed = animalRequest.Breed;
-			animal.Description = animalRequest.Description;
-			animal.HealthConditions = string.Join(Const.Separator, animalRequest.HealthConditions.Select(e => ((int)e).ToString()));
-			animal.LivingCondition = animalRequest.LivingCondition;
-			animal.ReceiptDate = animalRequest.ReceiptDate;
-			var fileSources = AssignAnimalFileSources(animal, animalRequest.Images);
+			animal.Age = animalRequest.Age ?? animal.Age;
+			animal.Sex = animalRequest.Sex ?? animal.Sex;
+			animal.Wool = animalRequest.Wool ?? animal.Wool;
+			animal.Size = animalRequest.Size ?? animal.Size;
+			if (!CommonUtils.IsNullable(animalRequest.TemperFeatures))
+				animal.TemperFeatures = string.Join(Const.Separator, animalRequest.TemperFeatures.Select(e => ((int)e).ToString()));
+			animal.Color = animalRequest.Color ?? animal.Color;
+			animal.Name = animalRequest.Name ?? animal.Name;
+			animal.Breed = animalRequest.Breed ?? animal.Breed;
+			animal.Description = animalRequest.Description ?? animal.Description;
+			animal.ShortDescription = animalRequest.ShortDescription ?? animal.Description;
+			if (!CommonUtils.IsNullable(animalRequest.HealthConditions))
+				animal.HealthConditions = string.Join(Const.Separator, animalRequest.HealthConditions.Select(e => ((int)e).ToString()));
+			animal.LivingCondition = animalRequest.LivingCondition ?? animal.LivingCondition;
+			animal.ReceiptDate = animalRequest.ReceiptDate ?? animal.ReceiptDate;
+			if (animalRequest.Images != null)
+			{
+				var fileSources = AssignAnimalFileSources(animal, animalRequest.Images);
+				await _fileService.UploadFiles(Const.AnimalsBucketName, animalRequest.Images, fileSources);
+			}
 			var response = await base.UpdateAsync(id, animalRequest);
-			await _fileService.UploadFiles(Const.AnimalsBucketName, animalRequest.Images, fileSources);
 			return response;
 		}
 

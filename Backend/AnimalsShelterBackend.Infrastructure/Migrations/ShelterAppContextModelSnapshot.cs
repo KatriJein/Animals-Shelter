@@ -146,6 +146,24 @@ namespace AnimalsShelterBackend.Migrations
                     b.ToTable("Articles");
                 });
 
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Contributors.Contributor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("ContributorType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Contributors");
+                });
+
             modelBuilder.Entity("AnimalsShelterBackend.Domain.ShelterUser.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -179,6 +197,30 @@ namespace AnimalsShelterBackend.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Tokens.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("AnimalUser", b =>
                 {
                     b.HasOne("AnimalsShelterBackend.Domain.Animals.Animal", null)
@@ -205,9 +247,20 @@ namespace AnimalsShelterBackend.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Tokens.RefreshToken", b =>
+                {
+                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", null)
+                        .WithOne("RefreshToken")
+                        .HasForeignKey("AnimalsShelterBackend.Domain.Tokens.RefreshToken", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AnimalsShelterBackend.Domain.ShelterUser.User", b =>
                 {
                     b.Navigation("Articles");
+
+                    b.Navigation("RefreshToken");
                 });
 #pragma warning restore 612, 618
         }

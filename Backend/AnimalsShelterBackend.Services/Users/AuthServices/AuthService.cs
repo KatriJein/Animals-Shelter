@@ -1,10 +1,13 @@
 ﻿using AnimalsShelterBackend.Domain.ShelterUser;
+using AnimalsShelterBackend.Services.RefreshTokens;
 using AutoMapper;
+using Core.Constants;
 using Core.Requests.Users;
 using Core.Responses.General;
 using Core.Responses.Users;
 using Core.Responses.Users.Auth;
 using Core.Utils;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +19,12 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 	public class AuthService : IAuthService
 	{
 		private readonly IUserService _userService;
+		private readonly ITokenService _tokenService;
 
-		public AuthService(IUserService userService)
+		public AuthService(IUserService userService, ITokenService tokenService)
 		{
 			_userService = userService;
+			_tokenService = tokenService;
 		}
 
 
@@ -31,7 +36,8 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			if (!UserUtils.ArePasswordsEqual(userLoginRequest.Password, user.PasswordHash) && !isAutoAuthenthicate)
 				return new UserAuthenthicationResponse() { IsSuccess = false, Message = "Неверный пароль" };
 			var userInfo = mapper.Map<UserResponse>(user);
-			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo };
+			var tokenResponse = await _tokenService.CreateOrUpdateTokensAsync(user);
+			return new UserAuthenthicationResponse() { IsSuccess = true, UserInfo = userInfo, AccessToken = tokenResponse.AccessToken };
 		}
 
 		public async Task<BaseResponse> FinishRegistrationAsync(Guid id, UpdateUserRequest updateUserRequest)
@@ -45,7 +51,7 @@ namespace AnimalsShelterBackend.Services.Users.AuthServices
 			var userModel = new User();
 			var existingUser = await _userService.FindUserByLoginAsync(userRegisterRequest.Login, CancellationToken.None);
 			if (existingUser != null) return new UserRegistrationResponse() { IsSuccess = false, Message = "Пользователь с таким логином уже существует" };
-			if (userRegisterRequest.Login.Contains('@')) userModel.Email = userRegisterRequest.Login.ToLower();
+			if (Const.EmailRegex.IsMatch(userRegisterRequest.Login)) userModel.Email = userRegisterRequest.Login.ToLower();
 			else
 			{
 				var converted = UserUtils.TryConvertPhoneInputToEight(userRegisterRequest.Login, out long phone);
