@@ -1,0 +1,79 @@
+.mainContainer {
+    width: 53vw;
+    display: flex;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    flex-direction: column;
+    gap: 3.15vw;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25vw;
+    color: #B3B3B3;
+    align-items: center;
+    margin-bottom: 2vw;
+}
+
+.container {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    align-items: center;
+}
+
+.container h2 {
+    color: #374375;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    font-size: 2.1vw;
+}
+
+.p {
+    margin: 0;
+    padding: 0;
+}
+
+.containerContacts {
+    display: flex;
+    flex-direction: row;
+    gap: 4.2vw;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.contact {
+    box-sizing: border-box;
+    width: 24.24vw;
+    padding: 1.58vw 3vw;
+    border-radius: 1.9vw;
+    box-shadow: 0.21vw 0.21vw 0.84vw rgba(155, 155, 155, 25);
+    display: flex;
+    flex-direction: column;
+    gap: 1.58vw;
+    text-align: center;
+    cursor: pointer;
+    align-items: center;
+}
+
+.contact img {
+    width: 2.63vw;
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+}
+
+.phone {
+    color: #374375;
+    font-weight: 700;
+    font-size: 1.47vw;
+    text-decoration: none;
+}
+
+.email {
+    color: #89515A;
+    font-weight: 700;
+    font-size: 1.47vw;
+    text-decoration: none;
+}

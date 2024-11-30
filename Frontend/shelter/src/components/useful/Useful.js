@@ -1,32 +1,68 @@
 import UsefulButton from './UsefulButton';
 import style from './UsefulPage.module.css';
 import UsefulArticle from './UsefulArticle';
-import { useState } from 'react';
+import search from '../../img/search.svg';
+import feedingIcon from '../../img/feeding.svg';
+import healthIcon from '../../img/health.svg';
+import careIcon from '../../img/care.svg';
+import behaviourIcon from '../../img/behaviour.svg';
+import trainingIcon from '../../img/training.svg';
 
-const Information = [{heading: 'Подходит ли Вам питомец из приюта?', text: 'Какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст '},
-    {heading: 'Как выбрать питомца?', text: 'Какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст '},
-    {heading: 'Какие нужны документы для того, чтоб приютить питомца?', text: 'Какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст '}
-];
+const categories = [{ text: 'Кормление', icon: feedingIcon, color: '#9498E0' }, { text: 'Дрессировка', icon: trainingIcon, color: '#986C73' }, { text: 'Здоровье', icon: healthIcon, color: '#505B86' }, { text: 'Уход', icon: careIcon, color: '#CC969D' }, { text: 'Поведение', icon: behaviourIcon, color: '#8E4A64' }];
 
-const categories = ['Общее', 'Кормление', 'Дрессировка', 'Уход', 'Здоровье', 'Поведение'];
+export default function Useful(props) {
+    const { popularArticles, onSearch, onCategoryClick } = props;
 
-export default function Useful() {
-    const [selected, setSelected] = useState('Общее');
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        const query = event.target.searchInput.value.trim();
+        if (query) {
+            onSearch(query);
+        }
+    };
 
     return (
         <main className={style.mainContainer}>
-            <h2 className={style.h2}>Полезное</h2>
-            <p className={style.p}>Здесь собраны инструкции и советы для будущих хозяев наших питомцев. Выберите интересующую Вас категорию.</p>
-            <div className={style.containerButtons}>
+            <div className={style.containerSearch}>
+                <h2 className={style.h2}>Что Вас интересует?</h2>
+                <form className={style.searchContainer} role="search" onSubmit={handleSearchSubmit}>
+                    <div className={style.inputWrapper}>
+                        <img loading="lazy" src={search} className={style.searchIcon} alt="" />
+                        <input
+                            id="searchInput"
+                            type="search"
+                            className={style.searchInput}
+                            placeholder="Введите запрос..."
+                            aria-label="Search query"
+                        />
+                    </div>
+                    <button type="submit" className={style.searchButton}>
+                        Найти
+                    </button>
+                </form>
+                <p className={style.text}>или выберите подходящую категорию</p>
+            </div>
+
+            <div className={style.containerCategories}>
                 {categories.map((category) => (
-                    <UsefulButton key={category} text={category} isSelected={category === selected} onClick={() => setSelected(category)} />
+                    <UsefulButton
+                        key={category.text}
+                        text={category.text}
+                        icon={category.icon}
+                        color={category.color}
+                        onClick={() => onCategoryClick(category.text)}
+                    />
                 ))}
             </div>
-            <div className={style.containerList}>
-                {Information.map((info) => (
-                    <UsefulArticle key={info.heading} heading={info.heading} text={info.text} />
-                ))}
+
+            <div className={style.containerPopularArticles}>
+                <h2 className={style.h2}>Популярные статьи</h2>
+                <div className={style.containerArticles}>
+                    {popularArticles.map((article) => (
+                        <UsefulArticle key={article.id} heading={article.heading} text={article.text} />
+                    ))}
+                </div>
             </div>
         </main>
-    )
+    );
 }

@@ -14,7 +14,7 @@ import store from './store/store';
 import ScrollToTop from './utils/ScrollToTop';
 import AccountPage from './pages/AccountPage';
 import FillingData from './components/auth/FillingData';
-import UsefulPage from './pages/UsefulPage';
+import UsefulPage from './components/useful/UsefulPage';
 
 
 function App() {

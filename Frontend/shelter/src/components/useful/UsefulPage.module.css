@@ -5,70 +5,211 @@
     width: 100%;
     display: flex;
     flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25vw;
+    gap: 6.3vw;
+}
+
+.containerSearch {
+    width: 44.3vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.58vw;
+    margin: 0 auto;
 }
 
 .h2 {
-    font-size: 1.69vw;
-    font-weight: 400;
+    color: #374375;
+    font-weight: 600;
     margin: 0;
     padding: 0;
-    color: #424242;
-    margin-bottom: 0.5vw;
+    font-size: 2.1vw;
+    margin-bottom: 1.58vw;
 }
 
-.h3 {
-    font-size: 1.69vw;
-    font-weight: 400;
+.text {
+    color: #B3B3B3;
     margin: 0;
     padding: 0;
-    color: #000;
 }
 
-.p {
-    font-size: 1.1vw;
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-    color: #000;
-}
-
-.containerButtons {
+.searchContainer {
+    border-radius: 999px;
+    background-color: rgba(246, 246, 246, 1);
     display: flex;
-    gap: 1.58vw;
-    flex-wrap: wrap;
-    padding: 1.3vw 0;
-    margin-top: 1.3vw;
+    width: 44.3vw;
+    justify-content: space-between;
+    padding: 0.63vw 0.84vw;
 }
 
-.containerArticle {
+.inputWrapper {
+    display: flex;
+    gap: 0.52vw;
+    color: rgba(179, 179, 179, 1);
+    width: 85%;
+}
+
+.searchIcon {
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    width: 1.47vw;
+    margin: auto 0;
+}
+
+.searchInput {
+    border: none;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    outline: none;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1.05vw;
-    flex-wrap: wrap;
 }
 
-.containerList {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    gap: 2.8vw;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: 0;
-}
-
-.button {
-    border: 1px solid #868686;
-    border-radius: 0.69vw;
-    padding: 0.27vw 1.05vw;
-    color: #868686;
+.searchButton {
+    border: none;
+    cursor: pointer;
+    border-radius: 999px;
+    background-color: rgba(186, 188, 226, 1);
+    color: rgba(55, 67, 117, 1);
+    white-space: nowrap;
+    padding: 3px 26px;
+    font-family: 'Nunito', sans-serif;
     font-size: 1.25vw;
-    background-color: transparent;
+    font-weight: 600;
+}
+
+/* Карточка категории  */
+
+.containerCategories {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5vw;
+    margin: 0 auto;
+    width: 100%;
+    justify-content: space-between;
     cursor: pointer;
 }
 
-.selected {
-    color: #150DFF;
-    border: 1px solid #150DFF;
+.categories {
+    box-sizing: border-box;
+    width: 15.5vw;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 2.16vw 4.9vw;
+    gap: 1vw;
+    border: none;
+    background-color: transparent;
+    border-radius: 1.9vw;
+    box-shadow: 0.21vw 0.21vw 0.84vw rgba(155, 155, 155, 25);
+    cursor: pointer;
+}
+
+.categories img {
+    width: 4.21vw;
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    margin: 0 auto;
+}
+
+.categories span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.47vw;
+    font-weight: 600;
+    text-align: center;
+    align-self: center;
+}
+
+/* Пункт списка */
+
+.containerArticles {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.8vw;
+}
+
+.containerArticle {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: #000;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.25vw;
+    border-bottom: 0.1vw solid #A9A9A9;
+}
+
+.containerHeader {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    padding-bottom: 1.5vw;
+}
+
+.containerPoint {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.2vw;
+}
+
+.containerPoint img {
+    width: 0.5vw;
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+}
+
+.p {
+    margin: 0;
+    padding: 0;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+    word-wrap:break-word;
+}
+
+.plus {
+    width: 1.26vw;
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+    cursor: pointer;
+}
+
+.containerText {
+    padding: 1.5vw;
+    padding-top: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.containerText p {
+    margin: 0;
+    padding: 0;
+    text-wrap: wrap;
+    overflow-wrap: break-word;
+}
+
+/* Популярные статьи */
+
+.containerPopularArticles {
+    box-sizing: border-box;
+    width: 63.25vw;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+    background-color: #F8F7FF;
+    border-radius: 1.31vw;
+    padding: 2.1vw 3.1vw;
 }
