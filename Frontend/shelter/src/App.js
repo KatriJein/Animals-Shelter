@@ -12,11 +12,14 @@ import Footer from './components/footer/Footer';
 import style from "./App.module.css";
 import store from './store/store';
 import ScrollToTop from './utils/ScrollToTop';
+import AccountPage from './pages/AccountPage';
+import FillingData from './components/auth/FillingData';
+import UsefulPage from './components/useful/UsefulPage';
+
 
 function App() {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.animals.status);
-  // const animals = useSelector((state) => state.animals.animals);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -35,6 +38,9 @@ function App() {
             <Route path="/animal/:id" element={<AnimalPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegistrationPage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="/fillingData" element={<FillingData />} />
+            <Route path="/useful" element={<UsefulPage />} />
           </Routes>
         </Layout>
       </Router>
@@ -44,7 +50,7 @@ function App() {
 
 function Layout({ children }) {
   const location = useLocation();
-  const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+  const isAuthPage = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/fillingData';
 
   return (
     <div className={style.app}>

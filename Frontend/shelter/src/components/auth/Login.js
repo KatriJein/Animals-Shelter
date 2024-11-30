@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../store/userSlice';
-import { Link } from 'react-router-dom';
+import { loginSuccess, fetchFavourites } from '../../store/userSlice';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({ login: '', password: '' });
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const validateForm = () => {
         const newErrors = {};
@@ -30,7 +31,7 @@ export default function Login() {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('https://example.com/api/login', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,19 +41,22 @@ export default function Login() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                setErrors({ ...errors, password: errorData.message || 'Ошибка сервера' });
+                setErrors({ password: errorData.message || 'Ошибка сервера' });
             } else {
                 const data = await response.json();
+                console.log(data);
 
                 dispatch(loginSuccess({
-                    isAdmin: data.isAdmin, 
+                    id: data.userInfo.id,
+                    isAdmin: data.userInfo.isAdmin, 
                     userInfo: data.userInfo,  
                 }));
+                dispatch(fetchFavourites(data.userInfo.id));
+                navigate('/account');
 
-                // Логика после успешного входа, например, перенаправление
             }
         } catch (error) {
-            setErrors({ ...errors, password: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
+            setErrors({  password: error.message || 'Ошибка сервера' });
         }
     };
 

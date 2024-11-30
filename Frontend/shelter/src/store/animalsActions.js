@@ -1,8 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL;
 
-// Асинхронное действие для получения списка животных
 export const fetchAnimals = createAsyncThunk(
     'animals/fetchAnimals',
     async () => {
@@ -12,7 +11,6 @@ export const fetchAnimals = createAsyncThunk(
     }
 );
 
-// Асинхронное действие для добавления нового животного
 export const addAnimal = createAsyncThunk(
     'animals/addAnimal',
     async (newAnimal) => {
@@ -28,7 +26,6 @@ export const addAnimal = createAsyncThunk(
     }
 );
 
-// Асинхронное действие для изменения данных животного
 export const updateAnimal = createAsyncThunk(
     'animals/updateAnimal',
     async ({ id, updatedData }) => {
@@ -44,7 +41,6 @@ export const updateAnimal = createAsyncThunk(
     }
 );
 
-// Асинхронное действие для удаления животного
 export const deleteAnimal = createAsyncThunk(
     'animals/deleteAnimal',
     async (id) => {

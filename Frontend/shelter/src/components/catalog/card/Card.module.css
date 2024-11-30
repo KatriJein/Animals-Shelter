@@ -94,7 +94,14 @@
 }
 
 .favorite {
-    scale: 1.1;
+    width: 1.2vw;
+    position: relative;
+    top: 0.12vw;
+    right: 0vw;
+}
+
+.favoriteActive {
+    width: 1.2vw;
     position: relative;
     top: 0.12vw;
     right: 0vw;
