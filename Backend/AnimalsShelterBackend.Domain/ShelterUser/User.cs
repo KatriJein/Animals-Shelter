@@ -1,6 +1,7 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Domain.Articles;
 using AnimalsShelterBackend.Domain.ArticleViews;
+using AnimalsShelterBackend.Domain.Notifications;
 using AnimalsShelterBackend.Domain.Tokens;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace AnimalsShelterBackend.Domain.ShelterUser
 		public List<Article> Articles { get; set; } = new List<Article>();
 		public List<Animal> FavouriteAnimals { get; set; } = new List<Animal>();
 		public List<View> ArticleViews { get; set; } = new List<View>();
+		public List<Notification> Notifications { get; set; } = new List<Notification>();
 		public RefreshToken? RefreshToken { get; set; }
 	}
 }

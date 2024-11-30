@@ -2,9 +2,11 @@
 using AnimalsShelterBackend;
 using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
+using AnimalsShelterBackend.Infrastructure.Infrastructure.Masstransit;
 using AnimalsShelterBackend.Infrastructure.Startups;
 using AnimalsShelterBackend.Infrastructure.Startups.Articles;
 using AnimalsShelterBackend.Infrastructure.Startups.Contributors;
+using AnimalsShelterBackend.Infrastructure.Startups.Notifications;
 using AnimalsShelterBackend.Infrastructure.Startups.RefreshTokens;
 using AnimalsShelterBackend.Infrastructure.Startups.Users;
 using AnimalsShelterBackend.Infrastructure.Startups.Views;
@@ -58,8 +60,11 @@ builder.Services.AddArticlesDomain();
 builder.Services.AddArticlesServices();
 
 builder.Services.AddArticleViewsSupport();
+builder.Services.AddNotifications();
+
 
 builder.Services.UseMasstransitRabbitMQ(builder.Configuration);
+builder.Services.AddMasstransitAbstractionServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
