@@ -2,10 +2,20 @@
     box-sizing: border-box;
     margin: 0;
     width: 100%;
-    height: calc(100vh - 120px);
+    height: auto;
     display: flex;
     padding: 1vw 10vw;
     gap: 5vw;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05vw;
+    color: #000;
+    margin-bottom: 2vw;
+}
+
+.imgShelter {
+    width: 36vw;
+    position: relative;
+    bottom: 1.8vw;
 }
 
 .containerInfo {
@@ -18,27 +28,59 @@
     overflow-wrap: break-word;
 }
 
+.containerText {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1.6vw;
+}
+
 .h1 {
-    width: auto;
-    white-space: wrap;
+    width: 100%;
+    text-wrap: wrap;
     overflow-wrap: break-word;
     margin: 0;
     padding: 0;
-    font-size: 3vw;
+    font-size: 4vw;
+    font-weight: 700;
+    color: #374375;
 }
 
 .p {
-    font-size: 1.25vw;
     margin: 0;
     padding: 0;
-    width: auto;
-    white-space: wrap;
+    width: 100%;
     overflow-wrap: break-word;
-    margin-bottom: 30px;
+}
+
+.containerNumbersInfo {
+    width: 100%;
+    display: flex;
+    gap: 1.05vw;
+    flex-direction: column;
+    border-radius: 1.3vw;
+    padding: 1vw 0.8vw;
+    background-color: rgba(55, 67, 117, 0.04);
+    backdrop-filter: blur(1.4vw);
+    box-shadow: 
+        inset 0.21vw 0.21vw 0.42vw rgba(255, 255, 255, 0.2), 
+        0.21vw 0.21vw 0.84vw rgba(0, 0, 0, 0.1), 
+        inset 0 0.21vw 0.21vw rgba(255, 255, 255, 0.2), 
+        inset 0 0 3vw rgba(255, 255, 255, 0.05); 
+    font-family: 'Caveat', sans-serif;
 }
 
 .h2 {
-    font-size: 1.87vw;
+    font-size: 3.3vw;
+    color: #374375;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+}
+
+.h2 span{
+    color: #89515A;
 }
 
 .containerNumbers {
@@ -58,12 +100,18 @@
 
 .numberLi {
     font-size: 2.5vw;
+    color: #374375;
+    font-weight: 700;
     margin: 0;
     padding: 0;
+    position: relative;
+    right: 0.2vw;
 }
 
 .textLi {
-    font-size: 1vw;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.05vw;
     margin: 0;
     padding: 0;
     max-width: 150px;
@@ -71,21 +119,34 @@
 }
 
 .containerButtons {
+    width: 100%;
     margin: 0;
-    padding: 20px 40px;
+    padding: 0 2.1vw;
     box-sizing: border-box;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 100%;
+}
+
+.button {
+    border: none;
+    text-decoration: none;
+    border-radius: 1.85vw;
+    padding: 0.8vw 1.6vw;
+    cursor: pointer;
+    font-family: 'Geologica', sans-serif;
+    font-size: 1.47vw;
+    color: #fff;
+    font-weight: 700;
+    box-shadow: 
+        inset 0.21vw 0.21vw 0.42vw rgba(255, 255, 255, 0.25), 
+        0.21vw 0.21vw 0.84vw rgba(0, 0, 0, 0.25);
 }
 
 .button1 {
-    font-size: 1.6vw;
-    background-color: #CAE0EA;
+    background-color: #BABCE2;
 }
 
 .button2 {
-    font-size: 1.6vw;
-    background-color: #F4E8DB;
+    background-color: #DFAEA0;
 }

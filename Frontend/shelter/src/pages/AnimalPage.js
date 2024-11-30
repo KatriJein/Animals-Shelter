@@ -1,4 +1,4 @@
-import Header from "../components/header/Header";
+import Contacts from "../components/contacts/Contacts";
 import PageAnimal from "../components/pageAnimal/pageAnimal";
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -28,6 +28,7 @@ export default function AnimalPage() {
             ) : (
                 <p>Животное не найдено.</p>
             )}
+            <Contacts />
         </>
     );
 }

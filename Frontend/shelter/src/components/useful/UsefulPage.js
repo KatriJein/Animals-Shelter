@@ -1,32 +1,90 @@
-import UsefulButton from './UsefulButton';
-import style from './UsefulPage.module.css';
-import UsefulArticle from './UsefulArticle';
-import { useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchArticles, selectArticles, selectArticlesLoading, selectArticlesError } from "../../store/articlesSlice";
+import Useful from "./Useful";
+import ArticlesSearch from "./ArticlesSearch";
+import ContactsQuestion from "../contactsQuestion/ContactsQuestion";
+import style from "./UsefulPage.module.css";
 
-const Information = [{heading: 'Подходит ли Вам питомец из приюта?', text: 'Какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст '},
-    {heading: 'Как выбрать питомца?', text: 'Какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст '},
-    {heading: 'Какие нужны документы для того, чтоб приютить питомца?', text: 'Какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст какой то длинный текст '}
-];
+function UsefulPage() {
+    const dispatch = useDispatch();
+    const articles = useSelector(selectArticles);
+    const isLoading = useSelector(selectArticlesLoading);
+    const error = useSelector(selectArticlesError);
 
-const categories = ['Общее', 'Кормление', 'Дрессировка', 'Уход', 'Здоровье', 'Поведение'];
+    const [isSearchActive, setIsSearchActive] = useState(false);
+    const [filteredArticles, setFilteredArticles] = useState([]);
+    const [searchHeading, setSearchHeading] = useState("");
+    const [isSearch, setIsSearch] = useState(false);
 
-export default function UsefulPage() {
-    const [selected, setSelected] = useState('Общее');
+    useEffect(() => {
+        dispatch(fetchArticles());
+    }, [dispatch]);
+
+    const handleSearch = (query) => {
+        const filtered = articles.filter((article) =>
+            article.heading.toLowerCase().includes(query.toLowerCase())
+        );
+        setSearchHeading(query);
+        setIsSearch(true);
+        setFilteredArticles(filtered);
+        setIsSearchActive(true);
+    };
+
+    const handleCategoryClick = (category) => {
+        const filtered = articles.filter((article) =>
+            article.heading.toLowerCase().includes(category.toLowerCase())
+        );
+        setSearchHeading(category);
+        setIsSearch(false);
+        setFilteredArticles(filtered);
+        setIsSearchActive(true);
+    };
+
+    const handleBackClick = () => {
+        setIsSearchActive(false);
+        setIsSearch(false);
+        setFilteredArticles([]);
+        setSearchHeading("");
+    };
+
+    if (isLoading) {
+        return (
+            <>
+                <p className={style.error}>Загрузка...</p>
+                <ContactsQuestion />
+            </>
+        );
+    }
+
+    if (error) {
+        return (
+            <>
+                <p className={style.error}>Ошибка сервера</p>
+                <ContactsQuestion />
+            </>
+        );
+    }
 
     return (
-        <main className={style.mainContainer}>
-            <h2 className={style.h2}>Полезное</h2>
-            <p className={style.p}>Здесь собраны инструкции и советы для будущих хозяев наших питомцев. Выберите интересующую Вас категорию.</p>
-            <div className={style.containerButtons}>
-                {categories.map((category) => (
-                    <UsefulButton key={category} text={category} isSelected={category === selected} onClick={() => setSelected(category)} />
-                ))}
-            </div>
-            <div className={style.containerList}>
-                {Information.map((info) => (
-                    <UsefulArticle key={info.heading} heading={info.heading} text={info.text} />
-                ))}
-            </div>
-        </main>
-    )
+        <>
+            {isSearchActive ? (
+                <ArticlesSearch
+                    articles={filteredArticles}
+                    isSearch={isSearch}
+                    heading={searchHeading}
+                    onBack={handleBackClick}
+                />
+            ) : (
+                <Useful
+                    popularArticles={articles}
+                    onSearch={handleSearch}
+                    onCategoryClick={handleCategoryClick}
+                />
+            )}
+            <ContactsQuestion />
+        </>
+    );
 }
+
+export default UsefulPage;

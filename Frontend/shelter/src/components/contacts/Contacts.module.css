@@ -1,0 +1,104 @@
+.mainContainer {
+    display: flex;
+    box-sizing: border-box;
+    width: 84vw;
+    margin: 5.3vw auto;
+    padding: 0;
+    flex-direction: row;
+    gap: 3.15vw;
+    border-radius: 1.85vw;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05vw;
+    color: #A9A9A9;
+    box-shadow: 
+        inset 0 0.21vw 0.21vw rgba(255, 255, 255, 0.15), 
+        inset 0 0 3.58vw rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(1.4vw);
+    overflow: hidden;
+}
+
+.map {
+    width: 48.7vw;
+}
+
+.container {
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 0.8vw 1.05vw;
+    gap: 2.37vw;
+}
+
+.containerInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3vw;
+    width: 100%;
+}
+
+.h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 3.37vw;
+    font-family: 'Caveat', sans-serif;
+    color: #374375;
+}
+
+.p {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.address {
+    font-size: 1.25vw;
+    color: #000;
+}
+
+.a {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.48vw;
+    color: #000;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.phone {
+    margin-right: 1.2vw;
+}
+
+.containerContact {
+    display: flex;
+    flex-direction: column;
+    gap: 0.52vw;
+    width: 100%;
+}
+
+.containerPhone {
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+    width: 100%;
+}
+
+.ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    display: flex;
+    flex-direction: row;
+    gap: 1.5vw;
+}
+
+.ul li{
+    cursor: pointer;
+}
+
+.ul li img{
+    width: 3.42vw;
+    box-shadow: 
+        inset 0.21vw 0.21vw 0.42vw rgba(255, 255, 255, 0.25), 
+        0.21vw 0.21vw 0.85vw rgba(0, 0, 0, 0.25);
+        border-radius: 50%;
+}

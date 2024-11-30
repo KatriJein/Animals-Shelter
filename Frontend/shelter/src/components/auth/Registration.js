@@ -2,14 +2,15 @@ import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Registration() {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [passwordRepeat, setPasswordRepeat] = useState('');
     const [errors, setErrors] = useState({ login: '', password: '', passwordRepeat: '' });
-    const dispatch = useDispatch(); 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const validateForm = () => {
         const newErrors = {};
@@ -36,7 +37,7 @@ export default function Registration() {
         if (!validateForm()) return;
 
         try {
-            const response = await fetch('https://example.com/api/register', {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -46,19 +47,18 @@ export default function Registration() {
 
             if (!response.ok) {
                 const errorData = await response.json();
-                setErrors({ ...errors, passwordRepeat: errorData.message || 'Ошибка сервера' });
+                setErrors({ passwordRepeat: errorData.message || 'Ошибка сервера' });
             } else {
                 const data = await response.json();
 
                 dispatch(loginSuccess({
-                    isAdmin: data.isAdmin, 
-                    userInfo: data.userInfo,  
+                    id: data.userId
                 }));
 
-                // Логика после успешной регистрации, например, перенаправление
+                navigate('/fillingData');
             }
         } catch (error) {
-            setErrors({ ...errors, passwordRepeat: 'Ошибка сети. Пожалуйста, попробуйте снова.' });
+            setErrors({ passwordRepeat: error.message || 'Ошибка сервера' });
         }
     };
 
