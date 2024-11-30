@@ -60,12 +60,24 @@ namespace AnimalsShelterBackend.Services.Users.FavouriteAnimalServices
 			return new RemoveFromFavouriteAnimalsResponse() { IsSuccess = true };
 		}
 
+		
+
 		public async Task<List<Animal>> GetFavouriteAnimalsAsync(IUserService _userService, Guid userId, CancellationToken cancellationToken)
 		{
 			var user = await _userService.GetByGuidAsync(userId, cancellationToken);
 			if (user == null) return [];
 			await _userService.LoadUserFavouriteAnimalsAsync(user, cancellationToken);
 			return user.FavouriteAnimals;
+		}
+
+		public async Task<RemoveFromFavouriteAnimalsResponse> ClearFavouritesAsync(IUserService _userService, Guid userId)
+		{
+			var user = await _userService.GetByGuidAsync(userId, CancellationToken.None);
+			if (user == null) return new RemoveFromFavouriteAnimalsResponse() { IsSuccess = false, Message = "Несуществующий пользователь" };
+			await _userService.LoadUserFavouriteAnimalsAsync(user, CancellationToken.None);
+			user.FavouriteAnimals.Clear();
+			await _userService.SaveChangesAsync();
+			return new RemoveFromFavouriteAnimalsResponse() { IsSuccess = true };
 		}
 	}
 }

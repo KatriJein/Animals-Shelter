@@ -15,6 +15,7 @@ namespace AnimalsShelterBackend.Services.Users.FavouriteAnimalServices
 		Task<IsFavouriteAnimalResponse> CheckIsFavouriteAnimalAsync(Guid userId, Guid animalId);
 		Task<AddToFavouriteAnimalsResponse> AddAnimalToFavouritesAsync(IUserService _userService, Guid userId, Guid animalId);
 		Task<RemoveFromFavouriteAnimalsResponse> RemoveAnimalFromFavouritesAsync(IUserService _userService, Guid userId, Guid animalId);
+		Task<RemoveFromFavouriteAnimalsResponse> ClearFavouritesAsync(IUserService _userService, Guid userId);
 		Task<List<Animal>> GetFavouriteAnimalsAsync(IUserService _userService, Guid userId, CancellationToken cancellationToken);
 	}
 }
