@@ -22,6 +22,7 @@ namespace AnimalsShelterBackend
 		{
 			services.AddSwaggerGen(swagger =>
 			{
+				swagger.SupportNonNullableReferenceTypes();
 				var xmlFile = $"{Assembly.GetEntryAssembly().GetName().Name}.xml";
 				var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 				swagger.IncludeXmlComments(xmlPath);

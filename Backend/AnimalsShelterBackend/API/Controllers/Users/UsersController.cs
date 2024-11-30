@@ -116,11 +116,26 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		/// <param name="avatarRequest"></param>
 		/// <returns></returns>
 		[HttpPatch]
-		[Route("{id}")]
+		[Route("{id}/avatar")]
 		[Consumes("multipart/form-data")]
 		public async Task<IActionResult> UpdateAvatarAsync([FromRoute] Guid id, [FromForm] UpdateUserAvatarRequest avatarRequest)
 		{
 			var response = await _userService.UpdateUserAvatarAsync(id, avatarRequest.Avatar);
+			if (!response.IsSuccess) return BadRequest(response);
+			return Ok();
+		}
+
+		/// <summary>
+		/// Обновить пароль пользователя
+		/// </summary>
+		/// <param name="id"></param>
+		/// <param name="updatePasswordRequest"></param>
+		/// <returns></returns>
+		[HttpPatch]
+		[Route("{id}/password")]
+		public async Task<IActionResult> UpdatePasswordAsync([FromRoute] Guid id, [FromBody] UpdatePasswordRequest updatePasswordRequest)
+		{
+			var response = await _userService.UpdatePasswordAsync(id, updatePasswordRequest);
 			if (!response.IsSuccess) return BadRequest(response);
 			return Ok();
 		}

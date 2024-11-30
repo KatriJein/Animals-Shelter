@@ -2,9 +2,13 @@
 using AnimalsShelterBackend;
 using AnimalsShelterBackend.Infrastructure;
 using AnimalsShelterBackend.Infrastructure.Configurations;
+using AnimalsShelterBackend.Infrastructure.Startups;
 using AnimalsShelterBackend.Infrastructure.Startups.Articles;
+using AnimalsShelterBackend.Infrastructure.Startups.Contributors;
+using AnimalsShelterBackend.Infrastructure.Startups.RefreshTokens;
 using AnimalsShelterBackend.Infrastructure.Startups.Users;
 using AnimalsShelterBackend.Masstransit;
+using AnimalsShelterBackend.Middleware;
 using AnimalsShelterBackend.Services.Users.Seeds;
 using AnimalsShelterBackend.Startups;
 using AnimalsShelterBackend.Startups.Animals;
@@ -36,6 +40,10 @@ builder.Services.ConfigureMinio(builder.Configuration);
 builder.Services.AddMinIOStorage(builder.Configuration);
 builder.Services.AddDbContext<ShelterAppContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
+builder.Services.AddTokens();
+builder.Services.AddContributors();
 
 builder.Services.AddImagesServices();
 
@@ -65,7 +73,10 @@ app.UseSerilogRequestLogging();
 
 app.UseCors(Const.FrontendCORS);
 
+app.UseMiddleware<AuthMiddleware>();
+
 app.UseAuthorization();
+
 
 app.MapControllers();
 

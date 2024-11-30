@@ -39,7 +39,7 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		}
 
 		/// <summary>
-		/// Выполнить регистрацию пользователя и автоматический вход в аккаунт
+		/// Выполнить регистрацию пользователя (первый шаг)
 		/// </summary>
 		/// <param name="userRegisterRequest"></param>
 		/// <returns></returns>

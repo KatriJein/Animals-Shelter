@@ -10,5 +10,6 @@ namespace Core.Responses.Users.Auth
 	public class UserAuthenthicationResponse : BaseResponse
 	{
 		public UserResponse? UserInfo { get; set; }
+		public string AccessToken { get; set; }
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Domain.Articles;
+using AnimalsShelterBackend.Domain.Contributors;
 using AnimalsShelterBackend.Domain.ShelterUser;
+using AnimalsShelterBackend.Domain.Tokens;
 using Core.Options;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -15,6 +17,8 @@ namespace AnimalsShelterBackend.Infrastructure
 		public DbSet<Animal> Animals { get; set; }
 		public DbSet<Article> Articles { get; set; }
 		public DbSet<User> Users { get; set; }
+		public DbSet<RefreshToken> RefreshTokens { get; set; }
+		public DbSet<Contributor> Contributors { get; set; }
 
 		public ShelterAppContext(DbContextOptions<ShelterAppContext> options, IOptions<ShelterAppDbContextOptions> conOptions)
 			: base(options)

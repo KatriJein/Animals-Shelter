@@ -8,6 +8,7 @@ using Core.Base;
 using Core.Base.Repositories;
 using Core.Base.Services;
 using Core.Constants;
+using Core.Enums.Articles;
 using Core.Queries;
 using Core.Requests;
 using Core.Requests.Articles;
@@ -49,7 +50,7 @@ namespace AnimalsShelterBackend.Services.Articles
 			return await _articleRepository.GetAll().OrderByDescending(a => a.LastUpdatedAt).ToListAsync(cancellationToken);
 		}
 
-		public async Task<CreateArticleResponse> AddAsync(Article article, IFormFile preview, List<IFormFile> files)
+		public async Task<CreateArticleResponse> AddAsync(Article article, IFormFile? preview, List<IFormFile?>? files)
 		{
 			var user = await _userService.GetByGuidAsync(article.UserId, CancellationToken.None);
 			if (user == null) return new CreateArticleResponse() { IsSuccess = false, Message = "Статья создана несуществующим пользователем!" };
@@ -65,11 +66,14 @@ namespace AnimalsShelterBackend.Services.Articles
 			var article = await GetByGuidAsync(id, CancellationToken.None);
 			if (article == null) return new UpdateResponse() { IsSuccess = false, Message = "Попытка обновить несуществующую статью" };
 			if (article.UserId != updateArticleRequest.UserId) return new UpdateResponse() { IsSuccess = false, Message = "Предотвращение изменения авторской статьи извне" };
-			await DeleteExistingResources(article.BodyMarkDown, article.MainImageSrc);
-			article.Title = updateArticleRequest.Title;
-			article.Description = updateArticleRequest.Description;
+			if (article.BodyMarkDown != null)
+				await DeleteExistingResources(article.BodyMarkDown, updateArticleRequest.Preview == null ? "" : article.MainImageSrc);
+			article.Title = updateArticleRequest.Title ?? article.Title;
+			article.Category = updateArticleRequest.Category ?? article.Category;
+			article.Tag = updateArticleRequest.Tag ?? article.Tag;
+			article.Description = updateArticleRequest.Description ?? article.Description;
 			article.LastUpdatedAt = DateTime.UtcNow;
-			article.BodyMarkDown = updateArticleRequest.BodyMarkDown;
+			article.BodyMarkDown = updateArticleRequest.BodyMarkDown ?? article.BodyMarkDown;
 			await ProcessImagesAndMarkdown(article, updateArticleRequest.Preview, updateArticleRequest.Files);
 			await SaveChangesAsync();
 			return new UpdateResponse() { IsSuccess = true };
@@ -96,16 +100,22 @@ namespace AnimalsShelterBackend.Services.Articles
 			return new ArticlesFilesResponse() { IsSuccess = true, Files = filteredFiles.ToList() };
 		}
 
-		private async Task ProcessImagesAndMarkdown(Article article, IFormFile preview, List<IFormFile> files)
+		private async Task ProcessImagesAndMarkdown(Article article, IFormFile? preview, List<IFormFile?>? files)
 		{
-			var filesToUpload = new List<IFormFile>() { preview };
+			var filesToUpload = new List<IFormFile>() { };
+			if (preview != null) filesToUpload.Add(preview);
 			if (files != null)
 				files.ForEach(f =>
 					{
 						if (article.BodyMarkDown.Contains(f.FileName)) filesToUpload.Add(f);
 					});
+			if (filesToUpload.Count == 0)
+			{
+				article.MainImageSrc = "none";
+				return;
+			}
 			var imagesSources = FilesUtils.GenerateFileSources(filesToUpload, _localStorageHost, Const.NewsArticlesBucketName);
-			article.MainImageSrc = imagesSources[0];
+			article.MainImageSrc = preview == null ? "none" : imagesSources[0];
 			for (int i = 1; i < filesToUpload.Count; i++)
 			{
 				article.BodyMarkDown = article.BodyMarkDown.Replace(filesToUpload[i].FileName, imagesSources[i]);
@@ -133,8 +143,11 @@ namespace AnimalsShelterBackend.Services.Articles
 		public async Task<List<Article>> GetAllAsync(ArticlesQuery articlesQuery, CancellationToken cancellationToken)
 		{
 			var articles = await GetAllAsync(cancellationToken);
-			if (articlesQuery.Category == null) return articles;
-			return articles.Where(a => a.Category == articlesQuery.Category).ToList();
+			if (articlesQuery.Category == null && articlesQuery.SearchBy == null)
+				return articles.Where(a => a.Category != Category.News).ToList();
+			if (articlesQuery.Category != null)
+				return articles.Where(a => a.Category == articlesQuery.Category).ToList();
+			return articles.Where(a => a.Title.Contains(articlesQuery.SearchBy) && a.Category != Category.News).ToList();
 		}
 	}
 }

@@ -1,14 +1,17 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Domain.Articles;
+using AnimalsShelterBackend.Domain.Contributors;
 using AnimalsShelterBackend.Domain.ShelterUser;
 using AutoMapper;
 using Core.Constants;
 using Core.Enums.Animals;
 using Core.Requests.Animals;
 using Core.Requests.Articles;
+using Core.Requests.Contributors;
 using Core.Requests.Users;
 using Core.Responses.Animals;
 using Core.Responses.Articles;
+using Core.Responses.Contributors;
 using Core.Responses.Users;
 using Core.Utils;
 using System;
@@ -24,6 +27,7 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 		public ShelterMapper() {
 			MapAnimals();
 			MapUsers();
+			MapContributors();
 			MapArticles();
 		}
 
@@ -49,6 +53,12 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 		{
 			CreateMap<User, UserResponse>()
 				.ForMember(ur => ur.Phone, mOpt => mOpt.MapFrom(u => UserUtils.ConvertPhoneToPlusSeven(u.Phone)));
+		}
+
+		private void MapContributors()
+		{
+			CreateMap<Contributor, ContributorResponse>();
+			CreateMap<CreateContributorRequest, Contributor>();
 		}
 
 		private void MapArticles()

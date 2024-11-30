@@ -17,6 +17,6 @@ namespace AnimalsShelterBackend.Services.Articles
 	{
 		Task<List<Article>> GetAllAsync(ArticlesQuery articlesQuery, CancellationToken cancellationToken);
 		ArticlesFilesResponse GetFiles(ArticlesFilesQuery filesQuery);
-		Task<CreateArticleResponse> AddAsync(Article article, IFormFile preview, List<IFormFile> files);
+		Task<CreateArticleResponse> AddAsync(Article article, IFormFile? preview, List<IFormFile?>? files);
 	}
 }
