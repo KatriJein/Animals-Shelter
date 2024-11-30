@@ -3,6 +3,7 @@ import animalsReducer from './animalsSlice';
 import userReducer from './userSlice';
 import { saveStateToLocalStorage, loadStateFromLocalStorage } from './localStorageUtils';
 import { initialStateUser } from './userSlice'; 
+import articlesReducer from './articlesSlice';
 
 const preloadedUserState = {
     ...initialStateUser, 
@@ -13,6 +14,7 @@ const store = configureStore({
     reducer: {
         animals: animalsReducer,
         user: userReducer,
+        articles: articlesReducer,
     },
     preloadedState: {
         user: preloadedUserState,

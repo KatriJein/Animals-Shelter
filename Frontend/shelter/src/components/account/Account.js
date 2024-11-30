@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import ava from '../../img/base_avatar.png';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../store/userSlice';
+import edit from '../../img/edit.svg';
+
 
 export default function Account() {
     const dispatch = useDispatch();
@@ -25,31 +27,34 @@ export default function Account() {
             <h1 className={style.h1}>Личный кабинет</h1>
             <div className={style.containerInfo}>
                 <div className={style.container}>
-                    <div className={style.avatar}>
-                        <img src={ava} alt="аватарка" />
-                        <a href="#" className={style.change}>Изменить</a>
-                    </div>
+                    <img src={ava} alt="аватарка" />
                     <div className={style.info}>
-                        <div className={style.infoName}>
-                            <p>Имя</p>
-                            <p>Фамилия</p>
-                            <p>Телефон</p>
-                            <p>Почта</p>
+                        <div className={style.contact}>
+                            <span className={style.name}>Имя</span>
+                            <span className={style.desc}>{user.name}</span>
                         </div>
-                        <div className={style.infoName}>
-                            <p>{user.name}</p>
-                            <p>{user.surname}</p>
-                            <p>{user.phone || 'не указан'}</p>
-                            <p>{user.email || 'не указан'}</p>
+                        <div className={style.contact}>
+                            <span className={style.name}>Фамилия</span>
+                            <span className={style.desc}>{user.surname}</span>
+                        </div>
+                        <div className={style.contact}>
+                            <span className={style.name}>Телефон</span>
+                            <span className={style.desc}>{user.phone ? user.phone : 'Не указан'}</span>
+                        </div>
+                        <div className={style.contact}>
+                            <span className={style.name}>Почта</span>
+                            <span className={style.desc}>{user.email ? user.email : 'Не указана'}</span>
                         </div>
                     </div>
-
+                    <button className={style.button} onClick={logoutAcc}>
+                        <span>Редактировать</span>
+                        <img src={edit} alt="edit" />
+                    </button>
                 </div>
-                <button className={style.button}>Редактировать</button>
+                <Favorite pets={favouritesPets} />
 
             </div>
-            <Favorite pets={favouritesPets} />
-            {/* <button onClick={logoutAcc}>Выйти</button> */}
+
         </div>
     )
 }

@@ -84,6 +84,13 @@
 
 @font-face {
   font-family: 'Roboto';
+  src: url('./fonts/Roboto-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: medium;
+}
+
+@font-face {
+  font-family: 'Roboto';
   src: url('./fonts/Roboto-Bold.ttf') format('truetype');
   font-weight: 700;
   font-style: bold;
