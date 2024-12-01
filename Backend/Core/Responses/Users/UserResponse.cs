@@ -14,6 +14,7 @@ namespace Core.Responses.Users
 		public string Email { get; set; }
 		public string Phone { get; set; }
 		public bool IsAdmin { get; set; }
+		public int UnreadNotificationsCount { get; set; }
 		public string AvatarSrc { get; set; }
 	}
 }

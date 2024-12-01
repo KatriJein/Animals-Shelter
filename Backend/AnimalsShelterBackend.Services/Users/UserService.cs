@@ -1,13 +1,17 @@
-﻿using AnimalsShelterBackend.Domain.ShelterUser;
+﻿using AnimalsShelterBackend.Domain.Notifications;
+using AnimalsShelterBackend.Domain.ShelterUser;
 using AnimalsShelterBackend.Domain.ShelterUser.Repositories;
 using AnimalsShelterBackend.Services.Images;
+using AutoMapper;
 using Core.Base;
 using Core.Base.Repositories;
 using Core.Base.Services;
 using Core.Constants;
+using Core.Queries;
 using Core.Requests;
 using Core.Requests.Users;
 using Core.Responses.General;
+using Core.Responses.Notifications;
 using Core.Responses.Users;
 using Core.Utils;
 using Microsoft.AspNetCore.Http;
@@ -25,12 +29,14 @@ namespace AnimalsShelterBackend.Services.Users
 	{
 		private readonly IUserRepository _repository;
 		private readonly IFileService _fileService;
+		private readonly IMapper _mapper;
 		private readonly string _hostLink;
 
-		public UserService(IUserRepository repository, IFileService fileService, IConfiguration config) : base(repository)
+		public UserService(IUserRepository repository, IFileService fileService, IMapper mapper, IConfiguration config) : base(repository)
 		{
 			_repository = repository;
 			_fileService = fileService;
+			_mapper = mapper;
 			_hostLink = config[Const.MinioLink];
 		}
 
@@ -119,6 +125,49 @@ namespace AnimalsShelterBackend.Services.Users
 			user.PasswordHash = newPasswordHash;
 			await SaveChangesAsync();
 			return new UpdatePasswordResponse() { IsSuccess = true };
+		}
+
+		public async Task LoadNotificationsAsync(User user, CancellationToken cancellationToken = default)
+		{
+			await _repository.LoadNotificationsAsync(user, cancellationToken);
+		}
+
+		public async Task<GetNotificationsResponse> GetNotificationsAsync(Guid userId, NotificationsQuery notificationsQuery, CancellationToken cancellationToken)
+		{
+			var user = await GetByGuidAsync(userId, cancellationToken);
+			if (user == null) return new GetNotificationsResponse() { IsSuccess = false, Message = "Несуществующий пользователь" };
+			await LoadNotificationsAsync(user, cancellationToken);
+			var response = new GetNotificationsResponse() { IsSuccess = true };
+			var userNotifications = notificationsQuery.ShowUnreadOnly ? user.Notifications.OrderByDescending(n => n.SentAt).Take(user.UnreadNotificationsCount)
+				: user.Notifications;
+			response.Notifications = _mapper.Map<List<NotificationResponse>>(userNotifications);
+			user.UnreadNotificationsCount = 0;
+			await SaveChangesAsync();
+			return response;
+		}
+
+		public async Task<RemoveNotificationResponse> RemoveNotificationAsync(Guid userId, Guid notificationId)
+		{
+			var user = await GetByGuidAsync(userId, CancellationToken.None);
+			if (user == null) return new RemoveNotificationResponse() { IsSuccess = false, Message = "Несуществующий пользователь" };
+			await LoadNotificationsAsync(user, CancellationToken.None);
+			var requiredNotification = user.Notifications.FirstOrDefault(n => n.Id == notificationId);
+			if (requiredNotification == null) return new RemoveNotificationResponse() { IsSuccess = false, Message = "Попытка удалить несуществующее уведомление" };
+			user.Notifications.Remove(requiredNotification);
+			user.UnreadNotificationsCount = user.UnreadNotificationsCount - 1 >= 0 ? user.UnreadNotificationsCount - 1 : 0;
+			await SaveChangesAsync();
+			return new RemoveNotificationResponse() { IsSuccess = true };
+		}
+
+		public async Task<ClearNotificationsResponse> ClearNotificationsAsync(Guid userId)
+		{
+			var user = await GetByGuidAsync(userId, CancellationToken.None);
+			if (user == null) return new ClearNotificationsResponse() { IsSuccess = false, Message = "Несуществующий пользователь" };
+			await LoadNotificationsAsync(user, CancellationToken.None);
+			user.Notifications.Clear();
+			user.UnreadNotificationsCount = 0;
+			await SaveChangesAsync();
+			return new ClearNotificationsResponse() { IsSuccess = true };
 		}
 	}
 }

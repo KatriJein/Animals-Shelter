@@ -21,6 +21,7 @@ namespace AnimalsShelterBackend.Domain.ShelterUser
 		public string? AvatarSrc { get; set; }
 		public string PasswordHash { get; set; }
 		public bool IsAdmin { get; set; }
+		public int UnreadNotificationsCount { get; set; }
 		public List<Article> Articles { get; set; } = new List<Article>();
 		public List<Animal> FavouriteAnimals { get; set; } = new List<Animal>();
 		public List<View> ArticleViews { get; set; } = new List<View>();

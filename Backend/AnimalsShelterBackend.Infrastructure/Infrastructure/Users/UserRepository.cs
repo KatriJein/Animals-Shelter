@@ -29,6 +29,11 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure.Users
 			return _context.Users;
 		}
 
+		public async Task LoadNotificationsAsync(User user, CancellationToken cancellationToken)
+		{
+			await _context.Entry(user).Collection(u => u.Notifications).LoadAsync(cancellationToken);
+		}
+
 		public async Task LoadUserArticlesAsync(User user, CancellationToken cancellationToken)
 		{
 			await _context.Entry(user).Collection(u => u.Articles).LoadAsync(cancellationToken);

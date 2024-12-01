@@ -4,9 +4,11 @@ using AnimalsShelterBackend.Services.Users.ArticleServices;
 using AnimalsShelterBackend.Services.Users.FavouriteAnimalServices;
 using AutoMapper;
 using Core.Base.Services;
+using Core.Queries;
 using Core.Requests.Users;
 using Core.Responses.Animals;
 using Core.Responses.Articles;
+using Core.Responses.Notifications;
 using Core.Responses.Users;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -203,13 +205,57 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 		/// </summary>
 		/// <param name="userId"></param>
 		/// <returns></returns>
-		[HttpPatch]
+		[HttpDelete]
 		[Route("{userId}/favourites/clear")]
 		public async Task<IActionResult> ClearFavouritesAsync([FromRoute] Guid userId)
 		{
 			var result = await _favouriteAnimalService.ClearFavouritesAsync(_userService, userId);
 			if (!result.IsSuccess) return BadRequest(result.Message);
 			return Ok(result);
+		}
+
+		/// <summary>
+		/// Получить все уведомления пользователя или только непрочитанные
+		/// </summary>
+		/// <param name="notificationsQuery"></param>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("{userId}/notifications")]
+		public async Task<IActionResult> GetNotificationsAsync([FromQuery] NotificationsQuery notificationsQuery, [FromRoute] Guid userId, CancellationToken cancellationToken)
+		{
+			var notificationsResponse = await _userService.GetNotificationsAsync(userId, notificationsQuery, cancellationToken);
+			if (!notificationsResponse.IsSuccess) return BadRequest(notificationsResponse.Message);
+			return Ok(notificationsResponse.Notifications);
+		}
+
+		/// <summary>
+		/// Очистить уведомления пользователя
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <returns></returns>
+		[HttpDelete]
+		[Route("{userId}/notifications/clear")]
+		public async Task<IActionResult> ClearNotificationsAsync([FromRoute] Guid userId)
+		{
+			var response = await _userService.ClearNotificationsAsync(userId);
+			if (!response.IsSuccess) return BadRequest(response.Message);
+			return Ok();
+		}
+
+		/// <summary>
+		/// Удалить уведомление пользователя
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="notificationId"></param>
+		/// <returns></returns>
+		[HttpDelete]
+		[Route("{userId}/notifications/{notificationId}/remove")]
+		public async Task<IActionResult> RemoveNotificationAsync([FromRoute] Guid userId, [FromRoute] Guid notificationId)
+		{
+			var response = await _userService.RemoveNotificationAsync(userId, notificationId);
+			if (!response.IsSuccess) return BadRequest(response.Message);
+			return Ok();
 		}
 	}
 }

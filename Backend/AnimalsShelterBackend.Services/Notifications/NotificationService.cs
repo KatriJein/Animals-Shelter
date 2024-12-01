@@ -36,6 +36,7 @@ namespace AnimalsShelterBackend.Services.Notifications
 			}
 			notification.SentAt = DateTime.UtcNow;
 			user.Notifications.Add(notification);
+			user.UnreadNotificationsCount++;
 			await AddAsync(notification);
 			return new CreateNotificationResponse() { IsSuccess = true };
 		}
@@ -47,7 +48,10 @@ namespace AnimalsShelterBackend.Services.Notifications
 			users.ForEach(user =>
 			{
 				if (!user.IsAdmin)
+				{
 					user.Notifications.Add(notification);
+					user.UnreadNotificationsCount++;
+				}
 			});
 			await AddAsync(notification);
 		}
