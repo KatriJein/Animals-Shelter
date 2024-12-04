@@ -6,6 +6,7 @@ using AnimalsShelterBackend.Infrastructure.Infrastructure.Masstransit;
 using AnimalsShelterBackend.Infrastructure.Startups;
 using AnimalsShelterBackend.Infrastructure.Startups.Articles;
 using AnimalsShelterBackend.Infrastructure.Startups.Contributors;
+using AnimalsShelterBackend.Infrastructure.Startups.Feedbacks;
 using AnimalsShelterBackend.Infrastructure.Startups.Notifications;
 using AnimalsShelterBackend.Infrastructure.Startups.RefreshTokens;
 using AnimalsShelterBackend.Infrastructure.Startups.Users;
@@ -61,6 +62,7 @@ builder.Services.AddArticlesServices();
 
 builder.Services.AddArticleViewsSupport();
 builder.Services.AddNotifications();
+builder.Services.AddFeedbacks();
 
 
 builder.Services.UseMasstransitRabbitMQ(builder.Configuration);

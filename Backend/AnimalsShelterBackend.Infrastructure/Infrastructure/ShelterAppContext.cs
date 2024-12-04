@@ -2,6 +2,7 @@
 using AnimalsShelterBackend.Domain.Articles;
 using AnimalsShelterBackend.Domain.ArticleViews;
 using AnimalsShelterBackend.Domain.Contributors;
+using AnimalsShelterBackend.Domain.Feedbacks;
 using AnimalsShelterBackend.Domain.Notifications;
 using AnimalsShelterBackend.Domain.ShelterUser;
 using AnimalsShelterBackend.Domain.Tokens;
@@ -23,6 +24,7 @@ namespace AnimalsShelterBackend.Infrastructure
 		public DbSet<Contributor> Contributors { get; set; }
 		public DbSet<View> Views { get; set; }
 		public DbSet<Notification> Notifications { get; set; }
+		public DbSet<Feedback> Feedbacks { get; set; }
 
 		public ShelterAppContext(DbContextOptions<ShelterAppContext> options, IOptions<ShelterAppDbContextOptions> conOptions)
 			: base(options)

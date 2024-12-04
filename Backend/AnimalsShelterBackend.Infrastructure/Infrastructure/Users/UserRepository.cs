@@ -43,5 +43,10 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure.Users
 		{
 			await _context.Entry(user).Collection(u => u.FavouriteAnimals).LoadAsync(cancellationToken);
 		}
+
+		public async Task LoadUserFeedbackAsync(User user, CancellationToken cancellationToken)
+		{
+			await _context.Entry(user).Reference(u => u.Feedback).LoadAsync(cancellationToken);
+		}
 	}
 }

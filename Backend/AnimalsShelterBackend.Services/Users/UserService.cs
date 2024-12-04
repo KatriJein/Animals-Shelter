@@ -1,6 +1,7 @@
 ﻿using AnimalsShelterBackend.Domain.Notifications;
 using AnimalsShelterBackend.Domain.ShelterUser;
 using AnimalsShelterBackend.Domain.ShelterUser.Repositories;
+using AnimalsShelterBackend.Services.Feedbacks;
 using AnimalsShelterBackend.Services.Images;
 using AutoMapper;
 using Core.Base;
@@ -10,6 +11,7 @@ using Core.Constants;
 using Core.Queries;
 using Core.Requests;
 using Core.Requests.Users;
+using Core.Responses.Feedbacks;
 using Core.Responses.General;
 using Core.Responses.Notifications;
 using Core.Responses.Users;
@@ -61,6 +63,9 @@ namespace AnimalsShelterBackend.Services.Users
 				return new UserUpdateResponse() { IsSuccess = false, Message = "На данную почту или телефон уже зарегистрирован аккаунт" };
 			user.Name = userUpdateRequest.Name ?? user.Name;
 			user.Surname = userUpdateRequest.Surname ?? user.Surname;
+			await LoadUserFeedbackAsync(user);
+			if (user.Feedback != null && !string.IsNullOrEmpty(user.Name) && !string.IsNullOrEmpty(user.Surname))
+				user.Feedback.UserName = UserUtils.CreateFeedbackName(user.Name, user.Surname);
 			if (userUpdateRequest.Email != null)
 			{
 				var isMatch = Const.EmailRegex.IsMatch(userUpdateRequest.Email);
@@ -106,6 +111,11 @@ namespace AnimalsShelterBackend.Services.Users
 		public async Task LoadUserFavouriteAnimalsAsync(User user, CancellationToken cancellationToken = default)
 		{
 			await _repository.LoadUserFavouriteAnimalsAsync(user, cancellationToken);
+		}
+
+		public async Task LoadUserFeedbackAsync(User user, CancellationToken cancellationToken = default)
+		{
+			await _repository.LoadUserFeedbackAsync(user, cancellationToken);
 		}
 
 		public async Task<User?> FindAdminUserAsync()
@@ -168,6 +178,17 @@ namespace AnimalsShelterBackend.Services.Users
 			user.UnreadNotificationsCount = 0;
 			await SaveChangesAsync();
 			return new ClearNotificationsResponse() { IsSuccess = true };
+		}
+
+		public async Task<GetFeedbackResponse> GetFeedbackAsync(Guid userId, CancellationToken cancellationToken)
+		{
+			var user = await GetByGuidAsync(userId, cancellationToken);
+			if (user == null) return new GetFeedbackResponse() { IsSuccess = false, Message = "Несуществующий пользователь" };
+			await LoadUserFeedbackAsync(user, cancellationToken);
+			FeedbackResponse? feedbackResponse = null;
+			if (user.Feedback != null)
+				feedbackResponse = _mapper.Map<FeedbackResponse>(user.Feedback);
+			return new GetFeedbackResponse() { IsSuccess = true, FeedbackResponse = feedbackResponse };
 		}
 	}
 }

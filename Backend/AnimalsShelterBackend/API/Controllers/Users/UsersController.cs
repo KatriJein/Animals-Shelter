@@ -257,5 +257,21 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 			if (!response.IsSuccess) return BadRequest(response.Message);
 			return Ok();
 		}
+
+		/// <summary>
+		/// Получить отзыв пользователя
+		/// </summary>
+		/// <param name="userId"></param>
+		/// <param name="cancellationToken"></param>
+		/// <returns></returns>
+		[HttpGet]
+		[Route("{userId}/feedback")]
+		public async Task<IActionResult> GetFeedbackAsync([FromRoute] Guid userId, CancellationToken cancellationToken)
+		{
+			var response = await _userService.GetFeedbackAsync(userId, cancellationToken);
+			if (!response.IsSuccess) return BadRequest(response.Message);
+			if (response.FeedbackResponse == null) return NoContent();
+			return Ok(response.FeedbackResponse);
+		}
 	}
 }

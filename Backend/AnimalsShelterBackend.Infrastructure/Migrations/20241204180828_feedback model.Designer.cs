@@ -3,6 +3,7 @@ using System;
 using AnimalsShelterBackend.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace AnimalsShelterBackend.Migrations
 {
     [DbContext(typeof(ShelterAppContext))]
-    partial class ShelterAppContextModelSnapshot : ModelSnapshot
+    [Migration("20241204180828_feedback model")]
+    partial class feedbackmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,37 +191,6 @@ namespace AnimalsShelterBackend.Migrations
                     b.ToTable("Contributors");
                 });
 
-            modelBuilder.Entity("AnimalsShelterBackend.Domain.Feedbacks.Feedback", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("Rating")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Feedbacks");
-                });
-
             modelBuilder.Entity("AnimalsShelterBackend.Domain.Notifications.Notification", b =>
                 {
                     b.Property<Guid>("Id")
@@ -362,17 +334,6 @@ namespace AnimalsShelterBackend.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("AnimalsShelterBackend.Domain.Feedbacks.Feedback", b =>
-                {
-                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", "User")
-                        .WithOne("Feedback")
-                        .HasForeignKey("AnimalsShelterBackend.Domain.Feedbacks.Feedback", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("AnimalsShelterBackend.Domain.Tokens.RefreshToken", b =>
                 {
                     b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", null)
@@ -407,8 +368,6 @@ namespace AnimalsShelterBackend.Migrations
                     b.Navigation("ArticleViews");
 
                     b.Navigation("Articles");
-
-                    b.Navigation("Feedback");
 
                     b.Navigation("RefreshToken");
                 });

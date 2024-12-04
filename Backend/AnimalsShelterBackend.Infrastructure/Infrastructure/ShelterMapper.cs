@@ -1,6 +1,7 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Domain.Articles;
 using AnimalsShelterBackend.Domain.Contributors;
+using AnimalsShelterBackend.Domain.Feedbacks;
 using AnimalsShelterBackend.Domain.Notifications;
 using AnimalsShelterBackend.Domain.ShelterUser;
 using AutoMapper;
@@ -9,11 +10,13 @@ using Core.Enums.Animals;
 using Core.Requests.Animals;
 using Core.Requests.Articles;
 using Core.Requests.Contributors;
+using Core.Requests.Feedbacks;
 using Core.Requests.Notifications;
 using Core.Requests.Users;
 using Core.Responses.Animals;
 using Core.Responses.Articles;
 using Core.Responses.Contributors;
+using Core.Responses.Feedbacks;
 using Core.Responses.Notifications;
 using Core.Responses.Users;
 using Core.Utils;
@@ -33,6 +36,7 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 			MapContributors();
 			MapArticles();
 			MapNotifications();
+			MapFeedbacks();
 		}
 
 		private void MapAnimals()
@@ -83,6 +87,12 @@ namespace AnimalsShelterBackend.Infrastructure.Infrastructure
 		{
 			CreateMap<Notification, NotificationResponse>();
 			CreateMap<CreateNotificationRequest, Notification>();
+		}
+
+		private void MapFeedbacks()
+		{
+			CreateMap<Feedback, FeedbackResponse>();
+			CreateMap<CreateFeedbackRequest, Feedback>();
 		}
 	}
 }
