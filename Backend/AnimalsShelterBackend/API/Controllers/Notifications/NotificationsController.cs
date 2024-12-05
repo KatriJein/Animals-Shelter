@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalsShelterBackend.API.Controllers.Notifications
 {
+	/**
 	[Route("api/notifications")]
 	[ApiController]
 	public class NotificationsController : ControllerBase
@@ -50,4 +51,5 @@ namespace AnimalsShelterBackend.API.Controllers.Notifications
 			return Ok();
 		}
 	}
+	**/
 }

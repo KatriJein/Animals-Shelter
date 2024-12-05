@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalsShelterBackend.API.Controllers.Contributors
 {
+	/**
 	[Route("api/contributors")]
 	[ApiController]
 	public class ContributorsController : ControllerBase
@@ -77,4 +78,5 @@ namespace AnimalsShelterBackend.API.Controllers.Contributors
 			return Ok();
 		}
 	}
+	**/
 }

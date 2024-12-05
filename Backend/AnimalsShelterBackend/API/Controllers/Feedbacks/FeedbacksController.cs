@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AnimalsShelterBackend.API.Controllers.Feedbacks
 {
+	/**
 	[Route("api/feedbacks")]
 	[ApiController]
 	public class FeedbacksController : ControllerBase
@@ -97,4 +98,5 @@ namespace AnimalsShelterBackend.API.Controllers.Feedbacks
 			return Ok();
 		}
 	}
+	**/
 }
