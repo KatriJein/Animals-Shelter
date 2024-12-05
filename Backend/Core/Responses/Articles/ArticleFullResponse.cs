@@ -18,6 +18,7 @@ namespace Core.Responses.Articles
 		public string Description { get; set; }
 		public string BodyMarkDown { get; set; }
 		public string MainImageSrc { get; set; }
+		public int ViewsCount { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public DateTime LastUpdatedAt { get; set; }
 		public Guid UserId { get; set; }

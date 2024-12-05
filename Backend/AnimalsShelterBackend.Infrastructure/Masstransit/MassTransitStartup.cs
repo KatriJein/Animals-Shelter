@@ -1,4 +1,5 @@
 ﻿
+using AnimalsShelterBackend.Infrastructure.Masstransit.Consumers;
 using Core.Constants;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
@@ -19,12 +20,17 @@ namespace AnimalsShelterBackend.Masstransit
 			services.AddMassTransit(mtConfig =>
 			{
 				mtConfig.SetKebabCaseEndpointNameFormatter();
+				mtConfig.AddConsumer<NotificationsConsumer>();
 				mtConfig.UsingRabbitMq((busContext, rmqConfig) =>
 				{
 					rmqConfig.Host(rabbitMqSettingsSection["Host"], hostConfig =>
 					{
 						hostConfig.Username(rabbitMqSettingsSection["Username"]);
 						hostConfig.Password(rabbitMqSettingsSection["Password"]);
+					});
+					rmqConfig.ReceiveEndpoint(Const.NotificationsQueue, config =>
+					{
+						config.ConfigureConsumer<NotificationsConsumer>(busContext);
 					});
 					rmqConfig.ConfigureEndpoints(busContext);
 				});

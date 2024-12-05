@@ -11,5 +11,8 @@ namespace AnimalsShelterBackend.Domain.ShelterUser.Repositories
 	{
 		Task LoadUserFavouriteAnimalsAsync(User user, CancellationToken cancellationToken);
 		Task LoadUserArticlesAsync(User user, CancellationToken cancellationToken);
+		Task LoadNotificationsAsync(User user, CancellationToken cancellationToken);
+		Task LoadUserFeedbackAsync(User user, CancellationToken cancellationToken);
 	}
+
 }

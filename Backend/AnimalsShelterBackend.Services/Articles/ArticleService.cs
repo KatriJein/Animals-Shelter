@@ -54,6 +54,7 @@ namespace AnimalsShelterBackend.Services.Articles
 		{
 			var user = await _userService.GetByGuidAsync(article.UserId, CancellationToken.None);
 			if (user == null) return new CreateArticleResponse() { IsSuccess = false, Message = "Статья создана несуществующим пользователем!" };
+			article.BodyMarkDown = "empty";
 			await ProcessImagesAndMarkdown(article, preview, files);
 			user.Articles.Add(article);
 			var guid = await base.AddAsync(article);
@@ -73,7 +74,6 @@ namespace AnimalsShelterBackend.Services.Articles
 			article.Tag = updateArticleRequest.Tag ?? article.Tag;
 			article.Description = updateArticleRequest.Description ?? article.Description;
 			article.LastUpdatedAt = DateTime.UtcNow;
-			article.BodyMarkDown = updateArticleRequest.BodyMarkDown ?? article.BodyMarkDown;
 			await ProcessImagesAndMarkdown(article, updateArticleRequest.Preview, updateArticleRequest.Files, true);
 			await SaveChangesAsync();
 			return new UpdateResponse() { IsSuccess = true };
@@ -149,6 +149,13 @@ namespace AnimalsShelterBackend.Services.Articles
 			if (articlesQuery.Category != null)
 				return articles.Where(a => a.Category == articlesQuery.Category).ToList();
 			return articles.Where(a => a.Title.Contains(articlesQuery.SearchBy) && a.Category != Category.News).ToList();
+		}
+
+		public async Task<List<Article>> GetMostPopularAsync(PopularArticlesQuery popularArticlesQuery, CancellationToken cancellationToken)
+		{
+			var query = new ArticlesQuery(null, null);
+			var articles = await GetAllAsync(query, cancellationToken);
+			return articles.OrderByDescending(a => a.ViewsCount).Take(popularArticlesQuery.Limit).ToList();
 		}
 	}
 }

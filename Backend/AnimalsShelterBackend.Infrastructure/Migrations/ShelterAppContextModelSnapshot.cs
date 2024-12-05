@@ -101,6 +101,27 @@ namespace AnimalsShelterBackend.Migrations
                     b.ToTable("Animals");
                 });
 
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.ArticleViews.View", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ArticleId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Views");
+                });
+
             modelBuilder.Entity("AnimalsShelterBackend.Domain.Articles.Article", b =>
                 {
                     b.Property<Guid>("Id")
@@ -139,6 +160,9 @@ namespace AnimalsShelterBackend.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("authorId");
 
+                    b.Property<int>("ViewsCount")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
@@ -162,6 +186,64 @@ namespace AnimalsShelterBackend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Contributors");
+                });
+
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Feedbacks.Feedback", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Rating")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Feedbacks");
+                });
+
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Notifications.Notification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Clickable")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("LinkTo")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Notifications");
                 });
 
             modelBuilder.Entity("AnimalsShelterBackend.Domain.ShelterUser.User", b =>
@@ -192,6 +274,9 @@ namespace AnimalsShelterBackend.Migrations
                     b.Property<string>("Surname")
                         .HasColumnType("text");
 
+                    b.Property<int>("UnreadNotificationsCount")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.ToTable("Users");
@@ -221,6 +306,21 @@ namespace AnimalsShelterBackend.Migrations
                     b.ToTable("RefreshTokens");
                 });
 
+            modelBuilder.Entity("NotificationUser", b =>
+                {
+                    b.Property<Guid>("NotificationsId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("NotificationsId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("NotificationUser");
+                });
+
             modelBuilder.Entity("AnimalUser", b =>
                 {
                     b.HasOne("AnimalsShelterBackend.Domain.Animals.Animal", null)
@@ -236,11 +336,37 @@ namespace AnimalsShelterBackend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.ArticleViews.View", b =>
+                {
+                    b.HasOne("AnimalsShelterBackend.Domain.Articles.Article", null)
+                        .WithMany("Views")
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", null)
+                        .WithMany("ArticleViews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AnimalsShelterBackend.Domain.Articles.Article", b =>
                 {
                     b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", "User")
                         .WithMany("Articles")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Feedbacks.Feedback", b =>
+                {
+                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", "User")
+                        .WithOne("Feedback")
+                        .HasForeignKey("AnimalsShelterBackend.Domain.Feedbacks.Feedback", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -256,9 +382,33 @@ namespace AnimalsShelterBackend.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("NotificationUser", b =>
+                {
+                    b.HasOne("AnimalsShelterBackend.Domain.Notifications.Notification", null)
+                        .WithMany()
+                        .HasForeignKey("NotificationsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AnimalsShelterBackend.Domain.ShelterUser.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AnimalsShelterBackend.Domain.Articles.Article", b =>
+                {
+                    b.Navigation("Views");
+                });
+
             modelBuilder.Entity("AnimalsShelterBackend.Domain.ShelterUser.User", b =>
                 {
+                    b.Navigation("ArticleViews");
+
                     b.Navigation("Articles");
+
+                    b.Navigation("Feedback");
 
                     b.Navigation("RefreshToken");
                 });

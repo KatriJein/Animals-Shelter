@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Enums.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,10 @@ namespace Core.Constants
 		public static char Separator = '|';
 		public static char UrlSeparator = '/';
 		public static List<string> ArticlesAllowableContentTypes = new() { ".jpeg", ".png", ".jpg", };
+		public static Dictionary<NotificationType, string> NotificationLinkPatterns = new()
+		{
+			{NotificationType.NewAnimal, "http://localhost:3000/animal/{0}"}
+		};
 		#endregion
 
 		#region configSections
@@ -38,6 +43,7 @@ namespace Core.Constants
 		#endregion
 
 		#region queues
+		public static string NotificationsQueue = "NotificationsQueue";
 		#endregion
 
 		#region regexes

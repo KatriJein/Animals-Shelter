@@ -1,5 +1,6 @@
 ﻿using AnimalsShelterBackend.Domain.Animals;
 using AnimalsShelterBackend.Services.Animals;
+using AnimalsShelterBackend.Services.BusServices;
 using AnimalsShelterBackend.Services.Images;
 using AnimalsShelterBackend.Services.Users;
 using AutoMapper;
@@ -21,12 +22,14 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
     {
         private readonly IAnimalsService _animalsService;
         private readonly IUserService _userService;
+        private readonly INotificationsBusService _notificationsBusService;
         private readonly IMapper _mapper;
 
-        public AnimalsController(IAnimalsService animalsService, IUserService userService, IMapper mapper)
+        public AnimalsController(IAnimalsService animalsService, IUserService userService, INotificationsBusService notificationsBusService, IMapper mapper)
         {
             _animalsService = animalsService;
             _userService = userService;
+            _notificationsBusService = notificationsBusService;
             _mapper = mapper;
         }
 
@@ -89,6 +92,8 @@ namespace AnimalsShelterBackend.API.Controllers.Animals
         {
             var animal = _mapper.Map<Animal>(createAnimalRequest);
             var createdResponse = await _animalsService.AddAsync(animal, createAnimalRequest.Images);
+            if (createdResponse.Id != Guid.Empty)
+                await _notificationsBusService.SendNewAnimalInfoAsync(animal, createdResponse.Id);
             return Ok(createdResponse);
         }
 
