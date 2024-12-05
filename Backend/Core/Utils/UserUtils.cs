@@ -45,5 +45,10 @@ namespace Core.Utils
 		{
 			return BCrypt.Net.BCrypt.Verify(input, hashed);
 		}
+
+		public static string CreateFeedbackName(string name, string surname)
+		{
+			return $"{name} {char.ToUpper(surname[0])}.";
+		}
 	}
 }

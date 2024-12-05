@@ -1,4 +1,5 @@
 ﻿
+using AnimalsShelterBackend.Domain.ArticleViews;
 using AnimalsShelterBackend.Domain.ShelterUser;
 using Core.Enums.Articles;
 using System;
@@ -20,10 +21,12 @@ namespace AnimalsShelterBackend.Domain.Articles
 		public string Description { get; set; }
 		public string BodyMarkDown { get; set; }
 		public string MainImageSrc { get; set; }
+		public int ViewsCount { get; set; }
 		public DateTime CreatedAt { get; set; }
 		public DateTime LastUpdatedAt { get; set; }
 		[Column("authorId")]
 		public Guid UserId { get; set; }
+		public List<View> Views { get; set; } = new List<View>();
 		public User? User { get; set; }
 	}
 }

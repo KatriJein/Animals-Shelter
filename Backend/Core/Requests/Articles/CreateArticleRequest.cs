@@ -8,6 +8,6 @@ using System.Threading.Tasks;
 
 namespace Core.Requests.Articles
 {
-	public record CreateArticleRequest(string Title, Tag Tag, Category Category, string Description, string BodyMarkDown, IFormFile? Preview, Guid UserId,
+	public record CreateArticleRequest(string Title, Tag Tag, Category Category, string Description, IFormFile? Preview, Guid UserId,
 		List<IFormFile?>? Files);
 }
