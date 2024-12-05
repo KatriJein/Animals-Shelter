@@ -7,7 +7,7 @@ import { getAnimalInfo, getHealthConditionsWithGender } from "../../utils/animal
 import HealthCondition from "./HealthCondition";
 import { isPetIdInArray } from "../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
-import { addFavouritePet, deleteFavouritePet } from "../../store/userSlice";
+import { addFavourite, removeFavourite } from "../../store/userSlice";
 import { useNavigate } from 'react-router-dom';
 
 export default function PageAnimal(props) {
@@ -23,30 +23,20 @@ export default function PageAnimal(props) {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const user = useSelector((state) => state.user);
 
-    const handleClick = async () => {
+    const handleClick = () => {
         if (isAuthenticated) {
-            try {
-                const url = `${process.env.REACT_APP_API_URL}/users/${user.id}/${isFavourite ? 'unfavourite' : 'favourite'}/${id}`;
-                const response = await fetch(url, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                
-                if (response.ok) {
-                    if (isFavourite) {
-                        dispatch(deleteFavouritePet(pet.id));
-                        console.log('Pet removed from favourites:', pet.name);
-                    } else {
-                        dispatch(addFavouritePet(pet));
-                        console.log('Pet added to favourites:', pet.name);
-                    }
-                } else {
-                    console.error('Error updating favourites:', await response.text());
-                }
-            } catch (error) {
-                console.error('Error during fetch:', error);
+            if (isFavourite) {
+                dispatch(removeFavourite({ userId: user.id, petId: id }))
+                    .unwrap()
+                    .catch((error) => {
+                        console.error('Error removing from favourites:', error);
+                    });
+            } else {
+                dispatch(addFavourite({ userId: user.id, pet }))
+                    .unwrap()
+                    .catch((error) => {
+                        console.error('Error adding to favourites:', error);
+                    });
             }
         } else {
             navigate('/login');
@@ -64,7 +54,7 @@ export default function PageAnimal(props) {
                         <button className={style.buttonFavorite} onClick={handleClick}>{isFavourite ? <img src={favoriteFull} alt="Избранное" className={style.favorite} /> : <img src={favorite} alt="Избранное" className={style.favorite} />}</button>
                     </div>
                     <p className={style.p}>{description} Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
-                    
+
                     <div>
                         <div className={style.containerList}>
                             {information.map((info) => (

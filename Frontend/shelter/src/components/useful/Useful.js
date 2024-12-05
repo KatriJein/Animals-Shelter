@@ -2,13 +2,7 @@ import UsefulButton from './UsefulButton';
 import style from './UsefulPage.module.css';
 import UsefulArticle from './UsefulArticle';
 import search from '../../img/search.svg';
-import feedingIcon from '../../img/feeding.svg';
-import healthIcon from '../../img/health.svg';
-import careIcon from '../../img/care.svg';
-import behaviourIcon from '../../img/behaviour.svg';
-import trainingIcon from '../../img/training.svg';
-
-const categories = [{ text: 'Кормление', icon: feedingIcon, color: '#9498E0' }, { text: 'Дрессировка', icon: trainingIcon, color: '#986C73' }, { text: 'Здоровье', icon: healthIcon, color: '#505B86' }, { text: 'Уход', icon: careIcon, color: '#CC969D' }, { text: 'Поведение', icon: behaviourIcon, color: '#8E4A64' }];
+import { categories } from '../../utils/animalInfo';
 
 export default function Useful(props) {
     const { popularArticles, onSearch, onCategoryClick } = props;
@@ -50,7 +44,7 @@ export default function Useful(props) {
                         text={category.text}
                         icon={category.icon}
                         color={category.color}
-                        onClick={() => onCategoryClick(category.text)}
+                        onClick={() => onCategoryClick(category.category)}
                     />
                 ))}
             </div>
@@ -59,7 +53,7 @@ export default function Useful(props) {
                 <h2 className={style.h2}>Популярные статьи</h2>
                 <div className={style.containerArticles}>
                     {popularArticles.map((article) => (
-                        <UsefulArticle key={article.id} heading={article.heading} text={article.text} />
+                        <UsefulArticle key={article.id} heading={article.title} text={article.description} />
                     ))}
                 </div>
             </div>

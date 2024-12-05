@@ -4,31 +4,19 @@ import trash from '../../img/trash.svg';
 import favoriteFull from '../../img/favorite_full.svg';
 import { getAgeString } from '../../utils/animalInfo';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteFavouritePet } from '../../store/userSlice';
+import { removeFavourite } from '../../store/userSlice';
 
 export default function Favorite(props) {
     const { pets } = props;
     const user = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
-    const handleFavoriteClick = async (id) => {
-        try {
-            const url = `${process.env.REACT_APP_API_URL}/users/${user.id}/unfavourite/${id}`;
-            const response = await fetch(url, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+    const handleFavoriteClick = (id) => {
+        dispatch(removeFavourite({ userId: user.id, petId: id }))
+            .unwrap()
+            .catch((error) => {
+                console.error('Error removing from favourites:', error);
             });
-
-            if (response.ok) {
-                dispatch(deleteFavouritePet(id));
-            } else {
-                console.error('Error updating favourites:', await response.text());
-            }
-        } catch (error) {
-            console.error('Error during fetch:', error);
-        }
     };
 
     return (

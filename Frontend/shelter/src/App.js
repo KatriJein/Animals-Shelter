@@ -15,6 +15,7 @@ import ScrollToTop from './utils/ScrollToTop';
 import AccountPage from './pages/AccountPage';
 import FillingData from './components/auth/FillingData';
 import UsefulPage from './components/useful/UsefulPage';
+import News from './components/news/News';
 
 
 function App() {
@@ -41,6 +42,7 @@ function App() {
             <Route path="/account" element={<AccountPage />} />
             <Route path="/fillingData" element={<FillingData />} />
             <Route path="/useful" element={<UsefulPage />} />
+            <Route path="/news" element={<News />} />
           </Routes>
         </Layout>
       </Router>
