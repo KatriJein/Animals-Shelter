@@ -1,0 +1,197 @@
+.mainContainer {
+    width: 76vw;
+    display: flex;
+    box-sizing: border-box;
+    margin: 2vw auto;
+    padding: 2.1vw 3.7vw;
+    flex-direction: row;
+    gap: 3vw;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.05vw;
+    color: #000;
+    font-weight: 300;
+    border-radius: 1.31vw;
+    line-height: 1.8vw;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vw;
+    width: 33.73vw;
+    padding: 1vw 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerHelp {
+    display: flex;
+    flex-direction: column;
+    gap: 1.59vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerVol {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 2.1vw;
+    color: #374375;
+    font-weight: 700;
+}
+
+h2 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.68vw;
+    color: #374375;
+    font-weight: 600;
+}
+
+h3 {
+    margin: 0;
+    padding: 0;
+    font-family: 'Caveat', sans-serif;
+    font-size: 2.1vw;
+    color: #89515A;
+    font-weight: 400;
+}
+
+p {
+    margin: 0;
+    padding: 0;
+    text-wrap: wrap;
+}
+
+ul, ol {
+    margin: 0;
+    padding: 0;
+    padding-inline-start: 1.4vw;
+}
+
+.containerVol div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+/* Пожертвование */
+
+.donation {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    width: 31.62vw;
+    height: 60vw;
+    padding: 2.1vw 1.58vw;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 1.9vw;
+    background-color: #F5F5F5;
+    background-image: url('../../img/donation_pic.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: bottom;
+}
+
+.donationTitle {
+    font-family: 'Caveat', sans-serif;
+    font-weight: 700;
+    font-size: 2.5vw;
+    width: 100%;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    color: #89515A;
+}
+
+.donationContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerRequisites {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerRequisite {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25vw;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containerRequisite span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25vw;
+    font-weight: 500;
+}
+
+.containerRequisite button {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.25vw;
+    font-weight: 300;
+    background-color: #fff;
+    border-radius: 0.85vw;
+    border: none;
+    color: #000;
+    padding: 0.42vw 1vw;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.containerRequisite button span{
+    font-weight: 300;
+}
+
+.containerRequisite button img{
+    width: 1.5vw;
+    height: 1.5vw;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+}

@@ -16,6 +16,7 @@ import AccountPage from './pages/AccountPage';
 import FillingData from './components/auth/FillingData';
 import UsefulPage from './components/useful/UsefulPage';
 import News from './components/news/News';
+import Help from './components/help/Help';
 
 
 function App() {
@@ -43,6 +44,7 @@ function App() {
             <Route path="/fillingData" element={<FillingData />} />
             <Route path="/useful" element={<UsefulPage />} />
             <Route path="/news" element={<News />} />
+            <Route path="/help" element={<Help />} />
           </Routes>
         </Layout>
       </Router>

@@ -1,10 +1,15 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Catalog.module.css';
 import Filter from './Filter';
 import Card from './card/Card';
 import { useSelector } from 'react-redux';
 import { isAgeInRange } from '../../utils/filter';
 import { isPetIdInArray } from '../../utils/utils';
+import { selectAnimals, selectAnimalsLoading, selectAnimalsError } from '../../store/animalsSlice';
+import { selectUser, selectloadingFavourites, selectUserError } from '../../store/userSlice';
+import { fetchAnimals } from '../../store/animalsActions';
+import { fetchFavourites } from '../../store/userSlice';
+import { useDispatch } from 'react-redux';
 
 const defaultFilters = {
     age: [],
@@ -18,28 +23,25 @@ const defaultFilters = {
     receiptDate: ""
 };
 
-
-
 export default function Catalog() {
     const [filters, setFilters] = useState(defaultFilters);
-    const [isLoading, setIsLoading] = useState(true);
+    const dispatch = useDispatch();
 
-    const animals = useSelector((state) => state.animals.animals);
-    const loadingFavourites = useSelector((state) => state.user.loadingFavourites);
-    const statusAnimals = useSelector((state) => state.animals.status);
-    const user = useSelector((state) => state.user);
+    const animals = useSelector(selectAnimals);
+    const user = useSelector(selectUser);
+
+    const loadingFavourites = useSelector(selectloadingFavourites);
+    const loadingAnimals = useSelector(selectAnimalsLoading);
+
+    const errorAnimals = useSelector(selectAnimalsError);
+    const errorUser = useSelector(selectUserError);
 
     useEffect(() => {
-        if (
-            statusAnimals === 'idle' ||
-            statusAnimals === 'loading' ||
-            loadingFavourites
-        ) {
-            setIsLoading(true);
-        } else if (statusAnimals === 'succeeded' && !loadingFavourites) {
-            setIsLoading(false);
+        dispatch(fetchAnimals());
+        if (user.isAuthenticated) {
+            dispatch(fetchFavourites(user.id));
         }
-    }, [statusAnimals, loadingFavourites]);
+    }, [dispatch, user.isAuthenticated]);
 
     const handleFilterChange = (filterName, value) => {
         setFilters(prevFilters => ({
@@ -66,20 +68,19 @@ export default function Catalog() {
         });
     });
 
-
-    if (isLoading) {
-        return <div>Loading...</div>;
-    }
-
     return (
         <main className={styles.mainContainer}>
             <h2 className={styles.h2}>Наши питомцы</h2>
             <div className={styles.container}>
                 <Filter filters={filters} onFilterChange={handleFilterChange} />
                 <div className={styles.cardsList}>
-                    {filteredAnimals.map((pet) => (
-                        <Card key={pet.id} pet={pet} isAuthenticated={user.isAuthenticated} isFavourite={isPetIdInArray(user.favourites, pet.id)}/>
-                    ))}
+                    {loadingAnimals || loadingFavourites ? (
+                        <p className={styles.error}>Загрузка...</p>
+                    ) : errorAnimals || errorUser ? (
+                        <p className={styles.error}>Произошла ошибка</p>
+                    ) : (filteredAnimals.map((pet) => (
+                        <Card key={pet.id} pet={pet} isAuthenticated={user.isAuthenticated} isFavourite={isPetIdInArray(user.favourites, pet.id)} />
+                    )))}
                 </div>
             </div>
         </main>
