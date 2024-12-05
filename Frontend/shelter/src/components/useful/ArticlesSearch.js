@@ -13,7 +13,7 @@ function ArticlesSearch(props) {
                 <div className={style.containerArticles}>
                     {articles.length > 0 ? (
                         articles.map((article) => (
-                            <UsefulArticle key={article.id} heading={article.heading} text={article.text} />
+                            <UsefulArticle key={article.id} heading={article.title} text={article.description} />
                         ))
                     ) : (
                         <p className={style.notFound}>Статьи не найдены :(</p>

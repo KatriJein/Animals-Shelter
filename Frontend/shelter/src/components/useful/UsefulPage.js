@@ -5,6 +5,7 @@ import Useful from "./Useful";
 import ArticlesSearch from "./ArticlesSearch";
 import ContactsQuestion from "../contactsQuestion/ContactsQuestion";
 import style from "./UsefulPage.module.css";
+import { findCategoryText } from "../../utils/animalInfo";
 
 function UsefulPage() {
     const dispatch = useDispatch();
@@ -21,9 +22,15 @@ function UsefulPage() {
         dispatch(fetchArticles());
     }, [dispatch]);
 
+    useEffect(() => {
+        if (isSearchActive) {
+            window.scrollTo(0, 0);
+        }
+    }, [isSearchActive]);
+
     const handleSearch = (query) => {
         const filtered = articles.filter((article) =>
-            article.heading.toLowerCase().includes(query.toLowerCase())
+            article.title.toLowerCase().includes(query.toLowerCase())
         );
         setSearchHeading(query);
         setIsSearch(true);
@@ -33,9 +40,8 @@ function UsefulPage() {
 
     const handleCategoryClick = (category) => {
         const filtered = articles.filter((article) =>
-            article.heading.toLowerCase().includes(category.toLowerCase())
-        );
-        setSearchHeading(category);
+            article.category === category);
+        setSearchHeading(findCategoryText(category));
         setIsSearch(false);
         setFilteredArticles(filtered);
         setIsSearchActive(true);
@@ -77,7 +83,7 @@ function UsefulPage() {
                 />
             ) : (
                 <Useful
-                    popularArticles={articles}
+                    popularArticles={articles.slice(0, 5)}
                     onSearch={handleSearch}
                     onCategoryClick={handleCategoryClick}
                 />

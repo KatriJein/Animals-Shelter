@@ -1,35 +1,45 @@
 .mainContainer {
     width: 76vw;
-    height: 105.43vw;
     display: flex;
     box-sizing: border-box;
     margin: 0 auto;
-    padding: 0;
-    flex-direction: row;
-    gap: 0;
+    padding: 2.1vw;
+    flex-direction: column;
+    gap: 1.5vw;
     font-family: 'Nunito', sans-serif;
     font-size: 1.05vw;
     color: #000;
 }
 
-.container {
-    width: 44.37vw;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    gap: 2.37vw;
-    padding: 1.8vw;
-    /* width: 100%; */
-}
-
-.containerInfo {
+.containerButtons {
     display: flex;
     flex-direction: row;
     gap: 3.1vw;
     width: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-.map {
-    width: 31.63vw;
-    height: 105.43vw;
+.button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.6vw;
+    font-weight: 700;
+    color: #9d9d9d;
+}
+
+.active {
+    color: #000;
+}
+
+.error {
+    font-family: 'Nunito', sans-serif;
+    font-size: 2.1vw;
+    font-weight: 600;
+    color: #374375;
+    margin: 2vw;
+    text-align: center;
+    justify-self: center;
 }

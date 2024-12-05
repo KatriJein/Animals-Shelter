@@ -10,7 +10,7 @@ const API_URL = process.env.REACT_APP_API_URL;
 
 export const fetchArticles = createAsyncThunk('articles/fetchArticles', async (_, { rejectWithValue }) => {
   try {
-    const response = await fetch('/api/articles'); 
+    const response = await fetch(`${API_URL}/articles/all`); 
     if (!response.ok) {
       throw new Error('Ошибка при получении статей');
     }
