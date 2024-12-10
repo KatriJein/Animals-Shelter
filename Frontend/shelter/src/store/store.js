@@ -4,12 +4,14 @@ import userReducer from './userSlice';
 import articlesReducer from './articlesSlice';
 import { combineReducers } from '@reduxjs/toolkit';
 import newsReducer from './newsSlice';
+import filtersReducer from './filtersSlice';
 
 const rootReducer = combineReducers({
     animals: animalsReducer,
     user: userReducer,
     articles: articlesReducer,
-    news: newsReducer
+    news: newsReducer,
+    filters: filtersReducer
 })
 
 const store = configureStore({

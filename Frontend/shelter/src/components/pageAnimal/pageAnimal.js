@@ -53,7 +53,7 @@ export default function PageAnimal(props) {
                         <button className={style.buttonShelter}>Приютить</button>
                         <button className={style.buttonFavorite} onClick={handleClick}>{isFavourite ? <img src={favoriteFull} alt="Избранное" className={style.favorite} /> : <img src={favorite} alt="Избранное" className={style.favorite} />}</button>
                     </div>
-                    <p className={style.p}>{description} Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. </p>
+                    <p className={style.p}>{description}</p>
 
                     <div>
                         <div className={style.containerList}>

@@ -32,6 +32,9 @@
     width: 100%;
     display: grid; 
     grid-template-columns: repeat(3, 1fr); 
+    grid-auto-rows: max-content;
+    /* grid-auto-rows: auto;
+    align-items: start; */
     gap: 2vw;
     justify-items: center;
     justify-content: center;

@@ -10,6 +10,7 @@ import { selectUser, selectloadingFavourites, selectUserError } from '../../stor
 import { fetchAnimals } from '../../store/animalsActions';
 import { fetchFavourites } from '../../store/userSlice';
 import { useDispatch } from 'react-redux';
+import { setFilter, resetFilters, selectFilters } from '../../store/filtersSlice';
 
 const defaultFilters = {
     age: [],
@@ -18,13 +19,14 @@ const defaultFilters = {
     wool: [],
     color: [],
     temperFeatures: [],
-    healthCondition: [],
+    healthConditions: [],
     livingCondition: [],
     receiptDate: ""
 };
 
 export default function Catalog() {
-    const [filters, setFilters] = useState(defaultFilters);
+    const filters = useSelector(selectFilters);
+    console.log(filters);
     const dispatch = useDispatch();
 
     const animals = useSelector(selectAnimals);
@@ -44,10 +46,7 @@ export default function Catalog() {
     }, [dispatch, user.isAuthenticated]);
 
     const handleFilterChange = (filterName, value) => {
-        setFilters(prevFilters => ({
-            ...prevFilters,
-            [filterName]: value
-        }));
+        dispatch(setFilter({ filterName, value }));
     };
 
     const filteredAnimals = animals.filter(pet => {
@@ -63,7 +62,6 @@ export default function Catalog() {
             if (Array.isArray(filters[filterName])) {
                 return filters[filterName].length === 0 || filters[filterName].includes(pet[filterName]);
             }
-
             return filters[filterName] === "" || pet[filterName] === filters[filterName];
         });
     });

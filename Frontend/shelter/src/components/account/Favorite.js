@@ -4,11 +4,11 @@ import trash from '../../img/trash.svg';
 import favoriteFull from '../../img/favorite_full.svg';
 import { getAgeString } from '../../utils/animalInfo';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFavourite } from '../../store/userSlice';
+import { removeFavourite, clearAllFavourites, selectUser } from '../../store/userSlice';
 
 export default function Favorite(props) {
     const { pets } = props;
-    const user = useSelector((state) => state.user);
+    const user = useSelector(selectUser);
     const dispatch = useDispatch();
 
     const handleFavoriteClick = (id) => {
@@ -19,11 +19,19 @@ export default function Favorite(props) {
             });
     };
 
+    const handleClearClick = () => {
+        dispatch(clearAllFavourites(user.id))
+            .unwrap()
+            .catch((error) => {
+                console.error('Error removing favourites:', error);
+            });
+    };
+
     return (
         <div className={style.containerFavorite}>
             <div className={style.containerHeader}>
                 <h2>Избранное</h2>
-                <button className={style.buttonTrash}>
+                <button className={style.buttonTrash} onClick={handleClearClick}>
                     <span>Очистить</span>
                     <img src={trash} alt="Корзина" />
                 </button>
