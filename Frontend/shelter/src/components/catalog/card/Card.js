@@ -5,7 +5,7 @@ import favoriteFull from "../../../img/favorite_full.svg";
 import { FilterOptions } from "../../../filterOptions";
 import { getAgeString } from '../../../utils/animalInfo';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteFavouritePet, addFavouritePet } from '../../../store/userSlice';
+import { addFavourite, removeFavourite } from '../../../store/userSlice';
 
 export default function Card(props) {
     const dispatch = useDispatch();
@@ -18,30 +18,20 @@ export default function Card(props) {
 
     const sexStr = FilterOptions['sex']['options'][sex].charAt(0).toLowerCase() + FilterOptions['sex']['options'][sex].slice(1);
 
-    const handleClick = async () => {
+    const handleClick = () => {
         if (isAuthenticated) {
-            try {
-                const url = `${process.env.REACT_APP_API_URL}/users/${user.id}/${isFavourite ? 'unfavourite' : 'favourite'}/${id}`;
-                const response = await fetch(url, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-                
-                if (response.ok) {
-                    if (isFavourite) {
-                        dispatch(deleteFavouritePet(pet.id));
-                        console.log('Pet removed from favourites:', pet.name);
-                    } else {
-                        dispatch(addFavouritePet(pet));
-                        console.log('Pet added to favourites:', pet.name);
-                    }
-                } else {
-                    console.error('Error updating favourites:', await response.text());
-                }
-            } catch (error) {
-                console.error('Error during fetch:', error);
+            if (isFavourite) {
+                dispatch(removeFavourite({ userId: user.id, petId: id }))
+                    .unwrap()
+                    .catch((error) => {
+                        console.error('Error removing from favourites:', error);
+                    });
+            } else {
+                dispatch(addFavourite({ userId: user.id, pet }))
+                    .unwrap()
+                    .catch((error) => {
+                        console.error('Error adding to favourites:', error);
+                    });
             }
         } else {
             navigate('/login');

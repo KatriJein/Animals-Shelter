@@ -1,4 +1,9 @@
 import { FilterOptions } from "../filterOptions";
+import feedingIcon from '../img/feeding.svg';
+import healthIcon from '../img/health.svg';
+import careIcon from '../img/care.svg';
+import behaviourIcon from '../img/behaviour.svg';
+import trainingIcon from '../img/training.svg';
 
 export function getAnimalInfo(pet) {
 
@@ -76,7 +81,45 @@ export function getHealthConditionsWithGender(healthConditions, sex) {
 }
 
 
+export const newsTag = {
+    newAnimals: {
+        title: 'Новые поступления',
+        color: '#374375'
+    },
+    successStories: {
+        title: 'Успешные истории',
+        color: '#BABCE2'
+    },
+    events: {
+        title: 'Мероприятия',
+        color: '#89515A'
+    },
+    reports: {
+        title: 'Отчет и благодарность',
+        color: '#9A526E'
+    },
+    volunteering: {
+        title: 'Волонтерство',
+        color: '#DFAEA0'
+    },
+    holidays: {
+        title: 'Праздники',
+        color: '#CDA3A9'
+    },
+    improvements: {
+        title: 'Улучшения',
+        color: '#9498E0'
+    }
+}
 
+export const categories = [{ text: 'Кормление', icon: feedingIcon, color: '#9498E0', category: 'feedingArticles' },
+{ text: 'Дрессировка', icon: trainingIcon, color: '#986C73', category: 'trainingArticles' },
+{ text: 'Здоровье', icon: healthIcon, color: '#505B86', category: 'healthArticles' },
+{ text: 'Уход', icon: careIcon, color: '#CC969D', category: 'treatmentArticles' },
+{ text: 'Поведение', icon: behaviourIcon, color: '#8E4A64', category: 'behaviourArticles' }];
 
-
+export const findCategoryText = (category) => {
+    const categoryItem = categories.find(item => item.category === category);
+    return categoryItem ? categoryItem.text : undefined;
+};
 
