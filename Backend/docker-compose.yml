@@ -47,6 +47,18 @@ services:
     volumes:
         - ./.containers/rabbitmq:/var/lib/rabbitmq
 
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+        - 6379:6379
+    volumes:
+        - ./.containers/redis:/data
+    environment:
+        REDIS_PASSWORD: redispass
+        REDIS_USER: redisuser
+        REDIS_USER_PASSWORD: rdp334pas_s
+
   createbuckets:
     image: minio/mc
     depends_on:
