@@ -23,6 +23,8 @@ export default function PageAnimal(props) {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const user = useSelector((state) => state.user);
 
+    const url = `https://docs.google.com/forms/d/e/1FAIpQLSfmSos_MUMeIdAaOTB40RF32G8XPhT2pfBSyDDvmMp1nRgqMA/viewform?usp=pp_url&entry.2005620554=${user.userInfo.surname}+${user.userInfo.name}&entry.1166974658=${user.userInfo.phone}&entry.1045781291=${user.userInfo.email}&entry.839337160=${name}`;
+
     const handleClick = () => {
         if (isAuthenticated) {
             if (isFavourite) {
@@ -43,6 +45,10 @@ export default function PageAnimal(props) {
         }
     };
 
+    const handleClickPet = () => {
+        window.open(url, '_blank');
+    };
+
     return (
         <section className={style.mainContainer}>
             <div className={style.containerInfo}>
@@ -50,7 +56,7 @@ export default function PageAnimal(props) {
                 <div className={style.containerDescription}>
                     <h2 className={style.h2}>{name}</h2>
                     <div className={style.containerButtons}>
-                        <button className={style.buttonShelter}>Приютить</button>
+                        <button className={style.buttonShelter} onClick={handleClickPet}>Приютить</button>
                         <button className={style.buttonFavorite} onClick={handleClick}>{isFavourite ? <img src={favoriteFull} alt="Избранное" className={style.favorite} /> : <img src={favorite} alt="Избранное" className={style.favorite} />}</button>
                     </div>
                     <p className={style.p}>{description}</p>
