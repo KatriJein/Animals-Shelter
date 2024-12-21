@@ -1,6 +1,17 @@
 version: '3.4'
 
 services:
+
+  animalsshelterfrontend:
+    image: shelter/frontend
+    container_name: ShelterFrontend
+    ports:
+        - "3000:3000"
+        - "3001:3001"
+    build:
+     context: ../Frontend/shelter
+     dockerfile: Dockerfile
+
   animalsshelterbackend:
     image: vdd/animalsshelterbackend
     container_name: ShelterBackend
@@ -12,6 +23,8 @@ services:
         - "5001:5001"
     environment:
         - ASPNETCORE_URLS=http://+:5000
+
+  
 
   animalsshelterbackendDB:
     image: postgres:latest
