@@ -23,7 +23,6 @@ export default function PageAnimal(props) {
     const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
     const user = useSelector((state) => state.user);
 
-    const url = `https://docs.google.com/forms/d/e/1FAIpQLSfmSos_MUMeIdAaOTB40RF32G8XPhT2pfBSyDDvmMp1nRgqMA/viewform?usp=pp_url&entry.2005620554=${user.userInfo.surname}+${user.userInfo.name}&entry.1166974658=${user.userInfo.phone}&entry.1045781291=${user.userInfo.email}&entry.839337160=${name}`;
 
     const handleClick = () => {
         if (isAuthenticated) {
@@ -46,6 +45,12 @@ export default function PageAnimal(props) {
     };
 
     const handleClickPet = () => {
+        let url = '';
+        if (isAuthenticated) {
+            url = `https://docs.google.com/forms/d/e/1FAIpQLSfmSos_MUMeIdAaOTB40RF32G8XPhT2pfBSyDDvmMp1nRgqMA/viewform?usp=pp_url&entry.2005620554=${user.userInfo.surname}+${user.userInfo.name}&entry.1166974658=${user.userInfo.phone}&entry.1045781291=${user.userInfo.email}&entry.839337160=${name}`;
+        } else {
+            url = `https://docs.google.com/forms/d/e/1FAIpQLSfmSos_MUMeIdAaOTB40RF32G8XPhT2pfBSyDDvmMp1nRgqMA/viewform?usp=pp_url&entry.839337160=${name}`;
+        }
         window.open(url, '_blank');
     };
 
