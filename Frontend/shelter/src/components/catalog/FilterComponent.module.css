@@ -37,10 +37,10 @@
 }
 
 .filterCheckbox {
-    width: 0.85vw;
-    height: 0.85vw;
+    scale: 1.2;
+    height: min-content;
     position: relative;
-    top: 0.1vw;
+    top: 0.2vw;
     cursor: pointer;
 }
 

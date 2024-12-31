@@ -64,7 +64,7 @@ export const FilterOptions = {
             specificTemper: "Нуждается в особом уходе"
         }
     },
-    healthCondition: {
+    healthConditions: {
         placeholder: "Состояние здоровья",
         type: "checkbox",
         options: {

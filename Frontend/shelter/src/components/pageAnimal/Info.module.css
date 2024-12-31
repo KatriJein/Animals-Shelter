@@ -7,6 +7,7 @@
 }
 
 .h3 {
+    min-width: 19vw;
     width: 19vw;
     font-weight: 700;
     margin: 0;

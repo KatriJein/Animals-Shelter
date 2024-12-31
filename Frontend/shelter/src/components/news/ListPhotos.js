@@ -3,6 +3,7 @@ import style from "./ListNews.module.css";
 
 export default function ListPhotos(props) {
     const { photos } = props;
+    console.log(photos);
 
     const [modalData, setModalData] = useState({
         isOpen: false,
@@ -23,9 +24,9 @@ export default function ListPhotos(props) {
                 {photos.map((item, index) => (
                     <li key={index} className={style.containerPhoto}>
                         <img
-                            src={item.mainImageSrc}
+                            src={item.link}
                             alt="фото"
-                            onClick={() => openModal(item.mainImageSrc)}
+                            onClick={() => openModal(item.link)}
                         />
                     </li>
                 ))}

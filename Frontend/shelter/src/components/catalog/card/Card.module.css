@@ -3,6 +3,8 @@
     padding: 0.52vw;
     box-sizing: border-box;
     width: 22vw;
+    height: max-content;
+    /* align-items: stretch; */
     display: flex;
     flex-direction: column;
     border-radius: 1.38vw;
@@ -25,10 +27,13 @@
 }
 
 .containerInfo {
+    height: 100%;
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.8vw;
+    align-items: last baseline;
+    justify-content: space-between;
 }
 
 .containerName {

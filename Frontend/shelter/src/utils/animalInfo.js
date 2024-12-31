@@ -99,7 +99,7 @@ export const newsTag = {
         color: '#9A526E'
     },
     volunteering: {
-        title: 'Волонтерство',
+        title: 'Волонтёрство',
         color: '#DFAEA0'
     },
     holidays: {
@@ -121,5 +121,9 @@ export const categories = [{ text: 'Кормление', icon: feedingIcon, colo
 export const findCategoryText = (category) => {
     const categoryItem = categories.find(item => item.category === category);
     return categoryItem ? categoryItem.text : undefined;
+};
+
+export const findTag = (tag) => {
+    return newsTag[tag];
 };
 

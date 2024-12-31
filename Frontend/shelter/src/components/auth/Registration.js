@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
-import { loginSuccess } from '../../store/userSlice';
+import { register } from '../../store/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Registration() {
@@ -33,34 +33,52 @@ export default function Registration() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (!validateForm()) return;
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ login: login.trim(), password: password.trim() }),
+    
+        dispatch(
+            register({ login: login.trim(), password: password.trim() })
+        )
+            .unwrap()
+            .then(() => {
+                navigate('/fillingData', { replace: true });
+            })
+            .catch((error) => {
+                setErrors({ passwordRepeat: error });
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                setErrors({ passwordRepeat: errorData.message || 'Ошибка сервера' });
-            } else {
-                const data = await response.json();
-
-                dispatch(loginSuccess({
-                    id: data.userId
-                }));
-
-                navigate('/fillingData');
-            }
-        } catch (error) {
-            setErrors({ passwordRepeat: error.message || 'Ошибка сервера' });
-        }
     };
+    
+
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
+
+    //     if (!validateForm()) return;
+
+    //     try {
+    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify({ login: login.trim(), password: password.trim() }),
+    //         });
+
+    //         if (!response.ok) {
+    //             const errorData = await response.json();
+    //             setErrors({ passwordRepeat: errorData.message || 'Ошибка сервера' });
+    //         } else {
+    //             const data = await response.json();
+
+    //             dispatch(loginSuccess({
+    //                 id: data.userId
+    //             }));
+
+    //             navigate('/fillingData');
+    //         }
+    //     } catch (error) {
+    //         setErrors({ passwordRepeat: error.message || 'Ошибка сервера' });
+    //     }
+    // };
 
     return (
         <div className={style.container}>
