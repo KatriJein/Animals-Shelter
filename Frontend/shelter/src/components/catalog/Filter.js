@@ -4,16 +4,27 @@ import FilterComponent from './FilterComponent';
 import { FilterOptions } from '../../filterOptions';
 
 export default function Filter(props) {
-    const { filters, onFilterChange } = props;
+    const { filters, onFilterChange, onResetFilters } = props;
     const allFilters = { ...FilterOptions };
 
     const handleFilterChange = (filterName, value) => {
         onFilterChange(filterName, value);
     };
 
+    const hasActiveFilters = Object.values(filters).some(
+        (value) => (Array.isArray(value) && value.length > 0) || (!Array.isArray(value) && value !== "")
+    );
+
     return (
         <div className={styles.filterContainer}>
-            <p className={styles.p}>Фильтры</p>
+            <div className={styles.filterHeader}>
+                <p className={styles.p}>Фильтры</p>
+                {hasActiveFilters && (
+                    <button className={styles.clearButton} onClick={onResetFilters}>
+                        Очистить
+                    </button>
+                )}
+            </div>
             <div className={styles.filter}>
                 {Object.keys(allFilters).map((filter) => (
                     <FilterComponent
@@ -22,7 +33,7 @@ export default function Filter(props) {
                         options={allFilters[filter].options}
                         selected={filters[filter]}
                         onChange={(value) => handleFilterChange(filter, value)}
-                        type={allFilters[filter].type} // передаем тип выбора (checkbox или radio)
+                        type={allFilters[filter].type}
                     />
                 ))}
             </div>

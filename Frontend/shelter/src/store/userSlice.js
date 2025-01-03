@@ -284,7 +284,9 @@ const userSlice = createSlice({
 
 export const selectloadingFavourites = (state) => state.user.loadingFavourites;
 export const selectUser = (state) => state.user;
+export const selectUserInfo = (state) => state.user.userInfo;
 export const selectUserError = (state) => state.user.error;
+export const selectIsAuthenticated = (state) => state.user.isAuthenticated;
 
 export const { logout, changes } = userSlice.actions;
 export default userSlice.reducer;

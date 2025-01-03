@@ -17,6 +17,7 @@ import FillingData from './components/auth/FillingData';
 import UsefulPage from './components/useful/UsefulPage';
 import News from './components/news/News';
 import Help from './components/help/Help';
+import { ProtectedRoute } from './components/common/ProtectedRoute';
 
 
 function App() {
@@ -38,10 +39,10 @@ function App() {
             <Route path="/" element={<MainPage />} />
             <Route path="/catalog" element={<CatalogPage />} />
             <Route path="/animal/:id" element={<AnimalPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegistrationPage />} />
-            <Route path="/account" element={<AccountPage />} />
-            <Route path="/fillingData" element={<FillingData />} />
+            <Route path="/login" element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
+            <Route path="/register" element={<ProtectedRoute onlyUnAuth><RegistrationPage /></ProtectedRoute>} />
+            <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+            <Route path="/fillingData" element={<ProtectedRoute onlyUnAuth><FillingData /></ProtectedRoute>} />
             <Route path="/useful" element={<UsefulPage />} />
             <Route path="/news" element={<News />} />
             <Route path="/help" element={<Help />} />

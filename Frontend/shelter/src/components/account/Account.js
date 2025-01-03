@@ -16,10 +16,6 @@ export default function Account() {
         dispatch(logout());
     }
 
-    if (!isAuthenticated) {
-        return
-    }
-
     const favouritesPets = useSelector((state) => state.user.favourites);
 
     return (

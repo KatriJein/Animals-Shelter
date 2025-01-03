@@ -46,39 +46,6 @@ export default function FillingData() {
                 setErrors({ surname: error });
             });
     };
-    
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     if (!validateForm()) return;
-
-    //     const userChanges = {
-    //         name: name.trim(),
-    //         surname: surname.trim(),
-    //     };
-
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/${user.id}/finish`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(userChanges),
-    //         });
-
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             setErrors({ surname: errorData.message || 'Ошибка сервера' });
-    //         } else {
-    //             const data = await response.json();
-    //             dispatch(loginFinish({ isAdmin: data.userInfo.isAdmin, userInfo: data.userInfo }));
-    //             navigate('/account');
-    //         }
-    //     } catch (error) {
-    //         setErrors({ surname: error.message || 'Ошибка сервера' });
-    //     }
-    // };
 
     return (
         <div className={style.container}>
