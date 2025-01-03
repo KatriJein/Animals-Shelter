@@ -48,38 +48,6 @@ export default function Registration() {
             });
     };
     
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     if (!validateForm()) return;
-
-    //     try {
-    //         const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/register`, {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify({ login: login.trim(), password: password.trim() }),
-    //         });
-
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             setErrors({ passwordRepeat: errorData.message || 'Ошибка сервера' });
-    //         } else {
-    //             const data = await response.json();
-
-    //             dispatch(loginSuccess({
-    //                 id: data.userId
-    //             }));
-
-    //             navigate('/fillingData');
-    //         }
-    //     } catch (error) {
-    //         setErrors({ passwordRepeat: error.message || 'Ошибка сервера' });
-    //     }
-    // };
-
     return (
         <div className={style.container}>
             <div className={style.containerImg} />

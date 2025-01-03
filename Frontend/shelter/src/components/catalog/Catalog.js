@@ -12,18 +12,6 @@ import { fetchFavourites } from '../../store/userSlice';
 import { useDispatch } from 'react-redux';
 import { setFilter, resetFilters, selectFilters } from '../../store/filtersSlice';
 
-const defaultFilters = {
-    age: [],
-    sex: "",
-    size: [],
-    wool: [],
-    color: [],
-    temperFeatures: [],
-    healthConditions: [],
-    livingCondition: [],
-    receiptDate: ""
-};
-
 export default function Catalog() {
     const filters = useSelector(selectFilters);
     console.log(filters);
@@ -49,6 +37,10 @@ export default function Catalog() {
         dispatch(setFilter({ filterName, value }));
     };
 
+    const handleResetFilters = () => {
+        dispatch(resetFilters());
+    };
+
     const filteredAnimals = animals.filter(pet => {
         return Object.keys(filters).every(filterName => {
             if (filterName === 'age') {
@@ -70,7 +62,11 @@ export default function Catalog() {
         <main className={styles.mainContainer}>
             <h2 className={styles.h2}>Наши питомцы</h2>
             <div className={styles.container}>
-                <Filter filters={filters} onFilterChange={handleFilterChange} />
+                <Filter
+                    filters={filters}
+                    onFilterChange={handleFilterChange}
+                    onResetFilters={handleResetFilters}
+                />
                 <div className={styles.cardsList}>
                     {loadingAnimals || loadingFavourites ? (
                         <p className={styles.error}>Загрузка...</p>

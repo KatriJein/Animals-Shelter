@@ -2,22 +2,16 @@ import style from './Account.module.css';
 import Favorite from './Favorite';
 import { useSelector } from 'react-redux';
 import ava from '../../img/base_avatar.png';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../store/userSlice';
 import edit from '../../img/edit.svg';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Account() {
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.user.userInfo);
-    const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
 
-    const logoutAcc = () => {
-        dispatch(logout());
-    }
-
-    if (!isAuthenticated) {
-        return
+    const handleChange = () => {
+        navigate('/account/change');
     }
 
     const favouritesPets = useSelector((state) => state.user.favourites);
@@ -27,7 +21,7 @@ export default function Account() {
             <h1 className={style.h1}>Личный кабинет</h1>
             <div className={style.containerInfo}>
                 <div className={style.container}>
-                    <img src={ava} alt="аватарка" />
+                    <img src={user.avatarSrc || ava} alt="аватарка" />
                     <div className={style.info}>
                         <div className={style.contact}>
                             <span className={style.name}>Имя</span>
@@ -46,7 +40,7 @@ export default function Account() {
                             <span className={style.desc}>{user.email ? user.email : 'Не указана'}</span>
                         </div>
                     </div>
-                    <button className={style.button} onClick={logoutAcc}>
+                    <button className={style.button} onClick={handleChange}>
                         <span>Редактировать</span>
                         <img src={edit} alt="edit" />
                     </button>

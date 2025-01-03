@@ -21,7 +21,7 @@ const filtersSlice = createSlice({
             state[filterName] = value;
         },
 
-        resetFilters: () => defaultFilters
+        resetFilters: () => ({ ...defaultFilters })
     }
 });
 
