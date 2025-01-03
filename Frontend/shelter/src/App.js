@@ -18,6 +18,7 @@ import UsefulPage from './components/useful/UsefulPage';
 import News from './components/news/News';
 import Help from './components/help/Help';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
+import AccountChange from './components/account/AccountChange';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
             <Route path="/login" element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
             <Route path="/register" element={<ProtectedRoute onlyUnAuth><RegistrationPage /></ProtectedRoute>} />
             <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+            <Route path="/account/change" element={<ProtectedRoute><AccountChange /></ProtectedRoute>} />
             <Route path="/fillingData" element={<ProtectedRoute onlyUnAuth><FillingData /></ProtectedRoute>} />
             <Route path="/useful" element={<UsefulPage />} />
             <Route path="/news" element={<News />} />

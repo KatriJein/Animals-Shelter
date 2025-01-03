@@ -111,6 +111,74 @@ export const updateUserDetails = createAsyncThunk(
     }
 );
 
+export const updateUserInfo = createAsyncThunk(
+    'user/updateInfo',
+    async ({ userId, info }, { rejectWithValue }) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json-patch+json',
+                },
+                body: JSON.stringify(info),
+            });
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Ошибка при обновлении данных');
+            }
+            return info;
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const updateUserPassword = createAsyncThunk(
+    'user/updatePassword',
+    async ({ userId, oldPassword, newPassword }, { rejectWithValue }) => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}/password`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json-patch+json',
+                },
+                body: JSON.stringify({ oldPassword, newPassword }),
+            });
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Ошибка при изменении пароля');
+            }
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
+export const updateUserAvatar = createAsyncThunk(
+    'user/updateAvatar',
+    async ({ userId, avatarFile }, { rejectWithValue }) => {
+        try {
+            const formData = new FormData();
+            formData.append('Avatar', avatarFile);
+
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/users/${userId}/avatar`, {
+                method: 'PATCH',
+                headers: {
+                    'accept': '*/*',
+                },
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(data.message || 'Ошибка при обновлении аватара');
+            }
+
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 
 export const register = createAsyncThunk(
     'user/register',
@@ -277,6 +345,24 @@ const userSlice = createSlice({
                 state.favourites = [];
             })
             .addCase(clearAllFavourites.rejected, (state, action) => {
+                state.error = action.payload;
+            })
+            //updateInfo
+            .addCase(updateUserInfo.pending, (state) => {
+                state.error = null;
+            })
+            .addCase(updateUserInfo.fulfilled, (state, action) => {
+                console.log(action.payload);
+                state.userInfo = { ...state.userInfo, ...action.payload };
+            })
+            .addCase(updateUserInfo.rejected, (state, action) => {
+                state.error = action.payload;
+            })
+            //updatePassword
+            .addCase(updateUserPassword.pending, (state) => {
+                state.error = null;
+            })
+            .addCase(updateUserPassword.rejected, (state, action) => {
                 state.error = action.payload;
             });
     },
