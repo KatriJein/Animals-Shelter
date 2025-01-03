@@ -1,7 +1,7 @@
 import style from './AccountChange.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { logout, updateUserInfo, updateUserPassword, updateUserAvatar } from '../../store/userSlice';
+import { logout, updateUserInfo, updateUserPassword, updateUserAvatar, deleteUser } from '../../store/userSlice';
 import ButtonBack from '../ButtonBack';
 import exit from '../../img/exit.svg';
 import ava from '../../img/base_avatar.png';
@@ -82,8 +82,7 @@ export default function AccountChange() {
     };
 
     const handleDeleteAccount = () => {
-        console.log('Deleting account');
-        // Dispatch action to delete account
+        dispatch(deleteUser(user.id))
     };
 
     const handleAvatarChange = (e) => {

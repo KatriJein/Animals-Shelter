@@ -249,6 +249,28 @@ export const clearAllFavourites = createAsyncThunk(
     }
 );
 
+export const deleteUser = createAsyncThunk(
+    'user/deleteUser',
+    async (userId, { rejectWithValue }) => {
+        try {
+            const url = `${process.env.REACT_APP_API_URL}/users/${userId}`;
+            const response = await fetch(url, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': '*/*',
+                },
+            });
+
+            if (!response.ok) {
+                const data = await response.json();
+                throw new Error(data.message || 'Ошибка при удалении пользователя');
+            }
+        } catch (error) {
+            return rejectWithValue(error.message);
+        }
+    }
+);
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
@@ -364,7 +386,22 @@ const userSlice = createSlice({
             })
             .addCase(updateUserPassword.rejected, (state, action) => {
                 state.error = action.payload;
+            })
+            //deleteUser
+            .addCase(deleteUser.pending, (state) => {
+                state.error = null;
+            })
+            .addCase(deleteUser.fulfilled, (state) => {
+                state.isAuthenticated = false;
+                state.id = null;
+                state.isAdmin = false;
+                state.userInfo = null;
+                state.favourites = [];
+            })
+            .addCase(deleteUser.rejected, (state, action) => {
+                state.error = action.payload;
             });
+            
     },
 });
 
