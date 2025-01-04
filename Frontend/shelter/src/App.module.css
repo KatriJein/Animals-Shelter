@@ -1,9 +1,13 @@
 .app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Обеспечиваем, чтобы контейнер всегда занимал хотя бы всю высоту экрана */
+  min-height: 100vh;
+  background-image: url('../src/img/bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: repeat-y;
 }
 
 .mainContent {
-  flex-grow: 1; /* Это заставляет основной контент занимать все доступное пространство */
+  flex-grow: 1; 
 }

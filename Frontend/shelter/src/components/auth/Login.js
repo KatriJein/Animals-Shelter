@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch } from 'react-redux';
-import { loginSuccess, fetchFavourites } from '../../store/userSlice';
+import { fetchFavourites, loginAsync } from '../../store/userSlice';
 import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
@@ -27,39 +27,22 @@ export default function Login() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (!validateForm()) return;
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ login: login.trim(), password: password.trim() }),
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                setErrors({ password: errorData.message || 'Ошибка сервера' });
-            } else {
-                const data = await response.json();
-                console.log(data);
-
-                dispatch(loginSuccess({
-                    id: data.userInfo.id,
-                    isAdmin: data.userInfo.isAdmin, 
-                    userInfo: data.userInfo,  
-                }));
+    
+        dispatch(
+            loginAsync({ login: login.trim(), password: password.trim() })
+        )
+            .unwrap()
+            .then((data) => {
                 dispatch(fetchFavourites(data.userInfo.id));
-                navigate('/account');
-
-            }
-        } catch (error) {
-            setErrors({  password: error.message || 'Ошибка сервера' });
-        }
+                navigate('/account', { replace: true });
+            })
+            .catch((error) => {
+                setErrors({ password: error });
+            });
     };
-
+    
     return (
         <div className={style.container}>
             <div className={style.containerImg} />

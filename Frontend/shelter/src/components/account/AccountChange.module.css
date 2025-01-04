@@ -1,0 +1,185 @@
+.mainContainer {
+    display: flex;
+    box-sizing: border-box;
+    margin: 3vw auto;
+    padding: 0.9vw 2.63vw;
+    flex-direction: column;
+    gap: 2vw;
+    width: 76vw;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1vw;
+    font-weight: 500;
+    color: #A0A0A0;
+    border-radius: 1.31vw;
+    background-color: #fff;
+}
+
+h2 {
+    font-size: 1.68vw;
+    color: #374375;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+}
+
+.containerHeader {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.buttonsContainer {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.buttonExit {
+    font-size: 1.25vw;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    color: #A0A0A0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.buttonExit img {
+    width: 1.73vw;
+    height: 1.73vw;
+}
+
+.h1 {
+    padding: 0;
+    margin: 0;
+    color: #374375;
+    font-size: 2.1vw;
+    font-weight: 700;
+}
+
+.containerInfo {
+    width: 61.15vw;
+    display: flex;
+    flex-direction: row;
+    gap: 4.2vw;
+    padding: 0;
+    margin: 0;
+    margin: 0 auto;
+}
+
+.avatarContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    align-items: center;
+}
+
+.avatar {
+    width: 12.65vw;
+    height: 12.65vw;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+.changeAvatar {
+    color: #374375;
+    font-size: 1.1vw;
+    cursor: pointer;
+}
+
+.infoChange {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5vw;
+    padding: 0 1.5vw;
+}
+
+.info {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5vw;
+    padding: 0;
+    margin: 0;
+}
+
+.personalInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05vw;
+    padding: 0;
+    margin: 0;
+}
+
+.buttonSave {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+    padding: 0.4vw 1vw;
+    margin: 0;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #8ECF81;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1vw;
+    font-weight: 500;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.containerInput {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 1.05vw;
+    padding: 0;
+    margin: 0;
+}
+
+.containerInput label {
+    width: 8vw;     
+    white-space: nowrap;
+}
+
+
+.containerInput input {
+    width: 100%;
+    border: none; 
+    padding: 0.31vw 0.632vw;
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1vw;
+    color: #000;
+    background-color: #F0F0FF;
+    border-radius: 999px;
+}
+
+.textDelete {
+    color: #000;
+}
+
+.buttonDelete {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    color: #B1263D;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.1vw;
+    font-weight: 500;
+    text-decoration: underline;
+    width: fit-content;
+    padding: 0;
+    margin: 0;
+}

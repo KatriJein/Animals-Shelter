@@ -16,7 +16,7 @@ export default function UsefulArticle(props) {
                 </div>
                 <img src={isOpen ? arrowTop : plus} className={style.plus} alt="plus" onClick={() => setOpen(prev => !prev)} />
             </div>
-            {isOpen && <div className={style.containerText}><p>{text}</p></div>}
+            {isOpen && <div className={style.containerText}><p dangerouslySetInnerHTML={{ __html: text }}></p></div>}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import style from './Auth.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginFinish } from '../../store/userSlice';
+import { updateUserDetails, selectUser } from '../../store/userSlice';
 import { useNavigate } from 'react-router-dom';
 
 export default function FillingData() {
@@ -10,7 +10,7 @@ export default function FillingData() {
     const [errors, setErrors] = useState({ name: '', surname: '' });
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.user);
+    const user = useSelector(selectUser);
 
     const validateForm = () => {
         const newErrors = {};
@@ -28,34 +28,23 @@ export default function FillingData() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+    
         if (!validateForm()) return;
-
-        const userChanges = {
-            name: name.trim(),
-            surname: surname.trim(),
-        };
-
-        try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/auth/${user.id}/finish`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userChanges),
+    
+        dispatch(
+            updateUserDetails({
+                userId: user.id,
+                name: name.trim(),
+                surname: surname.trim(),
+            })
+        )
+            .unwrap()
+            .then(() => {
+                navigate('/account', { replace: true });
+            })
+            .catch((error) => {
+                setErrors({ surname: error });
             });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                setErrors({ surname: errorData.message || 'Ошибка сервера' });
-            } else {
-                const data = await response.json();
-                dispatch(loginFinish({ isAdmin: data.userInfo.isAdmin, userInfo: data.userInfo }));
-                navigate('/account');
-            }
-        } catch (error) {
-            setErrors({ surname: error.message || 'Ошибка сервера' });
-        }
     };
 
     return (

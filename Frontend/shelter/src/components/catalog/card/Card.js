@@ -12,7 +12,7 @@ export default function Card(props) {
     const navigate = useNavigate();
     
     const { pet, isAuthenticated, isFavourite } = props;
-    const { id, name, breed, age, sex } = pet;
+    const { id, name, breed, age, sex, shortDescription } = pet;
     
     const user = useSelector((state) => state.user);
 
@@ -46,7 +46,7 @@ export default function Card(props) {
                     <p className={style.name}>{name}</p>
                     <p className={style.description}>{breed}, {getAgeString(age)}, {sexStr}</p>
                 </div>
-                <p className={style.text}>Наша самая нежная и спокойная девочка, очень ласковая и любит детей</p>
+                <p className={style.text}>{shortDescription}</p>
                 <div className={style.containerButtons}>
                     <Link to={`/animal/${id}`} className={style.buttonMore}>
                         Подробнее
