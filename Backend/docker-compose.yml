@@ -3,6 +3,7 @@ version: '3.4'
 services:
 
   animalsshelterfrontend:
+    restart: "no"
     image: shelter/frontend
     container_name: ShelterFrontend
     ports:
@@ -11,6 +12,8 @@ services:
     build:
      context: ../Frontend/shelter
      dockerfile: Dockerfile
+    environment:
+        - REACT_APP_API_URL=http://localhost:5000/api
 
   animalsshelterbackend:
     image: vdd/animalsshelterbackend
