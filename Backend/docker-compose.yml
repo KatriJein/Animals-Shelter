@@ -3,7 +3,8 @@ version: '3.4'
 services:
 
   animalsshelterfrontend:
-    restart: "no"
+    profiles:
+        - manual
     image: shelter/frontend
     container_name: ShelterFrontend
     ports:
