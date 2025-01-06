@@ -1,5 +1,5 @@
 # Используем официальный образ SDK .NET Core для сборки и публикации приложения
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
 # Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
