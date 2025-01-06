@@ -126,12 +126,12 @@ export default function AccountChange() {
                             <h2>Личная информация</h2>
                             <div className={style.containerInput}>
                                 <label>Имя</label>
-                                <input type="text" name="name" value={formData.name} onChange={handleChange} />
+                                <input type="text" name="name" value={formData.name} onChange={handleChange} maxLength={13}/>
                             </div>
 
                             <div className={style.containerInput}>
                                 <label>Фамилия</label>
-                                <input type="text" name="surname" value={formData.surname} onChange={handleChange} />
+                                <input type="text" name="surname" value={formData.surname} onChange={handleChange} maxLength={20}/>
                             </div>
 
                         </div>
@@ -147,6 +147,7 @@ export default function AccountChange() {
                                     name="phone"
                                     value={formData.phone}
                                     onChange={handleChange}
+                                    maxLength={12}
                                 />
                             </div>
 
@@ -171,7 +172,7 @@ export default function AccountChange() {
 
                             <div className={style.containerInput}>
                                 <label className={style.oldPassword}>Новый пароль</label>
-                                <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} />
+                                <input type="password" name="newPassword" value={formData.newPassword} onChange={handleChange} minLength={8}/>
                             </div>
                         </div>
 

@@ -3,6 +3,7 @@ import PageAnimal from "../components/pageAnimal/pageAnimal";
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import { Helmet } from "react-helmet-async";
 
 export default function AnimalPage() {
     const { id } = useParams();
@@ -21,6 +22,7 @@ export default function AnimalPage() {
 
     return (
         <>
+            <Helmet><title>{animal.name}</title></Helmet>
             {isLoading ? (
                 <p>Загрузка...</p>
             ) : animal ? (

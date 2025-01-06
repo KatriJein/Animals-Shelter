@@ -46,14 +46,14 @@
 .button {
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
-    padding: 0.3vw 2vw;
+    padding: 0.3vw 1.5vw;
     border-radius: 1.14vw;
     border-color: transparent;
     background-color: rgba(255, 252, 245, 0.2);
     backdrop-filter: blur(15px);
     font-size: 1.25vw;
     position: absolute;     
-    right: 4.5%;
+    right: 2%;
     color: #374375;
     cursor: pointer;
 }
