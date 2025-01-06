@@ -15,7 +15,7 @@ WORKDIR /app/AnimalsShelterBackend
 RUN dotnet publish -c Release -o out
 
 # Используем образ ASP.NET Core Runtime для запуска приложения
-FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 
 # Устанавливаем рабочую директорию
 WORKDIR /app
