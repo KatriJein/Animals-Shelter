@@ -1,4 +1,5 @@
 import { Provider, useDispatch, useSelector } from 'react-redux';
+import { HelmetProvider } from "react-helmet-async";
 import { useEffect } from "react";
 import { fetchAnimals } from "./store/animalsActions";
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
@@ -20,7 +21,6 @@ import Help from './components/help/Help';
 import { ProtectedRoute } from './components/common/ProtectedRoute';
 import AccountChange from './components/account/AccountChange';
 
-
 function App() {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.animals.status);
@@ -32,26 +32,30 @@ function App() {
   }, [status]);
 
   return (
-    <Provider store={store}>
-      <Router>
-        <ScrollToTop />
-        <Layout>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/catalog" element={<CatalogPage />} />
-            <Route path="/animal/:id" element={<AnimalPage />} />
-            <Route path="/login" element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
-            <Route path="/register" element={<ProtectedRoute onlyUnAuth><RegistrationPage /></ProtectedRoute>} />
-            <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
-            <Route path="/account/change" element={<ProtectedRoute><AccountChange /></ProtectedRoute>} />
-            <Route path="/fillingData" element={<ProtectedRoute onlyUnAuth><FillingData /></ProtectedRoute>} />
-            <Route path="/useful" element={<UsefulPage />} />
-            <Route path="/news" element={<News />} />
-            <Route path="/help" element={<Help />} />
-          </Routes>
-        </Layout>
-      </Router>
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <Router>
+          <ScrollToTop />
+          <Layout>
+            <Routes>
+              <Route path="/" element={<MainPage />} />
+              <Route path="/catalog" element={<CatalogPage />} />
+              <Route path="/animal/:id" element={<AnimalPage />} />
+              <Route path="/login" element={<ProtectedRoute onlyUnAuth><LoginPage /></ProtectedRoute>} />
+              <Route path="/register" element={<ProtectedRoute onlyUnAuth><RegistrationPage /></ProtectedRoute>} />
+              <Route path="/account">
+                <Route index element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+                <Route path="change" element={<ProtectedRoute><AccountChange /></ProtectedRoute>} />
+              </Route>
+              <Route path="/fillingData" element={<ProtectedRoute onlyUnAuth><FillingData /></ProtectedRoute>} />
+              <Route path="/useful" element={<UsefulPage />} />
+              <Route path="/news" element={<News />} />
+              <Route path="/help" element={<Help />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </Provider>
+    </HelmetProvider>
   );
 }
 

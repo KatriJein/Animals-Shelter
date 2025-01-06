@@ -6,6 +6,7 @@ import ArticlesSearch from "./ArticlesSearch";
 import ContactsQuestion from "../contactsQuestion/ContactsQuestion";
 import style from "./UsefulPage.module.css";
 import { findCategoryText } from "../../utils/animalInfo";
+import { Helmet } from "react-helmet-async";
 
 function UsefulPage() {
     const dispatch = useDispatch();
@@ -57,6 +58,7 @@ function UsefulPage() {
     if (isLoading) {
         return (
             <>
+                <Helmet><title>Полезная информация</title></Helmet>
                 <p className={style.error}>Загрузка...</p>
                 <ContactsQuestion />
             </>
@@ -66,6 +68,7 @@ function UsefulPage() {
     if (error) {
         return (
             <>
+                <Helmet><title>Полезная информация</title></Helmet>
                 <p className={style.error}>Ошибка сервера</p>
                 <ContactsQuestion />
             </>
@@ -74,6 +77,7 @@ function UsefulPage() {
 
     return (
         <>
+            <Helmet><title>Полезная информация</title></Helmet>
             {isSearchActive ? (
                 <ArticlesSearch
                     articles={filteredArticles}
