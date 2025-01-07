@@ -1,13 +1,16 @@
-FROM node:18-alpine as build
-WORKDIR /app
-COPY . .
+
+FROM node:alpine AS build
+
+WORKDIR /react-app
+
+COPY ./package*.json /react-app
 
 RUN npm install
+COPY . .
 RUN npm run build
 
-FROM nginx:alpine
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+FROM nginx:stable-alpine
+COPY --from=build /react-app/build /usr/share/nginx/html
+COPY --from=build /react-app/nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 3000
+CMD ["nginx","-g", "daemon off;"]
