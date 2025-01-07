@@ -7,7 +7,7 @@ services:
 
   animalsshelterfrontend:
     build:
-     context: ../Frontend/shelter
+     context: ../Frontend
      dockerfile: Dockerfile
     networks:
         - shelter

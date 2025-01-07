@@ -5,6 +5,8 @@ WORKDIR /react-app
 
 COPY ./package*.json /react-app
 
+ENV REACT_APP_API_URL="http://localhost/api"
+
 RUN npm install
 COPY . .
 RUN npm run build

@@ -10,6 +10,7 @@ using Core.Base.Services;
 using Core.Constants;
 using Core.Enums.Articles;
 using Core.Queries;
+using Core.Redis.Services;
 using Core.Requests;
 using Core.Requests.Articles;
 using Core.Responses.Articles;
@@ -31,16 +32,18 @@ namespace AnimalsShelterBackend.Services.Articles
 	{
 		private readonly IRepository<Article> _articleRepository;
 		private readonly IFileService _fileService;
+		private readonly IRedisService _redisService;
 		private readonly IUserService _userService;
 		private readonly ILogger _logger;
 		private readonly string _localStorageHost;
 
 		public ArticleService(IRepository<Article> articleRepository, IFileService fileService, IConfiguration config,
-			IUserService userService, ILogger logger) : base(articleRepository)
+			IUserService userService, IRedisService redisService, ILogger logger) : base(articleRepository)
 		{
 			_articleRepository = articleRepository;
 			_fileService = fileService;
 			_userService = userService;
+			_redisService = redisService;
 			_logger = logger;
 			_localStorageHost = config[Const.MinioLink];
 		}
@@ -153,9 +156,15 @@ namespace AnimalsShelterBackend.Services.Articles
 
 		public async Task<List<Article>> GetMostPopularAsync(PopularArticlesQuery popularArticlesQuery, CancellationToken cancellationToken)
 		{
-			var query = new ArticlesQuery(null, null);
-			var articles = await GetAllAsync(query, cancellationToken);
-			return articles.OrderByDescending(a => a.ViewsCount).Take(popularArticlesQuery.Limit).ToList();
+			var redisKey = Const.MostPopularArticlesKey + popularArticlesQuery.Limit.ToString();
+			var response = await CommonUtils.GetWithCachingAsync(_redisService, redisKey, TimeSpan.FromMinutes(5), async () =>
+			{
+				var query = new ArticlesQuery(null, null);
+				var articles = await GetAllAsync(query, cancellationToken);
+				var result = articles.OrderByDescending(a => a.ViewsCount).Take(popularArticlesQuery.Limit).ToList();
+				return result;
+			});
+			return response;
 		}
 	}
 }
