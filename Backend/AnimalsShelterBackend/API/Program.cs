@@ -20,8 +20,10 @@ using AnimalsShelterBackend.Startups.Images;
 using Core;
 using Core.Constants;
 using Core.MinIO;
+using Core.Redis;
 using Core.Serilog;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting.Internal;
 using Minio;
 using Minio.DataModel.Args;
 using Newtonsoft.Json;
@@ -32,8 +34,7 @@ using System.Reflection;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
+var isDev = builder.Environment.IsDevelopment();
 
 builder.Services.AppendCors(builder.Configuration);
 
@@ -42,6 +43,7 @@ builder.Services.AddNewControllers();
 builder.Services.ConfigureDbConnection(builder.Configuration);
 builder.Services.ConfigureMinio(builder.Configuration);
 builder.Services.AddMinIOStorage(builder.Configuration);
+builder.Services.AddRedis(builder.Configuration);
 builder.Services.AddDbContext<ShelterAppContext>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddJwtAuthentication(builder.Configuration);
@@ -70,11 +72,11 @@ builder.Services.AddMasstransitAbstractionServices();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddNewSwaggerGen();
+if (isDev)
+	builder.Services.AddNewSwaggerGen();
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (isDev)
 {
 	app.UseSwagger();
 	app.UseSwaggerUI();
