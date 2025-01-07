@@ -214,7 +214,6 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 			return Ok(result);
 		}
 
-		/**
 		/// <summary>
 		/// Получить все уведомления пользователя или только непрочитанные
 		/// </summary>
@@ -258,9 +257,7 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 			if (!response.IsSuccess) return BadRequest(response.Message);
 			return Ok();
 		}
-		**/
 
-		/**
 		/// <summary>
 		/// Получить отзыв пользователя
 		/// </summary>
@@ -276,6 +273,5 @@ namespace AnimalsShelterBackend.API.Controllers.Users
 			if (response.FeedbackResponse == null) return NoContent();
 			return Ok(response.FeedbackResponse);
 		}
-		**/
 	}
 }

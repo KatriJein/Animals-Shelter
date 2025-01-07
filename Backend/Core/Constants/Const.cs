@@ -39,7 +39,6 @@ namespace Core.Constants
 		public static string FrontendLinkMain = "FrontendLinkMain";
 		public static string FrontendLinkAdditional = "FrontendLinkAdditional";
 		public static string MinioLink = "MinioLink";
-		public static string RedisLink = "RedisLink";
 		public static string RabbitMQ = "RabbitMQ";
 		public static string JWT = "JWT";
 		#endregion
@@ -54,8 +53,5 @@ namespace Core.Constants
 		public static Regex EmailRegex = new Regex(@"^\S+@\S+\.\S+$");
 		#endregion
 
-		#region redisQueries
-		public static string MostPopularArticlesKey = "PopularArticles";
-		#endregion
 	}
 }
