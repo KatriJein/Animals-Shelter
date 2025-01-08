@@ -3,7 +3,7 @@ FROM node:alpine AS build
 
 WORKDIR /react-app
 
-COPY ./package*.json /react-app
+COPY ./package*.json /react-app/
 
 ENV REACT_APP_API_URL="http://localhost/api"
 
