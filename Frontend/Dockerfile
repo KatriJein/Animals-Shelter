@@ -3,9 +3,9 @@ FROM node:alpine AS build
 
 WORKDIR /react-app
 
-COPY ./package*.json /react-app
+COPY ./package*.json /react-app/
 
-ENV REACT_APP_API_URL="http://localhost/api"
+ENV REACT_APP_API_URL="http://176.124.211.193/api"
 
 RUN npm install
 COPY . .
