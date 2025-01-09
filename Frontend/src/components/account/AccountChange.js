@@ -142,7 +142,7 @@ export default function AccountChange() {
                                 <label>Телефон</label>
                                 <input
                                     type="tel"
-                                    pattern="^\+7\(\d{3}\)\s\d{3}-\d{2}-\d{2}$"
+                                    pattern="^\+7\d{10}$"
                                     placeholder="+71111111111"
                                     name="phone"
                                     value={formData.phone}
