@@ -62,7 +62,7 @@
 .input {
     width: 100%;
     font-size: 1.05vw;
-    border: 1px solid #C0C0C0;
+    border: 0.05vw solid #C0C0C0;
     border-radius: 0.52vw;
     padding: 0.52vw 1.05vw;
     box-sizing: border-box;
@@ -92,7 +92,9 @@
 }
 
 .checkbox {
-    border: 2px solid #C0C0C0;
+    width: 0.7vw;
+    height: 0.7vw;
+    border: 0.1vw solid #C0C0C0;
     border-radius: 0.26vw;
     box-sizing: border-box;
     color: #C0C0C0;

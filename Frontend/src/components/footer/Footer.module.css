@@ -45,7 +45,7 @@
     margin: 0;
     padding: 0 5vw 1.31vw 5vw;
     gap: 1.8vw;
-    border-bottom: 1px solid #fff;
+    border-bottom: 0.05vw solid #fff;
 }
 
 .navLink {

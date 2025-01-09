@@ -17,13 +17,25 @@
     padding: 0;
     margin: 0;
     position: relative;
-    top: 0.05vw;
+    width: auto;
+    height: fit-content;
+    align-items: center;
+    display: flex;
+}
+
+.arrowButton img {
+    width: 1.16vw;
+    height: fit-content;
+    object-fit: contain;
+    align-self: center;
 }
 
 .filterHeader {
     display: flex;
     justify-content: space-between;
     cursor: pointer;
+    align-items: center;
+    height: fit-content;
 }
 
 .filterOptions {
@@ -33,18 +45,21 @@
 }
 
 .containerOpen {
-    border-bottom: 2px solid #A9A9A9;
+    border-bottom: 0.1vw solid #a9a9a9;
 }
 
 .filterCheckbox {
-    scale: 1.2;
-    height: min-content;
+    width: 0.9vw;
+    height: 0.9vw;
     position: relative;
-    top: 0.2vw;
+    /* top: 0.2vw; */
     cursor: pointer;
+    margin: 0;
+    margin-right: 0.2vw;
 }
 
 .filterLabel {
     display: flex;
     gap: 0.25vw;
+    align-items: center;
 }
