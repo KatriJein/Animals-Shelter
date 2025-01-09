@@ -124,12 +124,12 @@
     max-width: 90%;
     max-height: 90%;
     background-color: white;
-    border-radius: 10px;
+    border-radius: 0.52vw;
     overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0.2vw 0.52vw rgba(0, 0, 0, 0.3);
 }
 
 .modalImage {
@@ -142,8 +142,8 @@
 
 .closeButton {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0.52vw;
+    right: 0.52vw;
     background: none;
     border: none;
     color: #fff;

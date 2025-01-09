@@ -14,7 +14,6 @@ import { setFilter, resetFilters, selectFilters } from '../../store/filtersSlice
 
 export default function Catalog() {
     const filters = useSelector(selectFilters);
-    console.log(filters);
     const dispatch = useDispatch();
 
     const animals = useSelector(selectAnimals);
