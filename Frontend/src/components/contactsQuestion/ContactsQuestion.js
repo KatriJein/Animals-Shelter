@@ -11,20 +11,20 @@ function ContactsQuestion() {
                 <p className={style.p}>Свяжитесь с нами любым удобным Вам способом.</p>
             </div>
             <div className={style.containerContacts}>
-                <div className={style.contact}>
+                <a className={style.contact} href="tel:+71234567890">
                     <img src={phoneIcon} alt='phone icon' />
                     <div >
-                        <a href="tel:+71234567890" className={`${style.p} ${style.phone}`}>+7 (123) 456-78-90</a>
+                        <a className={`${style.p} ${style.phone}`}>+7 (123) 456-78-90</a>
                         <p className={style.p}>Так получить помощь быстрее.</p>
                     </div>
-                </div>
-                <div className={style.contact}>
+                </a>
+                <a className={style.contact} href="mailto:lapochka@gmail.com">
                     <img src={mailIcon} alt='mail icon' />
                     <div>
-                        <a href="mailto:lapochka@gmail.com" className={`${style.p} ${style.email}`}>lapochka@gmail.com</a>
+                        <a className={`${style.p} ${style.email}`}>lapochka@gmail.com</a>
                         <p className={style.p}>Мы всегда готовы помочь.</p>
                     </div>
-                </div>
+                </a>
             </div>
         </div>)
 
