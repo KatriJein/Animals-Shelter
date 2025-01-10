@@ -55,6 +55,8 @@
     text-align: center;
     cursor: pointer;
     align-items: center;
+    text-decoration: none;
+    color: #b3b3b3;
 }
 
 .contact img {
