@@ -11,8 +11,10 @@ import { fetchAnimals } from '../../store/animalsActions';
 import { fetchFavourites } from '../../store/userSlice';
 import { useDispatch } from 'react-redux';
 import { setFilter, resetFilters, selectFilters } from '../../store/filtersSlice';
+import filter from '../../img/filter.svg';
 
 export default function Catalog() {
+    const [isFilterOpen, setIsFilterOpen] = useState(false); // Для управления видимостью фильтров
     const filters = useSelector(selectFilters);
     const dispatch = useDispatch();
 
@@ -40,14 +42,18 @@ export default function Catalog() {
         dispatch(resetFilters());
     };
 
-    const filteredAnimals = animals.filter(pet => {
-        return Object.keys(filters).every(filterName => {
+    const toggleFilters = () => {
+        setIsFilterOpen((prev) => !prev);
+    };
+
+    const filteredAnimals = animals.filter((pet) => {
+        return Object.keys(filters).every((filterName) => {
             if (filterName === 'age') {
                 return isAgeInRange(pet.age, filters[filterName]);
             }
 
             if (Array.isArray(pet[filterName])) {
-                return filters[filterName].length === 0 || filters[filterName].every(f => pet[filterName].includes(f));
+                return filters[filterName].length === 0 || filters[filterName].every((f) => pet[filterName].includes(f));
             }
 
             if (Array.isArray(filters[filterName])) {
@@ -59,21 +65,45 @@ export default function Catalog() {
 
     return (
         <main className={styles.mainContainer}>
-            <h2 className={styles.h2}>Наши питомцы</h2>
+            <div className={styles.header}>
+                <h2 className={styles.h2}>Наши питомцы</h2>
+                <button className={styles.toggleFilterButton} onClick={toggleFilters}>
+                    <img src={filter} alt="filter" />
+                </button>
+            </div>
             <div className={styles.container}>
-                <Filter
-                    filters={filters}
-                    onFilterChange={handleFilterChange}
-                    onResetFilters={handleResetFilters}
-                />
+                {isFilterOpen && (
+                    <div className={styles.mobileFilter}>
+                        <Filter
+                            filters={filters}
+                            onFilterChange={handleFilterChange}
+                            onResetFilters={handleResetFilters}
+                        />
+                    </div>
+                )}
+                <div className={styles.filterContainer}>
+                    <Filter
+                        filters={filters}
+                        onFilterChange={handleFilterChange}
+                        onResetFilters={handleResetFilters}
+                    />
+                </div>
+
                 <div className={styles.cardsList}>
                     {loadingAnimals || loadingFavourites ? (
                         <p className={styles.error}>Загрузка...</p>
                     ) : errorAnimals || errorUser ? (
                         <p className={styles.error}>Произошла ошибка</p>
-                    ) : (filteredAnimals.map((pet) => (
-                        <Card key={pet.id} pet={pet} isAuthenticated={user.isAuthenticated} isFavourite={isPetIdInArray(user.favourites, pet.id)} />
-                    )))}
+                    ) : (
+                        filteredAnimals.map((pet) => (
+                            <Card
+                                key={pet.id}
+                                pet={pet}
+                                isAuthenticated={user.isAuthenticated}
+                                isFavourite={isPetIdInArray(user.favourites, pet.id)}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
         </main>

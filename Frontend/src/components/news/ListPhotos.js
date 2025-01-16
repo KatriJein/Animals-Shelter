@@ -3,7 +3,6 @@ import style from "./ListNews.module.css";
 
 export default function ListPhotos(props) {
     const { photos } = props;
-    console.log(photos);
 
     const [modalData, setModalData] = useState({
         isOpen: false,

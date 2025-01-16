@@ -52,6 +52,11 @@
     text-decoration: none;
     color: #fff;
     text-transform: uppercase;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navLink:hover {
+    transform: scale(1.05); 
 }
 
 .copyright {
@@ -59,4 +64,24 @@
     padding: 0;
     color: rgba(255, 255, 255, 0.6);
     text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .logo {
+        display: none;
+    }
+
+    .nav {
+        border-bottom: none;
+        padding: 0;
+    }
+
+    .navLink {
+        font-size: 3vw;
+        font-weight: 400;
+    }
+
+    .copyright {
+        font-size: 2vw;
+    }
 }

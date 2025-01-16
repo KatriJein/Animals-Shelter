@@ -11,6 +11,12 @@
     border: none;
     background-color: transparent;
     width: fit-content;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.container:hover {
+    color: #8d8c8c;
+    transform: scale(1.05);
 }
 
 .container img {
@@ -18,4 +24,16 @@
     aspect-ratio: 1;
     object-fit: contain;
     object-position: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        font-size: 5vw;
+    }
+
+    .container img {
+        position: relative;
+        width: 3.5vw;
+        top: -0.1vw;
+    }
 }

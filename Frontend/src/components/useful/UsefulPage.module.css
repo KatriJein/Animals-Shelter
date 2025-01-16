@@ -88,6 +88,13 @@
     font-family: 'Nunito', sans-serif;
     font-size: 1.25vw;
     font-weight: 600;
+    transition: color 0.3s ease, text-decoration 0.3s ease, transform 0.3s ease;
+}
+
+.searchButton:hover {
+    transform: scale(1.05);
+    background-color: rgba(155, 157, 228, 1);
+    box-shadow: 0 0 10px rgba(55, 67, 117, 0.3);
 }
 
 /* Карточка категории  */
@@ -113,8 +120,14 @@
     border: none;
     background-color: transparent;
     border-radius: 1.9vw;
-    box-shadow: 0.21vw 0.21vw 0.84vw rgba(155, 155, 155, 25);
+    box-shadow: 0.21vw 0.21vw 0.84vw rgba(155, 155, 155, 0.25);
     cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.categories:hover {
+    transform: scale(1.05);
+    box-shadow: 0.21vw 0.21vw 0.84vw rgba(155, 155, 155, 0.5);
 }
 
 .categories img {
@@ -162,6 +175,7 @@
     margin: 0;
     padding: 0;
     padding-bottom: 1.5vw;
+    cursor: pointer;
 }
 
 .containerPoint {
@@ -222,4 +236,78 @@
     background-color: #F8F7FF;
     border-radius: 1.31vw;
     padding: 2.1vw 3.1vw;
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 4vw;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .containerSearch {
+        width: 100%;
+    }
+
+    .h2 {
+        font-size: 5.9vw;
+    }
+
+    .searchContainer {
+        width: 15rem;
+    }
+
+    .searchIcon {
+        width: 3vw;
+    }
+
+    .searchInput {
+        font-size: 4.5vw;
+    }
+
+    .searchButton {
+        font-size: 4vw;
+    }
+
+    .containerCategories {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+    }
+
+    .categories {
+        width: 9rem;
+        height: auto;
+    }
+
+    .categories img {
+        width: 3rem;
+    }
+
+    .categories span {
+        font-size: 4vw;
+    }
+
+    .containerPopularArticles {
+        width: 100%;
+    }
+
+    .containerPoint p {
+        font-size: 4.5vw;
+    }
+
+    .containerPoint img {
+        min-width: 0.4rem;
+        margin-right: 0.3rem;
+    }
+
+    .plus {
+        width: 3.5vw;
+        margin-left: 0.3rem;
+    }
+
+    .containerText p {
+        font-size: 4vw;
+    }
 }

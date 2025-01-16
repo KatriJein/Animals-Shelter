@@ -93,7 +93,13 @@
 
 .ul li{
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
 }
+
+.ul li:hover {
+    transform: scale(1.05);
+}
+
 
 .ul li img{
     width: 3.42vw;
@@ -101,4 +107,41 @@
         inset 0.21vw 0.21vw 0.42vw rgba(255, 255, 255, 0.25), 
         0.21vw 0.21vw 0.85vw rgba(0, 0, 0, 0.25);
         border-radius: 50%;
+}
+
+@media screen and (max-width: 768px) {
+    .mainContainer {
+        box-shadow: 0.21vw 0.21vw 0.84vw rgba(177, 177, 177, 0.25);
+        border-radius: 1rem;
+        padding: 0.5rem;
+    }
+
+    .map {
+        display: none;
+    }
+
+    .container {
+        font-size: 3.5vw;
+    }
+
+    .h2 {
+        font-size: 1.9rem;
+    }
+
+    .a {
+        font-size: 5vw;
+    }
+
+    .p {
+        font-size: 4vw;
+    }
+
+    .ul li img{
+        width: 9vw;
+    }
+
+    .ul {
+        margin-top: 1vw;
+        gap: 2vw;
+    }
 }

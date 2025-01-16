@@ -23,9 +23,9 @@
     max-width: 65%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     white-space: wrap;
     overflow-wrap: break-word;
+    gap: 1.6vw;
 }
 
 .containerText {
@@ -138,6 +138,7 @@
     font-size: 1.47vw;
     color: #fff;
     font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     box-shadow: 
         inset 0.21vw 0.21vw 0.42vw rgba(255, 255, 255, 0.25), 
         0.21vw 0.21vw 0.84vw rgba(0, 0, 0, 0.25);
@@ -147,6 +148,91 @@
     background-color: #BABCE2;
 }
 
+.button1:hover {
+    background-color: #9fa3d2; /* Более насыщенный цвет при наведении */
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0.14vw 0.14vw 0.28vw rgba(255, 255, 255, 0.4), 
+        0.28vw 0.28vw 1.12vw rgba(0, 0, 0, 0.3);
+}
+
+.button1:active {
+    background-color: #878aba; /* Темный оттенок при нажатии */
+    transform: translateY(1px);
+    box-shadow: 
+        inset 0.07vw 0.07vw 0.14vw rgba(255, 255, 255, 0.3), 
+        0.14vw 0.14vw 0.42vw rgba(0, 0, 0, 0.4);
+}
+
+/* Для кнопки 2 */
 .button2 {
     background-color: #DFAEA0;
+}
+
+.button2:hover {
+    background-color: #d08f83; /* Более насыщенный цвет при наведении */
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0.14vw 0.14vw 0.28vw rgba(255, 255, 255, 0.4), 
+        0.28vw 0.28vw 1.12vw rgba(0, 0, 0, 0.3);
+}
+
+.button2:active {
+    background-color: #b97a6d; /* Темный оттенок при нажатии */
+    transform: translateY(1px);
+    box-shadow: 
+        inset 0.07vw 0.07vw 0.14vw rgba(255, 255, 255, 0.3), 
+        0.14vw 0.14vw 0.42vw rgba(0, 0, 0, 0.4);
+}
+
+/* Мобильная версия */
+@media screen and (max-width: 768px) {
+    .container {
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        padding: 0.4rem 1rem;
+    }
+
+    .imgShelter {
+        display: none;
+    }
+
+    .containerInfo {
+        width: 100%;
+        min-width: 100%;
+        font-size: 4.5vw;
+    }
+
+    .h1 {
+        font-size: 7vw;
+    }
+
+    .h2 {
+        font-size: 6vw;
+    }
+
+    .numberLi {
+        font-size: 7vw;
+    }
+
+    .textLi {
+        width: 100%;
+        font-size: 3.5vw;
+        text-wrap: wrap;
+        overflow-wrap: break-word;
+        max-width: 100%;
+    }
+
+    .li {
+        width: 5rem;
+    }
+
+    .button {
+        font-size: 4.7vw;
+        font-weight: 500;
+        padding: 1.5vw 2.5vw;
+        border-radius: 999px;
+    }
 }

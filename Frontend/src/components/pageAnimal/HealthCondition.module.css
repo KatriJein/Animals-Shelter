@@ -20,3 +20,18 @@
     font-size: 1.47vw;
     font-weight: 400;
 }
+
+@media (max-width: 768px) {
+    .container {
+        gap: 1vw;
+        padding: 0.2rem 0.5rem;
+    }
+
+    .container span{
+        font-size: 5vw;
+    }
+
+    .container img{
+        width: 4vw;
+    }
+}

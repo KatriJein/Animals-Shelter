@@ -38,7 +38,7 @@
     padding-bottom: 1vw;
     justify-content: center;
     align-items: center;
-    background-color: #F9F9FD;
+    background-color: #f9f9fd;
     border-radius: 1.31vw;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .name {
-    color: #A0A0A0;
+    color: #a0a0a0;
     width: 4.63vw;
 }
 
@@ -75,13 +75,21 @@
     gap: 0.5vw;
     cursor: pointer;
     border: none;
-    background-color: #BABCE2;
+    background-color: #babce2;
     color: #fff;
     font-family: 'Roboto', sans-serif;
     font-size: 1.05vw;
     font-weight: 500;
     border-radius: 999px;
     align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.button:hover {
+    background-color: #a6a9d4;
+    transform: scale(1.05);
+    box-shadow: 0 0 0.42vw rgba(0, 0, 0, 0.2);
 }
 
 .button img {
@@ -124,12 +132,20 @@
     gap: 0.5vw;
     cursor: pointer;
     border: none;
-    background-color: #F1F1F1;
-    color: #A6A6A6;
+    background-color: #f1f1f1;
+    color: #a6a6a6;
     border-radius: 999px;
     align-items: center;
     font-family: 'Roboto', sans-serif;
     font-size: 1vw;
+    transition: background-color 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.buttonTrash:hover {
+    background-color: #e0e0e0;
+    transform: scale(1.05);
+    box-shadow: 0 0 0.31vw rgba(0, 0, 0, 0.1);
 }
 
 .buttonTrash img {
@@ -157,7 +173,7 @@
     align-items: center;
     font-family: 'Nunito', sans-serif;
     font-size: 0.95vw;
-    color: #A0A0A0;
+    color: #a0a0a0;
 }
 
 .pet .img {
@@ -204,26 +220,43 @@
 
 .buttonMore {
     border: none;
-    background-color: #F7EDEC;
+    background-color: #f7edec;
     padding: 0.31vw 0.95vw;
     border-radius: 999px;
     margin: 0;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     font-size: 1.05vw;
-    color: #89515A;
+    color: #89515a;
     text-decoration: none;
     font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.buttonMore:hover {
+    background-color: #f1d1d5;
+    transform: scale(1.05);
+    box-shadow: 0 0 0.31vw rgba(0, 0, 0, 0.1);
 }
 
 .buttonFavorite {
     border: none;
-    background-color: #F7EDEC;
+    background-color: #f7edec;
     cursor: pointer;
     border-radius: 999px;
     padding: 0.37vw;
     align-items: center;
     justify-content: center;
+    display: flex;
+    transition: background-color 0.3s ease, transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.buttonFavorite:hover {
+    background-color: #f1d1d5;
+    transform: scale(1.1);
+    box-shadow: 0 0 0.31vw rgba(0, 0, 0, 0.1);
 }
 
 .buttonFavorite img {
@@ -233,4 +266,140 @@
     align-self: center;
     position: relative;
     top: 0.1vw;
+}
+
+@media (max-width: 768px) {
+    .mainContainer {
+        padding: 5vw 3vw;
+        width: 100%;
+        gap: 5vw;
+        font-size: 4.5vw;
+        border-radius: 0;
+        box-sizing: border-box;
+    }
+
+    .h1 {
+        font-size: 6vw;
+    }
+
+    .containerInfo {
+        flex-direction: column;
+        gap: 5vw;
+        padding: 0;
+    }
+
+    .container {
+        padding: 5vw 3vw;
+        gap: 3vw;
+        border-radius: 0;
+    }
+
+    .containerInput {
+        box-sizing: border-box;
+    }
+
+    .containerInput input {
+        max-width: 90%;
+        box-sizing: border-box;
+    }
+
+    .container img {
+        width: 30vw;
+        height: 30vw;
+    }
+
+    .info {
+        gap: 3vw;
+    }
+
+    .contact {
+        flex-direction: column;
+        gap: 1.5vw;
+    }
+
+    .name {
+        width: auto;
+    }
+
+    .button {
+        padding: 0.5rem 0.8rem;
+        font-size: 4vw;
+        gap: 0.5rem;
+    }
+
+    .button img {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .containerFavorite {
+        gap: 3vw;
+    }
+
+    .containerHeader h2 {
+        font-size: 5vw;
+    }
+
+    .buttonTrash {
+        padding: 2vw 4vw;
+        font-size: 3.5vw;
+    }
+
+    .containerPets {
+        grid-template-columns: 1fr;
+        gap: 5vw;
+    }
+
+    .pet {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 5vw;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 3vw;
+        border-radius: 1vw;
+    }
+
+    .pet .img {
+        width: 100%;
+        height: auto;
+        border-radius: 1vw;
+    }
+
+    .containerInfoPet {
+        gap: 3vw;
+    }
+
+    .infoPet span {
+        font-size: 5vw;
+    }
+
+    .infoPet .name {
+        font-size: 5.9vw;
+    }
+
+    .buttons {
+        gap: 3vw;
+        justify-content: flex-start;
+    }
+
+    .buttonMore,
+    .buttonFavorite {
+        font-size: 4.5vw;
+        padding: 0.5rem 0.9rem;
+    }
+
+    .buttonFavorite {
+        padding: 0.5rem;
+    }
+
+    .buttonFavorite img {
+        width: 6vw;
+        height: auto;
+    }
+
+    .buttonTrash img {
+        width: 1rem;
+        height: 1rem;
+    }
 }

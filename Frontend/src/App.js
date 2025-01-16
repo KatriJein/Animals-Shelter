@@ -26,10 +26,8 @@ function App() {
   const status = useSelector((state) => state.animals.status);
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchAnimals());
-    }
-  }, [status]);
+    dispatch(fetchAnimals());
+  }, []);
 
   return (
     <HelmetProvider>

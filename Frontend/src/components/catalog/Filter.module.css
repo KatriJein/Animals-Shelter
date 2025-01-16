@@ -30,7 +30,6 @@
     align-items: center;
     margin: 0;
     padding: 0;
-    margin-bottom: 1.05vw;
 }
 
 .clearButton {
@@ -44,4 +43,29 @@
     font-weight: 400;
     color: #fff;
     border-radius: 999px;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
 }
+
+.clearButton:hover {
+    background-color: #A0A7D6;
+    transform: scale(1.05);
+    box-shadow: 0.21vw 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
+}
+
+/* Стили для мобильной версии */
+@media screen and (max-width: 768px) {
+    .filterContainer {
+        box-sizing: border-box;
+        width: 100%;
+    }
+    
+    .p {
+        font-size: 5vw;
+    }
+
+    .clearButton {
+        font-size: 3.5vw;
+        padding: 0.2rem 0.5rem;
+    }
+}
+
