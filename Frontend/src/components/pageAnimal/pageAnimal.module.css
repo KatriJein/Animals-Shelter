@@ -71,6 +71,13 @@
     cursor: pointer;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buttonShelter:hover {
+    background-color: #6a6fbf; 
+    transform: scale(1.05);
+    box-shadow: 0.21vw 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
 }
 
 .buttonFavorite {
@@ -78,16 +85,71 @@
     border: none;
     cursor: pointer;
     border-radius: 50%;
-    width: 3.9vw; /* Ширина, равная высоте .buttonShelter */
-    height: 3.9vw; /* Высота, чтобы сделать кнопку круглой */
-    padding: 0; /* Убираем padding, так как он не нужен для круглой кнопки */
+    width: 3.9vw;
+    height: 3.9vw;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buttonFavorite:hover {
+    background-color: #F0D0D0;
+    transform: scale(1.1);
+    box-shadow: 0 0 0.42vw rgba(0, 0, 0, 0.2);
 }
 
 .favorite {
     height: 2.1vw;
     position: relative;
     top: 0.15vw;
+}
+
+@media (max-width: 768px) {
+    .containerInfo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .containerDescription {
+        font-size: 4.5vw;
+    }
+
+    .containerDescription h2 {
+        font-size: 5.9vw;
+    }
+
+    .buttonShelter {
+        font-size: 4.5vw;
+        font-weight: 500;
+        padding: 0.25rem 0.7rem;
+        border-radius: 999px;
+    }
+
+    .containerButtons {
+        gap: 0.5rem;
+    }
+
+    .buttonFavorite {
+        width: fit-content;
+        height: fit-content;
+        padding: 0.3rem;
+    }
+
+    .buttonFavorite img {
+        width: 1.5rem;
+        height: 1.5rem;
+        position: relative;
+        top: 0.1rem;
+    }
+
+    .p {
+        font-size: 4.5vw;
+    }
+
+    .containerList {
+        gap: 0.5rem;
+        margin-bottom: 0.8rem;
+    }
 }

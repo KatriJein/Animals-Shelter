@@ -13,6 +13,15 @@
     font-size: 1.25vw;
 }
 
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+}
+
 .h2 {
     font-size: 2.1vw;
     font-weight: 700;
@@ -30,16 +39,14 @@
 
 .cardsList {
     width: 100%;
-    display: grid; 
-    grid-template-columns: repeat(3, 1fr); 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: max-content;
-    /* grid-auto-rows: auto;
-    align-items: start; */
     gap: 2vw;
     justify-items: center;
     justify-content: center;
-} 
- 
+}
+
 .error {
     font-family: 'Nunito', sans-serif;
     font-size: 2.1vw;
@@ -48,4 +55,52 @@
     margin: 2vw;
     text-align: center;
     justify-self: center;
+}
+
+.toggleFilterButton {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .filterContainer {
+        display: none;
+    }
+
+    .mainContainer {
+        padding: 4vw;
+        font-size: 4vw;
+    }
+
+    .h2 {
+        font-size: 5.9vw;
+    }
+
+    .container {
+        flex-direction: column;
+        gap: 3vw;
+    }
+
+    .toggleFilterButton {
+        width: fit-content;
+        display: inline;
+        padding: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .toggleFilterButton img {
+        width: 1.8rem;
+    }
+
+    .mobileFilter {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 2vw;
+    }
+
+    .cardsList {
+        grid-template-columns: 1fr;
+        gap: 3vw;
+    }
 }

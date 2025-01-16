@@ -81,6 +81,13 @@
     cursor: pointer;
     text-decoration: none;
     color: #000;
+    transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buttonMore:hover {
+    background-color: #A0A7D6;
+    transform: scale(1.05);
+    box-shadow: 0.21vw 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
 }
 
 .buttonFavorite {
@@ -95,6 +102,13 @@
     cursor: pointer;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.buttonFavorite:hover {
+    background-color: #F0D0D0;
+    transform: scale(1.1); 
+    box-shadow: 0.21vw 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
 }
 
 .favorite {
@@ -112,4 +126,43 @@
 .text {
     margin: 0;
     padding: 0;
+}
+
+/* Стили для мобильной версии */
+@media screen and (max-width: 768px) {
+    .card {
+        width: 100%;
+        font-size: 4vw;
+        border-radius: 1.5rem;
+        padding: 0.5rem;
+    }
+
+    .img {
+        border-radius: 1.5rem;
+    }
+
+    .name {
+        font-size: 5vw;
+    }
+
+    .buttonMore {
+        font-size: 5vw;
+        padding: 0.2rem 0.7rem;
+        border-radius: 999px;
+    }
+
+    .buttonFavorite img{
+        width: 1.7rem;
+    }
+
+    .buttonFavorite{
+        width: fit-content;
+        height: fit-content;
+        padding: 0.4rem;
+    }
+
+    .containerButtons {
+        gap: 0.7rem;
+    }
+    
 }

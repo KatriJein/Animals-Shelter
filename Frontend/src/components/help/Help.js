@@ -32,6 +32,37 @@ function Help() {
                     <div className={style.containerInfo}>
                         <h2>Как вы можете помочь?</h2>
                         <div className={style.containerHelp}>
+                            <div className={`${style.donation} ${style.donationMobile}`}>
+                                <h1 className={style.donationTitle}>Сделайте пожертвование</h1>
+                                <p>Мы очень ценим вашу финансовую поддержку. <br />Вы можете перевести деньги на:</p>
+                                <div className={style.donationContainer}>
+                                    <div className={style.containerRequisites}>
+                                        <div className={style.containerRequisite}>
+                                            <span>Карту</span>
+                                            <button onClick={() => writeClipboardText('200255555555555')}>
+                                                <span>200 2555 5555 5555</span>
+                                                <img src={copy} alt="Копировать" />
+                                            </button>
+                                        </div>
+
+                                        <div className={style.containerRequisite}>
+                                            <span>Реквизиты счета</span>
+                                            <button onClick={() => writeClipboardText('40703810900560008967')}>
+                                                <span>40703810900560008967</span>
+                                                <img src={copy} alt="Копировать" />
+                                            </button>
+                                        </div>
+
+                                        <div className={style.containerRequisite}>
+                                            <span>СПБ по номеру телефона (Т-Банк)</span>
+                                            <button onClick={() => writeClipboardText('+71234567890')}>
+                                                <span>+7 (123) 456-78-90</span>
+                                                <img src={copy} alt="Копировать" />
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className={style.containerVol}>
                                 <h3>Станьте волонтером</h3>
                                 <div>
@@ -84,7 +115,7 @@ function Help() {
 
                 </div>
 
-                <div className={style.donation}>
+                <div className={`${style.donation} ${style.donationComp}`}>
                     <h1 className={style.donationTitle}>Сделайте пожертвование</h1>
                     <p>Мы очень ценим вашу финансовую поддержку. <br />Вы можете перевести деньги на:</p>
                     <div className={style.donationContainer}>

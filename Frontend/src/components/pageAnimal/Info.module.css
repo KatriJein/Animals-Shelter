@@ -22,3 +22,14 @@
     position: relative;
     top: 0.23vw;
 }
+
+@media (max-width: 768px) {
+    .container {
+        font-size: 4.5vw;
+    }
+
+    .container h3 {
+        font-size: 5vw;
+        min-width: 25vw;
+    }
+}

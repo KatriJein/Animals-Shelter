@@ -9,7 +9,7 @@ export default function Gallery({ mainImageSrc, imagesSrc }) {
     const [activeImage, setActiveImage] = useState(mainImageSrc);
     const [startIndex, setStartIndex] = useState(0);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+
     const images = [mainImageSrc, ...imagesSrc];
     const visibleThumbnails = images.slice(startIndex, startIndex + 4);
     const hasNext = startIndex + imagesPerRow < images.length;

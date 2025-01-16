@@ -63,3 +63,26 @@
     gap: 0.25vw;
     align-items: center;
 }
+
+@media screen and (max-width: 768px) {
+    .container {
+        font-size: 4vw;
+    }
+
+    .arrowButton img {
+        width: 3vw;
+        height: fit-content;
+        object-fit: contain;
+        align-self: center;
+    }
+
+    .filterCheckbox {
+        width: 3vw;
+        height: 3vw;
+        position: relative;
+        cursor: pointer;
+        margin: 0;
+        margin-right: 0.5vw;
+        min-width: 3vw;
+    }
+}

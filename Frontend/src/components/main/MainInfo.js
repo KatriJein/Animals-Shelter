@@ -19,7 +19,7 @@ export default function MainInfo() {
                         <Info number="2011" text="год основания" />
                         <Info className={style.li} number="42" text="собак" />
                         <Info className={style.li} number="23" text="кошек" />
-                        <Info className={style.li} number="192" text="пристроенных питомцев" />
+                        <Info className={style.li} number="192" text="питомцев устроено" />
                     </div>
                 </div>
                 <div className={style.containerButtons}>
